@@ -4,8 +4,6 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
-import vo.PetVO;
-import vo.QnaVO;
 import vo.RevVO;
 
 public class RevDAO {

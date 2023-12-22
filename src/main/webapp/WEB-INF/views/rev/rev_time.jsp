@@ -61,7 +61,7 @@
 						<ul class="btl">
 							<c:forEach var="time" items="${time}">
 								<li class="li"><input type="button" id="${time}" value="${time}" onClick="time('${time}')"
-									style="cursor:pointer";></li>
+									style="cursor:pointer;"></li>
 							</c:forEach>
 						</ul>
 						</div>

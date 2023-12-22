@@ -126,9 +126,9 @@
 			
 			<div class="table">
 				<span class="th">비밀번호</span>
-				<spqn class="align">	
+				<span class="align">	
 					<input type="text" id="c_pwd" placeholder="비밀번호를 입력하세요">
-				</spqn>
+				</span>
 			</div>
 			
 			<div class="btnBox">

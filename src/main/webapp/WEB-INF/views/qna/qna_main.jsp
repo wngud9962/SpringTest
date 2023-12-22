@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,8 +38,8 @@
 				<input type="button" value="공지사항" class="inputBtn" onclick="location.reload()">
 				<input type="button" value="메인으로 돌아가기" class="inputBtn" onclick="location.href='main_home.do'">
 				
-				<%-- <c:if test="${ id.u_type == 1}"> --%>
-				<c:if test="${ not empty id}">
+				
+				<c:if test="${not empty id}">
 					<input type="button" value="글쓰기" class="inputBtn" onclick="location.href='qna_form.do'">
 				</c:if>
 				
@@ -103,7 +103,7 @@
 			</c:forEach>
 		</div>
 
-	<!-- <c:if test="${not empty big}"> !-->
+
 		<c:if test="${size > 2}">
 			<input id="testBtn" type="button" class="inputBtn" value="더보기 +" onclick="testfn()">
 		</c:if>
