@@ -138,7 +138,7 @@
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
-					<c:if test="${nowpage!=maxpage}">
+					<c:if test="${nowpage!=maxpage && maxpage!=0}">
 						<c:choose>
 							<c:when test="${nowpage<pagingCount-jumpgingPage}">
 								<a href="petinfo_main.do?page=${nowpage+jumpgingPage}">▶</a>
