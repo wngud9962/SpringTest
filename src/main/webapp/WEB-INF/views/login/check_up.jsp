@@ -21,7 +21,7 @@
 			return;
 		}
 		
-		if(u_pwd == ${id.u_pwd}){
+		if(u_pwd == '${id.u_pwd}'){
 			location.href="updateInfo.do";
 		} else{
 			alert('비밀번호가 다릅니다.');
