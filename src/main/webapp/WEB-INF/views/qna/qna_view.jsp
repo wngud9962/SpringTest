@@ -115,9 +115,10 @@
 				<span class="th">내용</span>
 				<span class="align" width="500px" height="200px">
 					<div class="nopadding">
+					<c:if test="${qnaVO.q_filename!='no_file'}">
 					<img src="${pageContext.request.contextPath}/resources/upload/qna/${qnaVO.q_filename}"
 					width="300px" height="300px">
-					
+					</c:if>				
 					</div>
 					${qnaVO.q_content }
 				</span>

@@ -40,7 +40,7 @@ public class QnAController {
 	public String qna_form() {
 
 		UserVO userVO = (UserVO) session.getAttribute("id");
-		if (userVO == null || userVO.getU_type().equals("0")) {
+		if (userVO == null || !userVO.getU_type().equals("0")) {
 			return "redirect:qna_main.do";
 		}
 
