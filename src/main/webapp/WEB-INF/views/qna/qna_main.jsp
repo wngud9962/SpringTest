@@ -17,6 +17,14 @@
 		//검색창에 조회했을때 조회값 가져오기
 		let searchField = document.getElementById('searchField').value;
 		let searchWord = document.getElementById('searchWord').value;
+		
+		if(searchField == 'idx'){
+			var check = /^[0-9]+$/;
+			if(!check.test(searchWord)){
+				alert('sdsss');
+				return;
+			}
+		}
 
 		location.href ="qna_search.do?searchField="+ searchField + "&searchWord="+ searchWord ;
 		
@@ -62,7 +70,15 @@
 						<option value="title">제목</option>
 						<option value="content">내용</option>
 					</select>
-					<input class="search" id="searchWord" type="text" placeholder="검색어를 입력하세요">
+					<c:choose>
+					<c:when test="${searchWord!=null}">
+						<input class="search" id="searchWord" type="text" value="${searchWord}" placeholder="검색어를 입력하세요">
+					</c:when>
+					<c:otherwise>
+							<input class="search" id="searchWord" type="text"
+								placeholder="검색어를 입력하세요">
+						</c:otherwise>
+					</c:choose>
 					<button class="submit" type="button" onclick="send()" ><img src="https://www.coffeebeankorea.com/images/btn/btn_list_search.png"></button>
 				</fieldset>
 			</form>

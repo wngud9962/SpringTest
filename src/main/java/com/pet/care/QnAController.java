@@ -216,10 +216,13 @@ public class QnAController {
 			list = qna_dao.selectListContent(searchWord);
 			break;
 		}
-
+		searchWord = searchWord.substring(1, searchWord.length()-1);
+		
 		int size = list.size();
 		model.addAttribute("size", size);
 		model.addAttribute("list", list);
+		model.addAttribute("searchField", searchField);
+		model.addAttribute("searchWord", searchWord);
 		return VIEW_PATH + "qna_main.jsp";
 	}
 }
