@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 public class UserVO {
 	private int u_idx;
-	private int u_type;
+	private String u_type;
 	private String u_nickName;
 	private String u_email;
 	private String u_pwd;

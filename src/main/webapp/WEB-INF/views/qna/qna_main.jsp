@@ -47,7 +47,7 @@
 				<input type="button" value="메인으로 돌아가기" class="inputBtn" onclick="location.href='main_home.do'">
 				
 				
-				<c:if test="${not empty id}">
+				<c:if test="${not empty id && id.u_type == '1'}">
 					<input type="button" value="글쓰기" class="inputBtn" onclick="location.href='qna_form.do'">
 				</c:if>
 				
