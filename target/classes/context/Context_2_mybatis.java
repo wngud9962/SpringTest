@@ -5,6 +5,7 @@ import javax.sql.DataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
@@ -15,12 +16,11 @@ import org.springframework.core.io.ClassPathResource;
 // 생성자 주입이 성립됨
 public class Context_2_mybatis {
 	
+	@Autowired
 	DataSource ds;
 	
 	// 생성자 주입
-	public Context_2_mybatis(DataSource ds) {
-		this.ds = ds;
-	}
+
 	
 	// Factory객체(SqlSessionFactory 클래스)가 DB에 접근하는 방법을 알고있는 객체
 	

@@ -19,15 +19,13 @@ public class LoginController {
 	
 	public final static String VIEW_PATH = "/WEB-INF/views/login/";
 	
+	@Autowired
 	UserDAO user_dao;
 	
 	@Autowired
 	HttpSession session;
 	
-	public LoginController(UserDAO user_dao) {
-		this.user_dao = user_dao;
-		System.out.println("loginCotroller 생성자");
-	}
+
 
 	// 로그인창
 	@RequestMapping("login_main.do")

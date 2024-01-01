@@ -21,6 +21,7 @@ import vo.UserVO;
 @Controller
 public class QnAController {
 
+	@Autowired
 	QnaDAO qna_dao;
 
 	@Autowired
@@ -31,10 +32,6 @@ public class QnAController {
 
 	public final static String VIEW_PATH = "/WEB-INF/views/qna/";
 
-	public QnAController(QnaDAO qna_dao) {
-		this.qna_dao = qna_dao;
-		System.out.println("qnaController 생성자");
-	}
 
 	@RequestMapping("qna_form.do")
 	public String qna_form() {

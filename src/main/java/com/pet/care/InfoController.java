@@ -8,9 +8,6 @@ public class InfoController {
 	
 	public final static String VIEW_PATH = "/WEB-INF/views/info/";
 	
-	public InfoController() {
-		
-	}
 	
 	@RequestMapping("info_main.do")
 	public String info_main() {

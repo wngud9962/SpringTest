@@ -3,16 +3,15 @@ package dao;
 import java.util.HashMap;
 
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import vo.UserVO;
 
 public class UserDAO {
 	
+	@Autowired
 	SqlSession sqlSession;
 	
-	public UserDAO(SqlSession sqlSession) {
-		this.sqlSession = sqlSession;
-	}
 	
 	/////////////////////////////////////////////////////
 	// 유저 정보 조회

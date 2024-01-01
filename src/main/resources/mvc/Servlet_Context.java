@@ -47,13 +47,13 @@ public class Servlet_Context implements WebMvcConfigurer {
 //	  resolver.setSuffix(".jsp"); return resolver; }
 
 	@Bean
-	public MainController mainController(ReviewDAO review_dao) {
-		return new MainController(review_dao);
+	public MainController mainController() {
+		return new MainController();
 	}
 	
 	@Bean
-	public LoginController loginController(UserDAO user_dao) {
-		return new LoginController(user_dao);
+	public LoginController loginController() {
+		return new LoginController();
 	}
 	
 	@Bean
@@ -62,21 +62,21 @@ public class Servlet_Context implements WebMvcConfigurer {
 	}
 	
 	@Bean
-	public PetController petController(PetDAO pet_dao) {
-		return new PetController(pet_dao);
+	public PetController petController() {
+		return new PetController();
 	}
 	
 	@Bean
-	public QnAController qnaController(QnaDAO qna_dao) {
-		return new QnAController(qna_dao);
+	public QnAController qnaController() {
+		return new QnAController();
 	}
 	@Bean
-	public RevController revController(RevDAO rev_dao) {
-		return new RevController(rev_dao);
+	public RevController revController() {
+		return new RevController();
 	}
 	
 	@Bean
-	public ReviewController reviewController(ReviewDAO review_dao) {
-		return new ReviewController(review_dao);
+	public ReviewController reviewController() {
+		return new ReviewController();
 	}
 }

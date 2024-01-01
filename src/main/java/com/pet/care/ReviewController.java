@@ -22,14 +22,12 @@ public class ReviewController {
 	
 	public final static String VIEW_PATH = "/WEB-INF/views/review/";
 	
+	@Autowired
 	ReviewDAO review_dao;
 	
 	@Autowired
 	HttpServletRequest request;
 	
-	public ReviewController(ReviewDAO review_dao) {
-		this.review_dao = review_dao;
-	}
 	
 	// 리뷰 목록 가기
 	@RequestMapping("review_main.do")

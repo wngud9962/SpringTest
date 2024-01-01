@@ -22,15 +22,12 @@ public class PetController {
 
 	public final static String VIEW_PATH = "/WEB-INF/views/pet/";
 
+	@Autowired
 	PetDAO pet_dao;
 
 	@Autowired
 	HttpServletRequest request;
 	
-	public PetController(PetDAO pet_dao) {
-		this.pet_dao = pet_dao;
-		System.out.println("petController 생성자");
-	}
 
 	// 펫 정보 메인 화면 펫 리스트 보임
 	@RequestMapping(value = { "petinfo_main.do" })

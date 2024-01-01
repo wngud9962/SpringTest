@@ -3,16 +3,15 @@ package dao;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import vo.QnaVO;
 
 public class QnaDAO {
 
+	@Autowired
 	SqlSession sqlSession;
 
-	public QnaDAO(SqlSession sqlSession) {
-		this.sqlSession = sqlSession;
-	}
 	
 	//게시글 추가
 	public int qna_insert(QnaVO qnaVO) {

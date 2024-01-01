@@ -4,17 +4,16 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import vo.PetVO;
 import vo.UserVO;
 
 public class PetDAO {
 	
+	@Autowired
 	SqlSession sqlSession;
 	
-	public PetDAO(SqlSession sqlSession) {
-		this.sqlSession = sqlSession;
-	}
 	
 	// 펫 리스트
 	public List<PetVO> selectList(int idx){

@@ -90,7 +90,7 @@
 			        </c:forEach>
 			   
 		    	</c:if>
-		    	<c:if test="${list == null }">
+		    	<c:if test="${list[0] == null }">
 		    		리뷰 없음
 		    	</c:if>
 		    	</div>
