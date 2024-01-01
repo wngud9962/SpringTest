@@ -32,7 +32,7 @@ body{
 }
 
 .reg_wrapper{ /* 로그인 입력창 포장용 div */
-    width: 400px;
+    width: 600px;
     height: 800px;
     padding: 40px;
     box-sizing: border-box;
