@@ -78,8 +78,8 @@
 									</c:when>
 								</c:choose>
 								<td>
-									<textarea class="col-auto form-control"
-										id="reviewContents" placeholder="${vo.r_content }" readonly></textarea>
+									<textarea class="col-auto form-control" style="resize: none;"
+										id="reviewContents" placeholder="${vo.r_content }" readonly ></textarea>
 								</td>
 			          		</tr>
 			          		<tr>

@@ -12,7 +12,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		#{q_content},
 		sysdate,
 		#{q_filename},
-		NULL
+		0
 		)
 	</insert>
 
