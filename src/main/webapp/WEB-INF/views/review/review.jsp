@@ -123,7 +123,7 @@ function go_pet(){
 									</c:choose>
 									<td id="c">
 										<textarea class="col-auto form-control"
-											id="reviewContents" placeholder="${vo.r_content }" readonly></textarea>
+											id="reviewContents" style="resize: none;" placeholder="${vo.r_content }" readonly></textarea>
 									</td>
 								</tr>
 								<tr>
