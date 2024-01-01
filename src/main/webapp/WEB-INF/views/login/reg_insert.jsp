@@ -151,9 +151,16 @@
         function telCheck() {
             var u_tel = document.getElementById("u_tel").value.trim();
 
+            let check = /^[0-9]+$/;
+            
             if (u_tel === '') {
                 alert('전화번호를 입력해주세요.');
                 return;
+            }
+            
+            if (!check.test(u_tel)){
+            	alert("형식에 맞게 입력해주세요.");
+            	return;
             }
 
             var url = "telCheck.do";
