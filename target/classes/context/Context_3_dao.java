@@ -3,6 +3,7 @@ package context;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import dao.BoardDAO;
 import dao.PetDAO;
 import dao.QnaDAO;
 import dao.RevDAO;
@@ -35,6 +36,11 @@ public class Context_3_dao {
 	@Bean
 	public ReviewDAO review_dao() {
 		return new ReviewDAO();
+	}
+	
+	@Bean
+	public BoardDAO boardDAO() {
+		return new BoardDAO();
 	}
 
 }

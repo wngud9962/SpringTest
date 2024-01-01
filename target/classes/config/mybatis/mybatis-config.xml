@@ -16,5 +16,6 @@
 		<mapper resource="config/mybatis/mapper/qna.xml" />
 		<mapper resource="config/mybatis/mapper/rev.xml" />
 		<mapper resource="config/mybatis/mapper/review.xml" />
+		<mapper resource="config/mybatis/mapper/board.xml" />
 	</mappers>
 </configuration>
