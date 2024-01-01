@@ -47,7 +47,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{u_tel}, 
             #{u_addr}, 
             SYSDATE, 
-            0
+            1
 		)
 	</insert>
 	
