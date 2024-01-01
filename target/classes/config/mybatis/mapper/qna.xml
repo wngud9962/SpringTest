@@ -60,22 +60,34 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		#{q_title},
 		q_content = #{q_content},
 		q_regdate = sysdate,
-		q_filename = #{q_filename}
+		q_filename =
+		#{q_filename}
 		where q_idx = #{q_idx}
 	</update>
-	
-	<select id="selectListIdx" parameterType="String" resultType="vo.QnaVO">
+
+	<select id="selectListIdx" parameterType="String"
+		resultType="vo.QnaVO">
 		select * from qna where q_idx like #{searchWord}
-		order by q_idx desc
+		order by
+		q_idx desc
 	</select>
 
-	<select id="selectListTitle" parameterType="String" resultType="vo.QnaVO">
+	<select id="selectListTitle" parameterType="String"
+		resultType="vo.QnaVO">
 		select * from qna where q_title like #{searchWord}
-		order by q_idx desc
+		order by
+		q_idx desc
 	</select>
-	
-	<select id="selectListContent" parameterType="String" resultType="vo.QnaVO">
+
+	<select id="selectListContent" parameterType="String"
+		resultType="vo.QnaVO">
 		select * from qna where q_content like #{searchWord}
-		order by q_idx desc
+		order
+		by q_idx desc
+	</select>
+
+	<select id="qna_fiveDataSelectList" resultType="vo.QnaVO">
+		SELECT Q_TITLE FROM (SELECT q1.*,RANK() OVER(ORDER BY q1.Q_IDX DESC) AS
+		"RANK" FROM QNA q1) q2 WHERE "RANK" BETWEEN 1 AND 5
 	</select>
 </mapper>

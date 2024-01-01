@@ -18,6 +18,11 @@ public class QnaDAO {
 		return sqlSession.insert("q.qna_insert", qnaVO);
 	}
 	
+	//최근 5개의 글 조회
+	public List<QnaVO> qna_fiveDataSelectList(){
+		return sqlSession.selectList("q.qna_fiveDataSelectList");
+	}
+	
 	//전체 글 조회
 	public List<QnaVO> qna_selectList(){
 		return sqlSession.selectList("q.qna_selectList");

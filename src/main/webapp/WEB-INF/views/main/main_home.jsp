@@ -98,11 +98,18 @@
               <h2 align="center">자주 묻는 질문</h2>
               <hr>
 				<ul>
-					<li>공지</li>
-					<li>공지</li>
-					<li>자주묻는 질문</li>
-					<li>자주묻는 질문</li>
-					<li>자주묻는 질문</li>
+				<c:choose>
+				<c:when test="${qnaList[0] != null}">
+				<c:forEach items="${qnaList}" var="qnaData">
+				<li>${qnaData.q_title}</li>
+				</c:forEach>
+				</c:when>
+				
+				<c:otherwise>
+					<li>게시글이 존재 하지 않습니다.</li>
+				</c:otherwise>
+				</c:choose>
+				
 				</ul>
 			</div>
           </div>
