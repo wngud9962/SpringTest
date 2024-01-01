@@ -6,6 +6,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import com.pet.care.BoardController;
 import com.pet.care.InfoController;
 import com.pet.care.LoginController;
 import com.pet.care.MainController;
@@ -78,5 +79,10 @@ public class Servlet_Context implements WebMvcConfigurer {
 	@Bean
 	public ReviewController reviewController() {
 		return new ReviewController();
+	}
+	
+	@Bean
+	public BoardController boardController() {
+		return new BoardController();
 	}
 }

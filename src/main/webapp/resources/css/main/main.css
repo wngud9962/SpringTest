@@ -51,10 +51,10 @@
 }
 
 .nav > li {
-  width: 80px;
+  width: 140px;
   height: 80px;
   
-  margin-left:84px;
+  /*margin-left:84px;*/
   list-style: none;
 
 
@@ -120,7 +120,8 @@ a:visited {
 
 /* 슬라이더 */
 .slider {
-    width: 49%;                                 
+    width: 49%;
+    height: 100%;                                 
     overflow: hidden;
     position: relative;
     float: left;

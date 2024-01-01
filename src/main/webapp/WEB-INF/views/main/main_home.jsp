@@ -31,10 +31,11 @@
 			            <li><a href="review_main.do">리뷰</a></li>
 			            <li><a href="qna_main.do">QNA</a></li>
 			            <li><a href="rev_main.do">예약</a></li>
+			            <li><a href="board_main.do">게시판</a></li>
 			          	<c:choose>
 							<c:when test="${empty id}">
-								<li><a href="login_main.do">펫 등록</a></li>
-								<li><a href="login_main.do">정보수정</a></li>
+								<!--  <li><a href="login_main.do">펫 등록</a></li>
+								<li><a href="login_main.do">정보수정</a></li>-->
 								<li><a href="login_main.do">로그인</a></li>
 							</c:when>
 							<c:when test="${not empty id}">
@@ -91,7 +92,7 @@
 			   
 		    	</c:if>
 		    	<c:if test="${list[0] == null }">
-		    		리뷰 없음
+		    		<li style="padding-left: 20px; padding-bottom: 10px;">리뷰 없음</li>
 		    	</c:if>
 		    	</div>
           <div class="qna" onclick="location.href='qna_main.do';" style="cursor:pointer;">
