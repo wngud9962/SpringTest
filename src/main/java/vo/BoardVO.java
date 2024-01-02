@@ -11,4 +11,8 @@ public class BoardVO {
 	String content;
 	String filename;
 	String regdate;
+	
+	
+	//조인
+	String u_nickname;
 }

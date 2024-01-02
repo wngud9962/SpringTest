@@ -15,12 +15,6 @@ import com.pet.care.QnAController;
 import com.pet.care.RevController;
 import com.pet.care.ReviewController;
 
-import dao.PetDAO;
-import dao.QnaDAO;
-import dao.RevDAO;
-import dao.ReviewDAO;
-import dao.UserDAO;
-
 //어노테이션에도 상속관계가 있다
 /*
  *@Component

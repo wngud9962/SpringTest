@@ -89,13 +89,14 @@ a {
 	padding: 5px 0;
 }
 
-.listData:nth-child(n){
-	border-bottom: 1px solid orange;
+.qna_wrapperBox>table {
+	border-collapse: collapse;
 }
-.listData:last-child{
-	border-bottom: 2px solid orange;
+
+.qna_wrapperBox>table tr.listData{
+	border-bottom: 1px solid rgba(255,197,165,0.8);
 }
-.endLine {
+.qna_wrapperBox>table tr.listData:last-child{
 	border-bottom: 2px solid orange;
 }
 

@@ -27,7 +27,7 @@
 	<div class="qna_wrapperBox" id="center">
 	
 		<hr>
-		<table align = "center" style="border-collapse: collapse;">
+		<table align = "center">
 		
 		<tr>
 		<th style="width: 60px;">번호</th>
@@ -45,7 +45,7 @@
 		<td>${boardData.b_idx}</td>
 		<td>일반</td>
 		<td style="text-align: left; padding-left: 15px;"><a href="#">${boardData.title}</a></td>
-		<td>${boardData.u_idx}</td>
+		<td>${boardData.u_nickname}</td>
 		<td>${boardData.regdate}</td>
 		<td>0</td>
 		<td>0</td>
@@ -54,7 +54,7 @@
 		</c:when>
 		<c:otherwise>
 		<tr>
-		<td colspan="7" class="endLine">게시글이 없습니다.</td>
+		<td colspan="7" class="listData">게시글이 없습니다.</td>
 		</tr>
 		</c:otherwise>
 		</c:choose>
