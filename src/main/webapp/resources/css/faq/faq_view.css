@@ -1,0 +1,130 @@
+@charset "UTF-8";
+
+@media (max-width: 768px){
+	
+}
+
+* {
+	box-sizing: inherit;
+}
+
+body, html {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	width: 100%;
+	heigth: 100%;
+	font-family:Noto Sans CJK KR;
+}
+
+input,button{
+	border:none;
+	font-family:Noto Sans CJK KR;
+}
+
+div {
+	display: block;
+}
+
+p {
+	color : orange;
+}
+
+fieldset {
+	border-radius: 10px;
+	width:100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+.faq_wrapperBox {
+	min-width: 360px;
+	max-width: 1024px;
+	padding: 10px 16px;
+	margin: 0 auto;
+}
+
+.inputBtn {
+	
+	border-radius: 10px;
+	background-Color: orange;
+	font: 18px Noto Sans CJK KR;
+	font-weight: bold;
+	color: white;
+	padding: 10px 20px;
+}
+
+.inputBtn:hover{
+	background: tomato;
+	color: white;
+}
+
+.faq_wrapperBox {
+	min-width: 360px;
+	max-width: 1024px;
+	padding: 10px 16px;
+	margin: 0 auto;
+}
+
+.faq_category {
+	font-weight: 600;
+	font-size: 20px;
+	line-height: inherit;
+	margin: 10px 0 30px;	
+}
+
+.faq_wrapperBox .listBox {
+	border-radius: 10px;
+	border: 3px solid gray;
+	padding-left: 20px;
+	margin-top: 30px;
+}
+
+.table {
+	display:flex;
+	color: gray;
+}
+
+.align {
+	padding: 10px 25px;
+	font: 16px Noto Sans CJK KR;
+	font-weight: medium; 
+}
+
+.th {
+	padding: 10px 0;
+	font: 18px Noto Sans CJK KR;
+	font-weight: bold;
+}
+
+.btnBox {
+	font-weight: 600;
+	font-size: 20px;
+	line-height: inherit;
+	margin: 10px 0 30px;
+	text-align: center;	
+}
+
+.Btn {
+	
+	border-radius: 10px;
+	background-Color: #808080;
+	font: 18px Noto Sans CJK KR;
+	font-weight: bold;
+	color: white;
+	padding: 10px 20px;
+
+}
+
+.Btn:hover{
+	background: tomato;
+	color: white;
+}
+
+.nopadding {
+	padding: 10px 0;
+	font: 16px Noto Sans CJK KR;
+	font-weight: medium;
+}
