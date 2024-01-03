@@ -28,5 +28,10 @@ public class BoardController {
 		return VIEW_PATH+"board_main.jsp";
 	}
 	
+	@RequestMapping("board_form.do")
+	public String boardinsert() {
+		return VIEW_PATH+"board_insert.jsp";
+	}
+	
 	
 }
