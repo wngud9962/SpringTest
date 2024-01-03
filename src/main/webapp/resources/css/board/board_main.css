@@ -38,7 +38,7 @@ a {
 	text-decoration: none;
 }
 
-.qna_wrapperBox {
+.board_wrapperBox {
 	min-width: 360px;
 	max-width: 1024px;
 	padding: 10px 16px;
@@ -60,13 +60,13 @@ a {
 	color: white;
 }
 
-.qna_wrapperBox {
+.board_wrapperBox {
 	min-width: 360px;
 	max-width: 1024px;
-	padding: 10px 16px;
+	padding: 5px 16px;
 	margin: 0 auto;
 }
-.qna_wrapperBox>table th{
+.board_wrapperBox>table th{
 	padding-bottom: 10px;
 	padding-top: 10px;
 	border-top: 2px solid orange;
@@ -74,29 +74,36 @@ a {
 	background-color: rgba(255,255,0,0.1);
 }
 
-.qna_wrapperBox>table td {
+.board_wrapperBox>table td {
 	background-color: rgba(178, 239, 244,0.2);
 }
+td.listData td:last-child {
+	border-bottom: border-bottom: 2px solid orange;
+}
 
-.qna_wrapperBox>table td a{
+.board_wrapperBox>table td a{
 	color: black;
 }
-.qna_wrapperBox>table td a:hover{
+.board_wrapperBox>table td a:hover{
 	font-weight: bold;
+}
+
+.main_category{
+	margin-top: 20px;
 }
 
 .listData td {
 	padding: 5px 0;
 }
 
-.qna_wrapperBox>table {
+.board_wrapperBox>table {
 	border-collapse: collapse;
 }
 
-.qna_wrapperBox>table tr.listData{
+.board_wrapperBox>table tr.listData{
 	border-bottom: 1px solid rgba(255,197,165,0.8);
 }
-.qna_wrapperBox>table tr.listData:last-child{
+.board_wrapperBox>table tr.listData:last-child{
 	border-bottom: 2px solid orange;
 }
 
@@ -105,7 +112,7 @@ a {
 	font-weight: 600;
 	font-size: 20px;
 	line-height: inherit;
-	margin: 10px 0 30px;	
+	margin-top: 10px;	
 }
 
 .submit {
@@ -158,5 +165,27 @@ a {
 
 #center{
 	text-align:center;
+}
+
+#inputButtons{
+	display : flex;
+	justify-content: space-between;
+	margin-bottom: 10px;
+	
+}
+
+#inputButtons input{
+	border-radius: 5px;
+	background-color: orange;
+	color: white;
+	font-weight: bold;
+}
+
+#inputButtons input:hover{
+	background-color: tomato;
+}
+
+.paging {
+	margin: 10px 0;
 }
 

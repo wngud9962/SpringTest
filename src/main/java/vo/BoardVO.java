@@ -11,6 +11,8 @@ public class BoardVO {
 	String content;
 	String filename;
 	String regdate;
+	int select;
+	int follow;
 	
 	
 	//조인
