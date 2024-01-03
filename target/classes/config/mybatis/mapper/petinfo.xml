@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="p">
+	<!-- mapper : DB에 쿼리문을 요청하고 결과를 돌려받는 속성파일 -->
+	
+	<!-- 반려동물 리스트 -->
+	<select id="petinfo_list" resultType="vo.PetVO" parameterType="int">
+		select * from pet where U_IDX=#{idx} order by P_IDX desc 
+	</select>
+	
+	<!-- 반려동물 등록 -->
+	<insert id="petinfo_insert" parameterType="vo.PetVO">
+		INSERT INTO PET VALUES(
+			SEQ_PET.NEXTVAL,
+			#{u_idx},
+			#{p_name},
+			#{p_type},
+			#{p_age},
+			#{p_gender},
+			#{p_photo}
+		)
+	</insert>
+	
+	<!-- 반려동물 정보 삭제 -->
+	<delete id="petinfo_delete" parameterType="int">
+		DELETE FROM PET WHERE P_IDX=#{p_idx}
+	</delete>
+	
+	<!-- 반려동물 정보 조회 -->
+	<select id="petinfo_check" resultType="vo.PetVO" parameterType="int">
+		SELECT * FROM PET WHERE P_IDX=#{p_idx}
+	</select>
+	
+	<!-- 반려동물 정보 수정 -->
+	<update id="petinfo_update" parameterType="vo.PetVO">
+		UPDATE PET SET
+					P_TYPE=#{p_type},
+					P_NAME=#{p_name},
+					P_AGE=#{p_age},
+					P_GENDER=#{p_gender},
+					P_PHOTO=#{p_photo}
+					WHERE P_IDX=#{p_idx}
+	</update>
+	
+	<!-- 반려동물 마리 수 조회 -->
+	<select id="petinfo_List" parameterType="vo.UserVO" resultType="int">
+		SELECT COUNT(*) FROM PET WHERE U_IDX = #{u_idx}
+	</select>
+	
+	<select id="petinfo_ListCheck" resultType="vo.PetVO" parameterType="java.util.HashMap">
+		SELECT U_IDX,P_IDX,P_NAME,P_TYPE,P_AGE,P_GENDER,P_PHOTO FROM 
+		(SELECT * FROM (SELECT p.*, RANK() OVER(ORDER BY p.P_IDX ASC) AS "RANK" FROM PET p)
+		WHERE U_IDX = #{user_idx}) WHERE "RANK" BETWEEN #{minPage} AND #{maxPage}
+	</select>
+
+</mapper>

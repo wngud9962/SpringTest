@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="f">
+
+	<insert id="faq_insert" parameterType="vo.FaqVO">
+		INSERT INTO FAQ VALUES(
+		SEQ_FAQ.NEXTVAL,
+		#{u_idx},
+		#{f_title},
+		#{f_content},
+		sysdate,
+		#{f_filename},
+		0
+		)
+	</insert>
+
+	<select id="faq_selectList" resultType="vo.FaqVO">
+		SELECT * FROM FAQ ORDER
+		BY F_REGDATE DESC
+	</select>
+
+	<select id="select_faqList" resultType="vo.FaqVO">
+		select * from FAQ
+	</select>
+
+	<select id="faq_view" parameterType="int" resultType="vo.FaqVO">
+		select *
+		from FAQ where f_idx=#{f_idx}
+	</select>
+
+	<delete id="faq_del" parameterType="int">
+		delete faq
+		where
+		f_idx=#{f_idx}
+	</delete>
+
+	<select id="faq_edit_form" parameterType="int"
+		resultType="vo.FaqVO">
+		select * from FAQ where f_idx=#{f_idx}
+	</select>
+
+	<update id="faq_update" parameterType="vo.FaqVO">
+		update faq
+		set f_title = #{f_title},
+		f_content = #{f_content},
+		f_regdate = sysdate,
+		f_filename = #{f_filename}
+		where f_idx = #{f_idx}
+	</update>
+
+	<select id="selectListIdx" parameterType="String" resultType="vo.FaqVO">
+		select * from faq where f_idx like #{searchWord}
+		order by
+		f_idx desc
+	</select>
+
+	<select id="selectListTitle" parameterType="String" resultType="vo.FaqVO">
+		select * from faq where f_title like #{searchWord}
+		order by
+		f_idx desc
+	</select>
+
+	<select id="selectListContent" parameterType="String" resultType="vo.FaqVO">
+		select * from faq where f_content like #{searchWord}
+		order
+		by f_idx desc
+	</select>
+
+	<select id="faq_fiveDataSelectList" resultType="vo.FaqVO">
+		SELECT F_TITLE
+		FROM (SELECT f1.*,RANK() OVER(ORDER BY f1.F_IDX DESC) AS
+		"RANK" FROM
+		FAQ f1) f2 WHERE "RANK" BETWEEN 1 AND 5
+	</select>
+</mapper>
