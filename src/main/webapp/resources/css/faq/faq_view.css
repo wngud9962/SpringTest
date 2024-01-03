@@ -39,7 +39,7 @@ a {
 	text-decoration: none;
 }
 
-.qna_wrapperBox {
+.faq_wrapperBox {
 	min-width: 360px;
 	max-width: 1024px;
 	padding: 10px 16px;
@@ -61,21 +61,21 @@ a {
 	color: white;
 }
 
-.qna_wrapperBox {
+.faq_wrapperBox {
 	min-width: 360px;
 	max-width: 1024px;
 	padding: 10px 16px;
 	margin: 0 auto;
 }
 
-.qna_category {
+.faq_category {
 	font-weight: 600;
 	font-size: 20px;
 	line-height: inherit;
 	margin: 10px 0 30px;	
 }
 
-.qna_wrapperBox .listBox {
+.faq_wrapperBox .listBox {
 	border-radius: 10px;
 	border: 3px solid gray;
 	padding-left: 20px;

@@ -55,21 +55,21 @@ p {
 	color: white;
 }
 
-.qna_wrapperBox {
+.faq_wrapperBox {
 	min-width: 360px;
 	max-width: 1024px;
 	padding: 10px 16px;
 	margin: 0 auto;
 }
 
-.qna_imgContainer {
+.faq_imgContainer {
 	min-width: 360px;
 	max-width: 1024px;
 	padding: 10px 16px;
 	margin: 0 auto;
 }
 
-.qna_category {
+.faq_category {
 	font-weight: 600;
 	font-size: 20px;
 	line-height: inherit;
