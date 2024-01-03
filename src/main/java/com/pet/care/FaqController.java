@@ -14,15 +14,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import dao.QnaDAO;
-import vo.QnaVO;
+import dao.FaqDAO;
+import vo.FaqVO;
 import vo.UserVO;
 
 @Controller
-public class QnAController {
+public class FaqController {
 
 	@Autowired
-	QnaDAO qna_dao;
+	FaqDAO faq_dao;
 
 	@Autowired
 	HttpSession session;
@@ -30,76 +30,76 @@ public class QnAController {
 	@Autowired
 	HttpServletRequest request;
 
-	public final static String VIEW_PATH = "/WEB-INF/views/qna/";
+	public final static String VIEW_PATH = "/WEB-INF/views/faq/";
 
 
-	@RequestMapping("qna_form.do")
-	public String qna_form() {
+	@RequestMapping("faq_form.do")
+	public String faq_form() {
 
 		UserVO userVO = (UserVO) session.getAttribute("id");
 		if (userVO == null || !userVO.getU_type().equals("0")) {
-			return "redirect:qna_main.do";
+			return "redirect:faq_main.do";
 		}
 
-		return VIEW_PATH + "qna_form.jsp";
+		return VIEW_PATH + "faq_form.jsp";
 	}
 
-	@RequestMapping("qna_main.do")
-	public String qna_main(Model model) {
-		List<QnaVO> list = qna_dao.qna_selectList();
+	@RequestMapping("faq_main.do")
+	public String faq_main(Model model) {
+		List<FaqVO> list = faq_dao.faq_selectList();
 		int size = list.size();
 		model.addAttribute("size", size);
 		model.addAttribute("list", list);
-		return VIEW_PATH + "qna_main.jsp";
+		return VIEW_PATH + "faq_main.jsp";
 	}
 
 	// 게시물 한건 조회 (상세보기)
-	@RequestMapping("qna_view.do")
-	public String qna_view(Model model, int q_idx) {
-		QnaVO qnaVO = qna_dao.selectOne(q_idx);
+	@RequestMapping("faq_view.do")
+	public String faq_view(Model model, int f_idx) {
+		FaqVO faqVO = faq_dao.selectOne(f_idx);
 
-		model.addAttribute("qnaVO", qnaVO);
-		return VIEW_PATH + "qna_view.jsp";
+		model.addAttribute("faqVO", faqVO);
+		return VIEW_PATH + "faq_view.jsp";
 	}
 
 	// 게시글 삭제하기
-	@RequestMapping("qna_del.do")
+	@RequestMapping("faq_del.do")
 	@ResponseBody
-	// view의 var url=qna_del.do의 DB를 갔다오기 위한 경유지
+	// view의 var url=faq_del.do의 DB를 갔다오기 위한 경유지
 	// 그 화면을 유지하기 위해서 사용
-	public String qna_del(int q_idx) {
-		int result = qna_dao.qna_del(q_idx);
+	public String faq_del(int f_idx) {
+		int result = faq_dao.faq_del(f_idx);
 
 		if (result == 1) {
 			return "[{'result':'yes'}]";
-			// return "redirect:qna_view.do?u_idx="+u_idx; 차이점?
+			// return "redirect:faq_view.do?u_idx="+u_idx; 차이점?
 		} else {
 			return "[{'result':'no'}]";
 		}
 	}
 
 	// 게시글 수정폼
-	@RequestMapping("qna_edit_form.do")
-	public String qna_edit_form(Model model, int q_idx) {
+	@RequestMapping("faq_edit_form.do")
+	public String faq_edit_form(Model model, int f_idx) {
 
-		QnaVO qnaVO = qna_dao.qna_edit_form(q_idx);
-		model.addAttribute("qnaVO", qnaVO);
-		return VIEW_PATH + "qna_edit_form.jsp";
+		FaqVO faqVO = faq_dao.faq_edit_form(f_idx);
+		model.addAttribute("faqVO", faqVO);
+		return VIEW_PATH + "faq_edit_form.jsp";
 	}
 
 	// 게시글 등록
-	@RequestMapping("qna_insert.do")
-	public String qna_insert(QnaVO vo) {
+	@RequestMapping("faq_insert.do")
+	public String faq_insert(FaqVO vo) {
 
 		UserVO userVO = (UserVO) session.getAttribute("id");
 		int u_idx = userVO.getU_idx();
 		vo.setU_idx(u_idx);
 
-		String webPath = "/resources/upload/qna";
+		String webPath = "/resources/upload/faq";
 		String savePath = request.getServletContext().getRealPath(webPath);
 		System.out.println(savePath);
 
-		MultipartFile file = vo.getQ_file();
+		MultipartFile file = vo.getF_file();
 
 		String filename = "no_file";
 
@@ -123,32 +123,32 @@ public class QnAController {
 			}
 		}
 
-		vo.setQ_filename(filename);
+		vo.setF_filename(filename);
 
-		int res = qna_dao.qna_insert(vo);
+		int res = faq_dao.faq_insert(vo);
 
 		if (res > 0) {
-			return "redirect:qna_main.do";
+			return "redirect:faq_main.do";
 		} else {
 			return null;
 		}
 	}
 
 	// 게시글 수정완료
-	@RequestMapping("qna_update.do")
-	public String qna_update(QnaVO qnaVO) {
+	@RequestMapping("faq_update.do")
+	public String faq_update(FaqVO faqVO) {
 
 		UserVO userVO = (UserVO) session.getAttribute("id");
 		int u_idx = userVO.getU_idx();
-		qnaVO.setU_idx(u_idx);
+		faqVO.setU_idx(u_idx);
 
-		String webPath = "/resources/upload/qna";
+		String webPath = "/resources/upload/faq";
 		String savePath = request.getServletContext().getRealPath(webPath);
 		System.out.println(savePath);
 
-		MultipartFile file = qnaVO.getQ_file();
+		MultipartFile file = faqVO.getF_file();
 
-		String filename = qnaVO.getQ_filename();
+		String filename = faqVO.getF_filename();
 
 		// file
 		if (!file.isEmpty() && (file != null)) {
@@ -170,26 +170,26 @@ public class QnAController {
 			}
 		}
 
-		qnaVO.setQ_filename(filename);
+		faqVO.setF_filename(filename);
 
-		int res = qna_dao.qna_update(qnaVO);
+		int res = faq_dao.faq_update(faqVO);
 
 		if (res > 0) {
-			return "redirect:qna_main.do";
+			return "redirect:faq_main.do";
 		} else {
 			return null;
 		}
 	}
 
-	@RequestMapping("qna_search.do")
-	public String qna_search(Model model, String searchField, String searchWord) {
+	@RequestMapping("faq_search.do")
+	public String faq_search(Model model, String searchField, String searchWord) {
 
 		// 검색어가 없을때
 		if (searchWord.equals("")) {
-			return "redirect:qna_main.do";
+			return "redirect:faq_main.do";
 		}
 
-		List<QnaVO> list = new ArrayList<>();
+		List<FaqVO> list = new ArrayList<>();
 
 		switch (searchField) {
 		case "idx":
@@ -201,16 +201,16 @@ public class QnAController {
 			}
 
 			searchWord = "%" + idx + "%";
-			list = qna_dao.selectListIdx(searchWord);
+			list = faq_dao.selectListIdx(searchWord);
 
 			break;
 		case "title":
 			searchWord = "%" + searchWord + "%";
-			list = qna_dao.selectListTitle(searchWord);
+			list = faq_dao.selectListTitle(searchWord);
 			break;
 		case "content":
 			searchWord = "%" + searchWord + "%";
-			list = qna_dao.selectListContent(searchWord);
+			list = faq_dao.selectListContent(searchWord);
 			break;
 		}
 		searchWord = searchWord.substring(1, searchWord.length()-1);
@@ -220,6 +220,6 @@ public class QnAController {
 		model.addAttribute("list", list);
 		model.addAttribute("searchField", searchField);
 		model.addAttribute("searchWord", searchWord);
-		return VIEW_PATH + "qna_main.jsp";
+		return VIEW_PATH + "faq_main.jsp";
 	}
 }

@@ -9,7 +9,7 @@
 <body>
 	<script type="text/javascript">
 		alert('숫자만 입력해 주세요');
-		location.href = "qna_main.do";
+		location.href = "faq_main.do";
 	</script>
 </body>
 </html>

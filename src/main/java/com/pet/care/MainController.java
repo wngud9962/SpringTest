@@ -7,9 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import dao.QnaDAO;
+import dao.FaqDAO;
 import dao.ReviewDAO;
-import vo.QnaVO;
+import vo.FaqVO;
 import vo.ReviewVO;
 
 @Controller
@@ -21,17 +21,17 @@ public class MainController {
 	ReviewDAO review_dao;
 	
 	@Autowired
-	QnaDAO qnaDAO;
+	FaqDAO faqDAO;
 	
 	// 메인페이지
 	@RequestMapping(value= {"/","main_home.do"}) 
 	public String main(Model model) {
 		
 		List<ReviewVO> list = review_dao.selectReviews();
-		List<QnaVO> qnaList = qnaDAO.qna_fiveDataSelectList();
+		List<FaqVO> faqList = faqDAO.faq_fiveDataSelectList();
 		
 		model.addAttribute("list", list);
-		model.addAttribute("qnaList",qnaList);
+		model.addAttribute("faqList",faqList);
 
 		return VIEW_PATH+"main_home.jsp";
 	}

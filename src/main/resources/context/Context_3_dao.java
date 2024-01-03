@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Configuration;
 
 import dao.BoardDAO;
 import dao.PetDAO;
-import dao.QnaDAO;
+import dao.FaqDAO;
 import dao.RevDAO;
 import dao.ReviewDAO;
 import dao.UserDAO;
@@ -24,8 +24,8 @@ public class Context_3_dao {
 	}
 
 	@Bean
-	public QnaDAO qna_dao() {
-		return new QnaDAO();
+	public FaqDAO faq_dao() {
+		return new FaqDAO();
 	}
 
 	@Bean
