@@ -29,7 +29,7 @@
 		        	<ul class="nav">
 			            <li><a href="info_main.do">병원소개</a></li>
 			            <li><a href="review_main.do">리뷰</a></li>
-			            <li><a href="qna_main.do">QNA</a></li>
+			            <li><a href="faq_main.do">QNA</a></li>
 			            <li><a href="rev_main.do">예약</a></li>
 			            <li><a href="board_main.do">게시판</a></li>
 			          	<c:choose>

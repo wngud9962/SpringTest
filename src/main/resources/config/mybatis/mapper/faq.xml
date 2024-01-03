@@ -18,10 +18,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="faq_selectList" resultType="vo.FaqVO">
 		SELECT * FROM FAQ ORDER
-		BY f_regdate DESC
+		BY F_REGDATE DESC
 	</select>
 
-	<select id="select_faqList" resultType="vo.faqVO">
+	<select id="select_faqList" resultType="vo.FaqVO">
 		select * from FAQ
 	</select>
 
@@ -43,31 +43,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<update id="faq_update" parameterType="vo.FaqVO">
 		update faq
-		set f_title =
-		#{f_title},
+		set f_title = #{f_title},
 		f_content = #{f_content},
 		f_regdate = sysdate,
-		f_filename =
-		#{f_filename}
+		f_filename = #{f_filename}
 		where f_idx = #{f_idx}
 	</update>
 
-	<select id="selectListIdx" parameterType="String"
-		resultType="vo.FaqVO">
+	<select id="selectListIdx" parameterType="String" resultType="vo.FaqVO">
 		select * from faq where f_idx like #{searchWord}
 		order by
 		f_idx desc
 	</select>
 
-	<select id="selectListTitle" parameterType="String"
-		resultType="vo.FaqVO">
+	<select id="selectListTitle" parameterType="String" resultType="vo.FaqVO">
 		select * from faq where f_title like #{searchWord}
 		order by
 		f_idx desc
 	</select>
 
-	<select id="selectListContent" parameterType="String"
-		resultType="vo.FaqVO">
+	<select id="selectListContent" parameterType="String" resultType="vo.FaqVO">
 		select * from faq where f_content like #{searchWord}
 		order
 		by f_idx desc

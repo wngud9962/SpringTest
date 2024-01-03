@@ -39,7 +39,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 회원가입(유저추가) -->
 	<insert id="insertU" parameterType="vo.UserVO">
 		INSERT INTO USERINFO VALUES(
-			U_IDX.NEXTVAL,
+			SEQ_USER.NEXTVAL,
             #{u_nickName},
             #{u_email}, 
             #{u_pwd}, 

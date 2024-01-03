@@ -13,7 +13,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 리뷰 추가 -->
 	<insert id="insert" parameterType="vo.ReviewVO">
 		INSERT INTO REVIEW VALUES(
-			R_IDX.NEXTVAL,
+			SEQ_REVIEW.NEXTVAL,
 			#{u_idx},
 			#{r_content},
 			 sysdate,

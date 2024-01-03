@@ -19,7 +19,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!--예약등록하기 -->
 	<insert id="rev_insert" parameterType="vo.RevVO">
 		INSERT INTO RESERVATION VALUES(
-		RV_IDX.NEXTVAL,
+		SEQ_RESERVATION.NEXTVAL,
 		#{u_idx},
 		#{rv_time},
 		#{rv_day}
