@@ -14,10 +14,10 @@ public class BoardDAO {
 	
 	//게시글 전체 조회
 	public List<BoardVO> selectList(){
-		return sqlSession.selectList("b.selectList");
+		return sqlSession.selectList("b.nomalSelectList");
 	}
 	
-	//게시물 등록
+	//파일 첨부 게시물 등록
 	public int boardInsert(BoardVO boardVO) {
 		return sqlSession.insert("b.boardInsert", boardVO);
 	}

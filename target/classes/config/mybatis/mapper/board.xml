@@ -3,38 +3,49 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="b">
-	<select id="selectList" resultType="vo.BoardVO">
-		SELECT b3.* FROM (SELECT
-		b2.*, u.U_NICKNAME FROM (SELECT b.*,RANK()
-		OVER(ORDER BY b.B_IDX ASC)
-		AS "RANK" FROM BOARD b) b2 LEFT JOIN
-		USERINFO u ON b2.U_IDX = u.U_IDX)
-		b3
+	<!-- 공지글 전체 조회 -->
+	<select id="noticeSelectList">
+		SELECT B1.*,RANK() OVER(ORDER BY B1.B_IDX DESC) AS
+		"RANK"
+		FROM (SELECT * FROM (SELECT B.*, U.U_NICKNAME FROM BOARD B LEFT
+		JOIN
+		USERINFO U ON B.U_IDX = U.U_IDX) WHERE POINT = 0)B1
+	</select>
+
+	<!--  일반글 조회 -->
+	<select id="nomalSelectList" resultType="vo.BoardVO">
+		SELECT B2.*
+		FROM (SELECT B1.*,RANK() OVER(ORDER BY B1.B_IDX DESC) AS "RANK" FROM
+		(SELECT * FROM (SELECT B.*, U.U_NICKNAME FROM BOARD B LEFT JOIN
+		USERINFO U ON B.U_IDX = U.U_IDX) WHERE POINT = 1)B1) B2
 		WHERE "RANK" BETWEEN 1 AND 10
 	</select>
 
+	<!-- 파일첨부 후 게시글 등록 -->
 	<insert id="boardInsert" parameterType="vo.BoardVO">
 		INSERT INTO BOARD
 		VALUES(SEQ_BOARD.NEXTVAL,
-				#{u_idx},
-				#{point},
-				#{title},
-				#{content},
-				#{filename},
-				SYSDATE,
-				0,
-				0)
+		#{u_idx},
+		#{point},
+		#{title},
+		#{content},
+		#{filename},
+		SYSDATE,
+		0,
+		0)
 	</insert>
+	
+	<!-- 파일 등록 없이 게시글 등록 -->
 	<insert id="noFileBoardInsert" parameterType="vo.BoardVO">
 		INSERT INTO BOARD
 		VALUES(SEQ_BOARD.NEXTVAL,
-				#{u_idx},
-				#{point},
-				#{title},
-				#{content},
-				null,
-				SYSDATE,
-				0,
-				0)
+		#{u_idx},
+		#{point},
+		#{title},
+		#{content},
+		null,
+		SYSDATE,
+		0,
+		0)
 	</insert>
 </mapper>
