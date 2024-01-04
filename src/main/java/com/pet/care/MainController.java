@@ -28,10 +28,10 @@ public class MainController {
 	public String main(Model model) {
 		
 		List<ReviewVO> list = review_dao.selectReviews();
-		//List<FaqVO> faqList = faqDAO.faq_fiveDataSelectList();
+		List<FaqVO> faqList = faqDAO.faq_fiveDataSelectList();
 		
 		model.addAttribute("list", list);
-		//model.addAttribute("faqList",faqList);
+		model.addAttribute("faqList",faqList);
 
 		return VIEW_PATH+"main_home.jsp";
 	}
