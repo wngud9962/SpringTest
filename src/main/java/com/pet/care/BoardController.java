@@ -30,11 +30,19 @@ public class BoardController {
 
 	@RequestMapping("board_main.do")
 	public String boardMain(Model model) {
-		List<BoardVO> list = boardDAO.selectList();
-		for (BoardVO vo : list) {
+		List<BoardVO> noticeList = boardDAO.noticeSelectList();
+		List<BoardVO> nomalList = boardDAO.nomalSelectList();
+		
+		for(BoardVO vo : noticeList) {
 			vo.setRegdate(vo.getRegdate().split(" ")[0]);
 		}
-		model.addAttribute("list", list);
+		
+		for (BoardVO vo : nomalList) {
+			vo.setRegdate(vo.getRegdate().split(" ")[0]);
+		}
+		
+		model.addAttribute("noticeList", noticeList);
+		model.addAttribute("nomalList", nomalList);
 		return VIEW_PATH + "board_main.jsp";
 	}
 

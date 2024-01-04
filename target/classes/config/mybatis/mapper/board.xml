@@ -4,7 +4,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="b">
 	<!-- 공지글 전체 조회 -->
-	<select id="noticeSelectList">
+	<select id="noticeSelectList" resultType="vo.BoardVO">
 		SELECT B1.*,RANK() OVER(ORDER BY B1.B_IDX DESC) AS
 		"RANK"
 		FROM (SELECT * FROM (SELECT B.*, U.U_NICKNAME FROM BOARD B LEFT

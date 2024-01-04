@@ -12,8 +12,12 @@ public class BoardDAO {
 	@Autowired
 	SqlSession sqlSession;
 	
-	//게시글 전체 조회
-	public List<BoardVO> selectList(){
+	//공지 게시글 전체 조회
+	public List<BoardVO> noticeSelectList(){
+		return sqlSession.selectList("b.noticeSelectList");
+	}
+	//일반 게시글 전체 조회
+	public List<BoardVO> nomalSelectList(){
 		return sqlSession.selectList("b.nomalSelectList");
 	}
 	

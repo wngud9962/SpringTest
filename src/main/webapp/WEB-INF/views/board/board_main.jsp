@@ -35,34 +35,40 @@
 				<th style="width: 50px;">조회</th>
 				<th style="width: 50px;">추천</th>
 			</tr>
-			<c:choose>
-				<c:when test="${list[0] != null }">
-					<c:forEach items="${list}" var="boardData">
+			<c:if test="${noticeList[0] != null }">
+				<c:forEach items="${noticeList}" var="noticeData">
+					<tr class="listData">
+						<td>${noticeData.b_idx}</td>
+						<td style="color: red; font-weight: bold;">공지</td>
+						<td style="text-align: left; padding-left: 15px;">
+							<a href="#">${noticeData.title}</a></td>
+						<td>${noticeData.u_nickname}</td>
+						<td>${noticeData.regdate}</td>
+						<td>${noticeData.select}</td>
+						<td>${noticeData.follow}</td>
+					</tr>
+				</c:forEach>
+			</c:if>
+			
+				<c:if test="${nomalList[0] != null }">
+					<c:forEach items="${nomalList}" var="nomalData">
 						<tr class="listData">
-							<td>${boardData.b_idx}</td>
-							<c:choose>
-								<c:when test="${boardData.point == 1}">
-									<td style="color: red; font-weight: bold;">공지</td>
-								</c:when>
-								<c:otherwise>
+							<td>${nomalData.b_idx}</td>
 									<td>일반</td>
-								</c:otherwise>
-							</c:choose>
 							<td style="text-align: left; padding-left: 15px;"><a
-								href="#">${boardData.title}</a></td>
-							<td>${boardData.u_nickname}</td>
-							<td>${boardData.regdate}</td>
-							<td>${boardData.select}</td>
-							<td>${boardData.follow}</td>
+								href="#">${nomalData.title}</a></td>
+							<td>${nomalData.u_nickname}</td>
+							<td>${nomalData.regdate}</td>
+							<td>${nomalData.select}</td>
+							<td>${nomalData.follow}</td>
 						</tr>
 					</c:forEach>
-				</c:when>
-				<c:otherwise>
+				</c:if>
+				<c:if test="${noticeList[0]==null && nomalList[0]==null}">
 					<tr class="listData">
 						<td colspan="7">게시글이 없습니다.</td>
 					</tr>
-				</c:otherwise>
-			</c:choose>
+				</c:if>
 		</table>
 
 	</div>
