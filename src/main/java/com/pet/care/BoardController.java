@@ -10,8 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.view.RedirectView;
 
 import dao.BoardDAO;
 import vo.BoardVO;
@@ -44,14 +46,14 @@ public class BoardController {
 	}
 
 	@RequestMapping("board_insert.do")
-	@ResponseBody
-	public String boardInsert(BoardVO boardVO) {
+	public RedirectView boardInsert(BoardVO boardVO) {
 
-		System.out.println("타이틀 : "+boardVO.getTitle());
+		int res = 0;
 		UserVO loginUser = (UserVO) request.getSession().getAttribute("id");
 
 		int loginIdx = loginUser.getU_idx();
 
+		
 		boardVO.setU_idx(loginIdx);
 
 		MultipartFile file = boardVO.getFile();
@@ -63,7 +65,6 @@ public class BoardController {
 
 		if (file != null && !file.isEmpty()) {
 			filename = file.getOriginalFilename();
-
 			File saveFile = new File(savePath, filename);
 
 			if (!saveFile.exists()) {
@@ -83,17 +84,22 @@ public class BoardController {
 			}
 		}
 
-		boardVO.setFilename(filename);
+		if(filename!=null) {
+			boardVO.setFilename(filename);	
+			res = boardDAO.boardInsert(boardVO);
+		}
+		
+		if(filename==null) {
+			res = boardDAO.noFileBoardInsert(boardVO);
+		}
+			
 
-		int res = boardDAO.boardInsert(boardVO);
-
-		String result = "[{'param' : 'no'}]";
 
 		if (res > 0) {
-			result = "[{'param' : 'yes'}]";
+			return new RedirectView("board_main.do");
 		}
 
-		return result;
+		return null;
 	}
 
 }

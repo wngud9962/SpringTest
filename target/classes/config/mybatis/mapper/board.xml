@@ -15,6 +15,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<insert id="boardInsert" parameterType="vo.BoardVO">
 		INSERT INTO BOARD
-		VALUES(SEQ_BOARD.NEXTVAL,#{u_idx},#{point},#{title},#{content},#{filename, jdbcType=VARCHAR},SYSDATE,0,0)
+		VALUES(SEQ_BOARD.NEXTVAL,
+				#{u_idx},
+				#{point},
+				#{title},
+				#{content},
+				#{filename},
+				SYSDATE,
+				0,
+				0)
+	</insert>
+	<insert id="noFileBoardInsert" parameterType="vo.BoardVO">
+		INSERT INTO BOARD
+		VALUES(SEQ_BOARD.NEXTVAL,
+				#{u_idx},
+				#{point},
+				#{title},
+				#{content},
+				null,
+				SYSDATE,
+				0,
+				0)
 	</insert>
 </mapper>

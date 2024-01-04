@@ -9,13 +9,14 @@
 <link
 	href="${pageContext.request.contextPath}/resources/css/board/board_insert.css"
 	rel="stylesheet">
-<script src="resources/js/httpRequest.js"></script>
 <script type="text/javascript">
 	function send(f){
 		let point = f.point.value;
 		let title =f.title.value;
 		let content = f.content.value;
-		let file = f.file.value;
+		let file = f.file.files[0];
+
+		
 		
 		if(title.trim().length == 0){
 			alert("제목을 입력해 주십시오.");
@@ -26,30 +27,11 @@
 			alert("내용을 입력해 주십시오.");
 			return;
 		}
-		
-		let url = "board_insert.do";
-		let param = "point="+point+"&title="+title+"&content="+content+"&file="+file;
-		let method = "POST";
-		
-		sendRequest(url, param, insertAfter, method);
+		f.action = "board_insert.do";
+		f.submit();
 	}
-	
-	function insertAfter(){
-		if(xhr.readyState == 4 && xhr.status == 200){
-			let data = xhr.responseText;
-			let JSON = eval(data);
-			
-			if(JSON[0].param == 'no'){
-				alert("등록에 실패하였습니다.");
-				return;
-			}
-			
-			if(JSON[0].param == 'yes'){
-				alert("등록되었습니다.");
-				location.href = "board_main.do";
-			}
-		}
-	}
+		
+		
 </script>
 </head>
 <body>

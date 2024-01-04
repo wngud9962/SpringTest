@@ -21,5 +21,5 @@ public class BoardVO {
 	
 	
 	//조인
-	String u_nickname;
+	private String u_nickname;
 }

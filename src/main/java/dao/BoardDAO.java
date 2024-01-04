@@ -22,4 +22,9 @@ public class BoardDAO {
 		return sqlSession.insert("b.boardInsert", boardVO);
 	}
 	
+	//파일 null일 때 등록
+	public int noFileBoardInsert(BoardVO boardVO) {
+		return sqlSession.insert("b.noFileBoardInsert", boardVO);
+	}
+	
 }
