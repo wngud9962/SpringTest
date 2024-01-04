@@ -1,19 +1,23 @@
 package vo;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Data;
 
 @Data
 public class BoardVO {
 
-	int b_idx;
-	int u_idx;
-	int point;
-	String title;
-	String content;
-	String filename;
-	String regdate;
-	int select;
-	int follow;
+	private int b_idx;
+	private int u_idx;
+	private int point;
+	private String title;
+	private String content;
+	private String filename;
+	private String regdate;
+	private int select;
+	private int follow;
+	private MultipartFile file;
+	
 	
 	
 	//조인

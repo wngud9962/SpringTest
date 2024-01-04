@@ -16,4 +16,10 @@ public class BoardDAO {
 	public List<BoardVO> selectList(){
 		return sqlSession.selectList("b.selectList");
 	}
+	
+	//게시물 등록
+	public int boardInsert(BoardVO boardVO) {
+		return sqlSession.insert("b.", boardVO);
+	}
+	
 }

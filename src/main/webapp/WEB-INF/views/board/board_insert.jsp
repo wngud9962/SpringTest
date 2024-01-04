@@ -7,8 +7,50 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link
-	href="${pageContext.request.contextPath}/resources/css/board/board_main.css"
+	href="${pageContext.request.contextPath}/resources/css/board/board_insert.css"
 	rel="stylesheet">
+<script src="resources/js/httpRequest.js"></script>
+<script type="text/javascript">
+	function send(f){
+		let point = f.point.value;
+		let title =f.title.value;
+		let content = f.content.value;
+		let file = f.file.value;
+		
+		if(title.trim().length == 0){
+			alert("제목을 입력해 주십시오.");
+			return;
+		}
+		
+		if(content.trim().length == 0){
+			alert("내용을 입력해 주십시오.");
+			return;
+		}
+		
+		let url = "board_insert.do";
+		let param = "point="+point+"&title="+title+"&content="+content+"&file="+file;
+		let method = "POST";
+		
+		sendRequest(url, param, insertAfter, method);
+	}
+	
+	function insertAfter(){
+		if(xhr.readystate == 4 && xhr.status == 400){
+			let data = xhr.responseText;
+			let JSON = eval(data);
+			
+			if(JSON[0].param == 'no'){
+				alert("등록에 실패하였습니다.");
+				return;
+			}
+			
+			if(JSON[0].param == 'yes'){
+				alert("등록되었습니다.");
+				location.href = "board_main.do";
+			}
+		}
+	}
+</script>
 </head>
 <body>
 	<input type="hidden" value="${searchField}" id="hiddenSearchField">
@@ -21,70 +63,41 @@
 	</div>
 	<!-- qna_wrapperBox -->
 
-	<div class="board_wrapperBox" id="center">
+	<div class="board_content">
 
 		<hr>
-		<table align="center">
-			<tr>
-			<th>말머리</th>
-			<td>
-			<select>
-			<option>공지</option>
-			<option>일반</option>
-			</select>
-			</td>
-			</tr>
-			<tr>
-				<th>제목</th>
-				<td><input type="text"></td>
-			</tr>
-			<tr>
-			<th>내용</th>
-			<td><textarea rows="10" cols="50" style="resize: none;"></textarea></td>
-			</tr>
 
-		</table>
-
-	</div>
-
-	<div class="board_wrapperBox">
-		<div id="inputButtons">
-			<div class="arraysButton">
-				<input type="button" value="공지"> 
-				<input type="button" value="일반">
-			</div>
-			<c:if test="${id!=null}">
-				<input type="button" value="글쓰기" onclick="location.href='board_form.do'">
-			</c:if>
-		</div>
-		<div class="paging" style="text-align: center;">
-		1 2 3 4 5
-		</div>
-		<div class="list_search" style="background-color: white">
-			<form class="searchform" name="list_search_form">
-				<fieldset>
-					<select id="searchField">
-						<option value="idx">글 번호</option>
-						<option value="title">제목</option>
-						<option value="content">내용</option>
-					</select>
-					<c:choose>
-						<c:when test="${searchWord!=null}">
-							<input class="search" id="searchWord" type="text"
-								value="${searchWord}" placeholder="검색어를 입력하세요">
-						</c:when>
-						<c:otherwise>
-							<input class="search" id="searchWord" type="text"
-								style="width: 855px;" placeholder="검색어를 입력하세요">
-						</c:otherwise>
-					</c:choose>
-					<button class="submit" type="button" onclick="send()">
-						<img
-							src="https://www.coffeebeankorea.com/images/btn/btn_list_search.png">
-					</button>
-				</fieldset>
-			</form>
-		</div>
+		<form method="post" enctype="multipart/form-data">
+			<table align="center">
+				<tr>
+					<th>말머리</th>
+					<td><select name="point">
+							<c:if test="${id.u_type=='0'}">
+								<option value="0">공지</option>
+							</c:if>
+							<option value="1">일반</option>
+					</select></td>
+				</tr>
+				<tr>
+					<th>제목</th>
+					<td><input type="text" name="title" style="width: 360px;"></td>
+				</tr>
+				<tr>
+					<th>내용</th>
+					<td><textarea rows="10" cols="50" name="content"
+							style="resize: none;"></textarea></td>
+				</tr>
+				<tr>
+					<th>파일 업로드</th>
+					<td><input type="file" name="file"></td>
+				</tr>
+				<tr>
+					<td colspan="2" align="center"><input type="button" value="등록"
+					onclick="send(this.form)">
+						<input type="button" value="취소" onclick="location.href='board_main.do'"></td>
+				</tr>
+			</table>
+		</form>
 	</div>
 
 </body>
