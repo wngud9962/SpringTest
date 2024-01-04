@@ -47,6 +47,7 @@ public class BoardController {
 	@ResponseBody
 	public String boardInsert(BoardVO boardVO) {
 
+		System.out.println("타이틀 : "+boardVO.getTitle());
 		UserVO loginUser = (UserVO) request.getSession().getAttribute("id");
 
 		int loginIdx = loginUser.getU_idx();

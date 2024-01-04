@@ -35,7 +35,7 @@
 	}
 	
 	function insertAfter(){
-		if(xhr.readystate == 4 && xhr.status == 400){
+		if(xhr.readyState == 4 && xhr.status == 200){
 			let data = xhr.responseText;
 			let JSON = eval(data);
 			

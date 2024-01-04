@@ -19,7 +19,7 @@ public class BoardDAO {
 	
 	//게시물 등록
 	public int boardInsert(BoardVO boardVO) {
-		return sqlSession.insert("b.", boardVO);
+		return sqlSession.insert("b.boardInsert", boardVO);
 	}
 	
 }
