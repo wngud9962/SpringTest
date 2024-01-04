@@ -170,7 +170,6 @@ tr.listData tr:last-child {
 #inputButtons{
 	display : flex;
 	justify-content: space-between;
-	margin-bottom: 10px;
 	
 }
 

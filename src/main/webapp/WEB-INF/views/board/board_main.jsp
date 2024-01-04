@@ -42,7 +42,7 @@
 							<td>${boardData.b_idx}</td>
 							<c:choose>
 								<c:when test="${boardData.point == 1}">
-									<td>공지</td>
+									<td style="color: red; font-weight: bold;">공지</td>
 								</c:when>
 								<c:otherwise>
 									<td>일반</td>
@@ -69,12 +69,12 @@
 
 	<div class="board_wrapperBox">
 		<div id="inputButtons">
-			<div class="arraysButton">
+			<div class="arraysButton" style="margin-left: 10px;">
 				<input type="button" value="공지"> <input type="button"
 					value="일반">
 			</div>
 			<c:if test="${id!=null}">
-				<input type="button" value="글쓰기"
+				<input type="button" value="글쓰기" style="margin-right: 10px;"
 					onclick="location.href='board_form.do'">
 			</c:if>
 		</div>
