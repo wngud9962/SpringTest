@@ -77,8 +77,8 @@ a {
 .board_wrapperBox>table td {
 	background-color: rgba(178, 239, 244,0.2);
 }
-td.listData td:last-child {
-	border-bottom: border-bottom: 2px solid orange;
+tr.listData tr:last-child {
+	border-bottom: 2px solid orange;
 }
 
 .board_wrapperBox>table td a{

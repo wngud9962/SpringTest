@@ -40,7 +40,14 @@
 					<c:forEach items="${list}" var="boardData">
 						<tr class="listData">
 							<td>${boardData.b_idx}</td>
-							<td>일반</td>
+							<c:choose>
+								<c:when test="${boardData.point == 1}">
+									<td>공지</td>
+								</c:when>
+								<c:otherwise>
+									<td>일반</td>
+								</c:otherwise>
+							</c:choose>
 							<td style="text-align: left; padding-left: 15px;"><a
 								href="#">${boardData.title}</a></td>
 							<td>${boardData.u_nickname}</td>
@@ -51,8 +58,8 @@
 					</c:forEach>
 				</c:when>
 				<c:otherwise>
-					<tr>
-						<td colspan="7" class="listData">게시글이 없습니다.</td>
+					<tr class="listData">
+						<td colspan="7">게시글이 없습니다.</td>
 					</tr>
 				</c:otherwise>
 			</c:choose>
@@ -63,16 +70,15 @@
 	<div class="board_wrapperBox">
 		<div id="inputButtons">
 			<div class="arraysButton">
-				<input type="button" value="공지"> 
-				<input type="button" value="일반">
+				<input type="button" value="공지"> <input type="button"
+					value="일반">
 			</div>
 			<c:if test="${id!=null}">
-				<input type="button" value="글쓰기" onclick="location.href='board_form.do'">
+				<input type="button" value="글쓰기"
+					onclick="location.href='board_form.do'">
 			</c:if>
 		</div>
-		<div class="paging" style="text-align: center;">
-		1 2 3 4 5
-		</div>
+		<div class="paging" style="text-align: center;">1 2 3 4 5</div>
 		<div class="list_search" style="background-color: white">
 			<form class="searchform" name="list_search_form">
 				<fieldset>

@@ -7,6 +7,7 @@ public class BoardVO {
 
 	int b_idx;
 	int u_idx;
+	int point;
 	String title;
 	String content;
 	String filename;
