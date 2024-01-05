@@ -164,8 +164,13 @@ public class BoardController {
 		
 		BoardVO boardData = boardDAO.selectOne(b_idx);
 		
+		if(boardData == null) {
+			return "redirect:board_main.do";
+		}
+		
 		boardData.setContent(boardData.getContent().replaceAll("\n", "<br>")); 
 		
+		boardData.setRegdate(boardData.getRegdate().split(" ")[0]);
 		model.addAttribute("boardData", boardData);
 		
 		return VIEW_PATH + "board_view.jsp";

@@ -38,6 +38,10 @@
 					<th>내용</th>
 					<td>${boardData.content}</td>
 				</tr>
+				<tr>
+					<th>등록일</th>
+					<td>${boardData.regdate}</td>
+				</tr>
 
 				<tr>
 					<td colspan="2" align="center">
