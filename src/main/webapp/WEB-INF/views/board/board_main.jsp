@@ -82,29 +82,9 @@
 					onclick="location.href='board_form.do'">
 			</c:if>
 		</div>
-		<div class="paging" style="text-align: center;">
 		
-		<span>◀</span>
+	<jsp:include page="../paging/paging.jsp"></jsp:include>
 		
-			<c:forEach begin="1" end="${maxPagingIdx}" step="1" var="page">
-
-				<c:choose>
-					<c:when test="${page>=nowPage-2 && page<nowPage}">
-						<span><a href="board_main.do?page=${page}">${page}</a></span>
-					</c:when>
-
-					<c:when test="${page == nowPage}">
-						<span style="color: white; background-color: red;">${page}</span>
-					</c:when>
-
-					<c:when test="${page<=nowPage+2 && page>nowPage}">
-					<span><a href="board_main.do?page=${page}">${page}</a></span>
-					</c:when>
-
-				</c:choose>
-			</c:forEach>
-			<span>▶</span>
-		</div>
 		<div class="list_search" style="background-color: white">
 			<form class="searchform" name="list_search_form">
 				<fieldset>

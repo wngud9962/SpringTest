@@ -33,6 +33,8 @@ public class BoardController {
 	@RequestMapping("board_main.do")
 	public String boardMain(Model model,String page) {
 		
+		String mapping = "board_main.do";
+		
 		//페이지당 보여줄 게시물의 개수
 		int perPage = 10;
 		
@@ -45,6 +47,7 @@ public class BoardController {
 		//페이징의 맥스 번호
 		int maxPagingIdx = Common.pagingCount(totalPagingCount, perPage);
 		
+			
 		if(maxPagingIdx<nowPage) {
 			nowPage = maxPagingIdx;
 		}
@@ -73,6 +76,7 @@ public class BoardController {
 		model.addAttribute("nomalList", nomalList);
 		model.addAttribute("nowPage", nowPage);
 		model.addAttribute("maxPagingIdx", maxPagingIdx);
+		model.addAttribute("mapping",mapping);
 		
 		
 		return VIEW_PATH + "board_main.jsp";
