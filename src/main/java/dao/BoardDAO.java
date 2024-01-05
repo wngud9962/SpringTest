@@ -37,4 +37,9 @@ public class BoardDAO {
 		return sqlSession.selectOne("b.totalPagingCount");
 	}
 	
+	//상세 페이지 조회
+	public BoardVO selectOne(int b_idx) {
+		return sqlSession.selectOne("b.selectOne", b_idx);
+	}
+	
 }

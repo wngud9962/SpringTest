@@ -49,7 +49,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		0)
 	</insert>
 	
+	<!-- 일반게시물 전체 개수 조회 -->
 	<select id="totalPagingCount" resultType="int">
 		SELECT COUNT(*) FROM BOARD WHERE POINT = 1
+	</select>
+	
+	<select id="selectOne" parameterType="int" resultType="vo.BoardVO">
+		SELECT * FROM BOARD WHERE B_IDX = #{b_idx}
 	</select>
 </mapper>
