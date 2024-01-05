@@ -13,12 +13,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<!--  일반글 조회 -->
-	<select id="nomalSelectList" resultType="vo.BoardVO">
+	<select id="nomalSelectList" resultType="vo.BoardVO" parameterType="HashMap">
 		SELECT B2.*
 		FROM (SELECT B1.*,RANK() OVER(ORDER BY B1.B_IDX DESC) AS "RANK" FROM
 		(SELECT * FROM (SELECT B.*, U.U_NICKNAME FROM BOARD B LEFT JOIN
 		USERINFO U ON B.U_IDX = U.U_IDX) WHERE POINT = 1)B1) B2
-		WHERE "RANK" BETWEEN 1 AND 10
+		WHERE "RANK" BETWEEN #{minData} AND #{maxData}
 	</select>
 
 	<!-- 파일첨부 후 게시글 등록 -->
@@ -48,4 +48,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		0,
 		0)
 	</insert>
+	
+	<select id="totalPagingCount" resultType="int">
+		SELECT COUNT(*) FROM BOARD WHERE POINT = 1
+	</select>
 </mapper>

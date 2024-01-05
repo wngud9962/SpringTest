@@ -3,6 +3,7 @@ package com.pet.care;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -14,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
 
 import dao.BoardDAO;
+import util.Common;
 import vo.BoardVO;
 import vo.UserVO;
 
@@ -29,20 +31,50 @@ public class BoardController {
 	public final static String VIEW_PATH = "/WEB-INF/views/board/";
 
 	@RequestMapping("board_main.do")
-	public String boardMain(Model model) {
-		List<BoardVO> noticeList = boardDAO.noticeSelectList();
-		List<BoardVO> nomalList = boardDAO.nomalSelectList();
+	public String boardMain(Model model,String page) {
 		
+		//페이지당 보여줄 게시물의 개수
+		int perPage = 10;
+		
+		//일반 게시물 총 개수
+		int totalPagingCount = boardDAO.totalPagingCount();
+		
+		//현재 페이지
+		int nowPage = Common.pageParameterCheck(page);
+		
+		//페이징의 맥스 번호
+		int maxPagingIdx = Common.pagingCount(totalPagingCount, perPage);
+		
+		if(maxPagingIdx<nowPage) {
+			nowPage = maxPagingIdx;
+		}
+		
+		//보여줄 첫번째 ~ 마지막 게시물의 번호
+		Map<String, Integer> pageData = Common.page(nowPage, perPage);
+		
+		//공지 게시물 데이터
+		List<BoardVO> noticeList = boardDAO.noticeSelectList();
+		
+		//일반 게시물 데이터
+		List<BoardVO> nomalList = boardDAO.nomalSelectList(pageData);
+		
+		//공지 게시물 등록일 날짜 필터링
 		for(BoardVO vo : noticeList) {
 			vo.setRegdate(vo.getRegdate().split(" ")[0]);
 		}
 		
+		//일반 게시물 등록일 날짜 필터링
 		for (BoardVO vo : nomalList) {
 			vo.setRegdate(vo.getRegdate().split(" ")[0]);
 		}
 		
+		//데이터 바운딩
 		model.addAttribute("noticeList", noticeList);
 		model.addAttribute("nomalList", nomalList);
+		model.addAttribute("nowPage", nowPage);
+		model.addAttribute("maxPagingIdx", maxPagingIdx);
+		
+		
 		return VIEW_PATH + "board_main.jsp";
 	}
 

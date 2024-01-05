@@ -1,6 +1,7 @@
 package dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,8 @@ public class BoardDAO {
 		return sqlSession.selectList("b.noticeSelectList");
 	}
 	//일반 게시글 전체 조회
-	public List<BoardVO> nomalSelectList(){
-		return sqlSession.selectList("b.nomalSelectList");
+	public List<BoardVO> nomalSelectList(Map<String, Integer> pageData){
+		return sqlSession.selectList("b.nomalSelectList",pageData);
 	}
 	
 	//파일 첨부 게시물 등록
@@ -29,6 +30,11 @@ public class BoardDAO {
 	//파일 null일 때 등록
 	public int noFileBoardInsert(BoardVO boardVO) {
 		return sqlSession.insert("b.noFileBoardInsert", boardVO);
+	}
+	
+	//일반 게시물 전체 개수 조회
+	public int totalPagingCount() {
+		return sqlSession.selectOne("b.totalPagingCount");
 	}
 	
 }

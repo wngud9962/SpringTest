@@ -29,7 +29,7 @@
 		        	<ul class="nav">
 			            <li><a href="info_main.do">병원소개</a></li>
 			            <li><a href="review_main.do">리뷰</a></li>
-			            <li><a href="faq_main.do">QNA</a></li>
+			            <li><a href="faq_main.do">FAQ</a></li>
 			            <li><a href="rev_main.do">예약</a></li>
 			            <li><a href="board_main.do">게시판</a></li>
 			          	<c:choose>
@@ -95,14 +95,14 @@
 		    		<li style="padding-left: 20px; padding-bottom: 10px;">리뷰 없음</li>
 		    	</c:if>
 		    	</div>
-          <div class="qna" onclick="location.href='qna_main.do';" style="cursor:pointer;">
+          <div class="qna" onclick="location.href='faq_main.do';" style="cursor:pointer;">
               <h2 align="center">자주 묻는 질문</h2>
               <hr>
 				<ul>
 				<c:choose>
-				<c:when test="${qnaList[0] != null}">
-				<c:forEach items="${qnaList}" var="qnaData">
-				<li>${qnaData.q_title}</li>
+				<c:when test="${faqList[0] != null}">
+				<c:forEach items="${faqList}" var="faqData">
+				<li>${faqData.f_title}</li>
 				</c:forEach>
 				</c:when>
 				

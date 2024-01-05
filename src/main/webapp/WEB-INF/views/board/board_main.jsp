@@ -40,8 +40,7 @@
 					<tr class="listData">
 						<td>${noticeData.b_idx}</td>
 						<td style="color: red; font-weight: bold;">공지</td>
-						<td style="text-align: left; padding-left: 15px;">
-							<a href="#">${noticeData.title}</a></td>
+						<td style="text-align: left; padding-left: 15px;"><a href="#">${noticeData.title}</a></td>
 						<td>${noticeData.u_nickname}</td>
 						<td>${noticeData.regdate}</td>
 						<td>${noticeData.select}</td>
@@ -49,26 +48,25 @@
 					</tr>
 				</c:forEach>
 			</c:if>
-			
-				<c:if test="${nomalList[0] != null }">
-					<c:forEach items="${nomalList}" var="nomalData">
-						<tr class="listData">
-							<td>${nomalData.b_idx}</td>
-									<td>일반</td>
-							<td style="text-align: left; padding-left: 15px;"><a
-								href="#">${nomalData.title}</a></td>
-							<td>${nomalData.u_nickname}</td>
-							<td>${nomalData.regdate}</td>
-							<td>${nomalData.select}</td>
-							<td>${nomalData.follow}</td>
-						</tr>
-					</c:forEach>
-				</c:if>
-				<c:if test="${noticeList[0]==null && nomalList[0]==null}">
+
+			<c:if test="${nomalList[0] != null }">
+				<c:forEach items="${nomalList}" var="nomalData">
 					<tr class="listData">
-						<td colspan="7">게시글이 없습니다.</td>
+						<td>${nomalData.b_idx}</td>
+						<td>일반</td>
+						<td style="text-align: left; padding-left: 15px;"><a href="#">${nomalData.title}</a></td>
+						<td>${nomalData.u_nickname}</td>
+						<td>${nomalData.regdate}</td>
+						<td>${nomalData.select}</td>
+						<td>${nomalData.follow}</td>
 					</tr>
-				</c:if>
+				</c:forEach>
+			</c:if>
+			<c:if test="${noticeList[0]==null && nomalList[0]==null}">
+				<tr class="listData">
+					<td colspan="7">게시글이 없습니다.</td>
+				</tr>
+			</c:if>
 		</table>
 
 	</div>
@@ -84,7 +82,29 @@
 					onclick="location.href='board_form.do'">
 			</c:if>
 		</div>
-		<div class="paging" style="text-align: center;">1 2 3 4 5</div>
+		<div class="paging" style="text-align: center;">
+		
+		<span>◀</span>
+		
+			<c:forEach begin="1" end="${maxPagingIdx}" step="1" var="page">
+
+				<c:choose>
+					<c:when test="${page>=nowPage-2 && page<nowPage}">
+						<span><a href="board_main.do?page=${page}">${page}</a></span>
+					</c:when>
+
+					<c:when test="${page == nowPage}">
+						<span style="color: white; background-color: red;">${page}</span>
+					</c:when>
+
+					<c:when test="${page<=nowPage+2 && page>nowPage}">
+					<span><a href="board_main.do?page=${page}">${page}</a></span>
+					</c:when>
+
+				</c:choose>
+			</c:forEach>
+			<span>▶</span>
+		</div>
 		<div class="list_search" style="background-color: white">
 			<form class="searchform" name="list_search_form">
 				<fieldset>
