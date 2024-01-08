@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
 
 import dao.BoardDAO;
+import dao.UserDAO;
 import util.Common;
 import vo.BoardVO;
 import vo.UserVO;
@@ -28,7 +29,13 @@ public class BoardController {
 	BoardDAO boardDAO;
 
 	@Autowired
+	UserDAO userDAO;
+
+	@Autowired
 	HttpServletRequest request;
+
+	// 숫자만 허용하는 정규식
+	String check = "^[\\d]*$";
 
 	public final static String VIEW_PATH = "/WEB-INF/views/board/";
 
@@ -148,9 +155,6 @@ public class BoardController {
 	@RequestMapping("board_view.do")
 	public String boardView(Model model, String idx) {
 
-		// 숫자만 허용하는 정규식
-		String check = "^[\\d]*$";
-
 		if (idx == null) {
 			return "redirect:board_main.do";
 		}
@@ -174,31 +178,81 @@ public class BoardController {
 		boardData.setRegdate(boardData.getRegdate().split(" ")[0]);
 		model.addAttribute("boardData", boardData);
 
+		
+		
+		
+		// 조회수 증가
+		if (request.getSession().getAttribute("id") != null) {
+			boardDAO.boardUpReadHit(b_idx);
+			boardData.setSelect(boardData.getSelect() + 1);
+		}
+
 		return VIEW_PATH + "board_view.jsp";
 	}
 
-	//게시글 삭제
+	// 게시글 삭제
 	@RequestMapping("board_delete.do")
 	@ResponseBody
 	public String boardDelete(String b_idx) {
-		
-		// 숫자만 허용하는 정규식
-		String check = "^[\\d]*$";
-		
-		String result = "[{'param':'no'}]";
-		if(b_idx == null) {
+
+		int res = 0;
+
+		String result = "[{'res':'no'}]";
+
+		if (b_idx == null) {
 			return result;
 		}
-		
+
 		b_idx = b_idx.trim();
-		
-		if(b_idx.isBlank() || !Pattern.matches(check, b_idx)) {
+
+		if (b_idx.isBlank() || !Pattern.matches(check, b_idx)) {
 			return result;
 		}
-		
+
+		int deleteBoardIdx = boardDAO.selectOne(Integer.parseInt(b_idx)).getU_idx();
 		UserVO loginUserData = (UserVO) request.getSession().getAttribute("id");
-		
-		return null;
+
+		if (loginUserData.getU_idx() == deleteBoardIdx) {
+			res = boardDAO.boardDelete(Integer.parseInt(b_idx));
+		}
+
+		if (res > 0) {
+			result = "[{'res':'yes'}]";
+		}
+		return result;
+	}
+
+	// 게시글 수정
+	@RequestMapping("board_update.do")
+	public String boardUpdate(Model model, String b_idx) {
+
+		String resultView = VIEW_PATH + "board_main.jsp";
+
+		if (b_idx == null) {
+			return resultView;
+		}
+
+		b_idx = b_idx.trim();
+
+		if (b_idx.isBlank() || !Pattern.matches(check, b_idx)) {
+			return resultView;
+		}
+
+		UserVO loginUserData = (UserVO) request.getSession().getAttribute("id");
+		BoardVO updateData = boardDAO.selectOne(Integer.parseInt(b_idx));
+
+		if (loginUserData != null && loginUserData.getU_idx() == updateData.getU_idx()) {
+
+			resultView = VIEW_PATH + "board_update.jsp";
+
+			
+			model.addAttribute("updateData", updateData);
+
+			return resultView;
+
+		}
+
+		return resultView;
 	}
 
 }

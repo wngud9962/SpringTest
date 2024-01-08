@@ -7,11 +7,11 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.pet.care.BoardController;
+import com.pet.care.FaqController;
 import com.pet.care.InfoController;
 import com.pet.care.LoginController;
 import com.pet.care.MainController;
 import com.pet.care.PetController;
-import com.pet.care.FaqController;
 import com.pet.care.RevController;
 import com.pet.care.ReviewController;
 

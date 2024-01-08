@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import vo.BoardVO;
 
+
 public class BoardDAO {
 
 	@Autowired
@@ -40,6 +41,16 @@ public class BoardDAO {
 	//상세 페이지 조회
 	public BoardVO selectOne(int b_idx) {
 		return sqlSession.selectOne("b.selectOne", b_idx);
+	}
+	
+	//게시글 삭제
+	public int boardDelete(int b_idx) {
+		return sqlSession.delete("b.boardDelete", b_idx);
+	}
+	
+	//조회수 증가
+	public int boardUpReadHit(int b_idx) {
+		return sqlSession.update("b.boardUpReadHit", b_idx);
 	}
 	
 }
