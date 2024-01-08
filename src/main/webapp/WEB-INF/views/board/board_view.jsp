@@ -13,6 +13,8 @@
 	src="${pageContext.request.contextPath}/resources/js/httpRequest.js"></script>
 <script type="text/javascript">
 	
+
+	
 	function del(b_idx) {
 		
 		let url = "board_delete.do";
@@ -61,7 +63,7 @@
 			<c:if test="${boardData.filename!=null}">
 			<div class="download">
 				<span>첨부파일</span>
-				<a href="#">
+				<a href="board_download.do?filename=${boardData.filename}&b_idx=${boardData.b_idx}">
 				<img src="${pageContext.request.contextPath}/resources/img/saveImg.png"
 				style="width: 10px;">
 				${boardData.filename}</a>

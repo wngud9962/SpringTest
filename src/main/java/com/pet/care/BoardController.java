@@ -1,7 +1,13 @@
 package com.pet.care;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -111,7 +117,7 @@ public class BoardController {
 
 		String filename = null;
 
-		String webPath = "/resources/boardImg";
+		String webPath = "/resources/boardUpload";
 		String savePath = request.getServletContext().getRealPath(webPath);
 
 		if (file != null && !file.isEmpty()) {
@@ -188,6 +194,66 @@ public class BoardController {
 		}
 
 		return VIEW_PATH + "board_view.jsp";
+	}
+	
+	
+	@RequestMapping("board_download.do")
+	public String boardDownload(String filename,String b_idx) {
+		
+		String resultView = "redirect:board_main.do";
+		
+		int idx = 0;
+		
+		if(filename==null || filename.isBlank()) {
+			return resultView;
+		}
+		
+		if(b_idx==null) {
+			return resultView;
+		}
+		
+		b_idx = b_idx.trim();
+		
+		if(b_idx.isBlank() || !Pattern.matches(check, b_idx)) {
+			return resultView;
+		}
+		
+		idx = Integer.parseInt(b_idx);
+		
+		String webPath = "/resources/boardUpload/";
+		String readPath = request.getServletContext().getRealPath(webPath);
+		readPath += filename;
+		
+		System.out.println(readPath);
+		
+		File file = new File(readPath);
+		
+		String downloadPath = "C:\\Users\\admin";
+		BufferedInputStream in = null;
+		BufferedOutputStream out = null;
+		try {
+			in = new BufferedInputStream(new FileInputStream(file));
+			out = new BufferedOutputStream(new FileOutputStream(new File(downloadPath)));
+			int read = 0;
+			while ((read=in.read())!=-1) {
+				out.write(read);
+			}
+			if(in != null) {
+				in.close();
+			}
+			
+			if(out != null) {
+				out.close();
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+			
+		resultView = "redirect:board_view.do?idx="+idx;
+		
+		
+		return resultView;
 	}
 
 	// 게시글 삭제
