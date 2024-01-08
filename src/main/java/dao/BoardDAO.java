@@ -42,4 +42,9 @@ public class BoardDAO {
 		return sqlSession.selectOne("b.selectOne", b_idx);
 	}
 	
+	//게시글 삭제
+	public int boardDelete(int b_idx) {
+		return sqlSession.delete("b.boardDelete", b_idx);
+	}
+	
 }

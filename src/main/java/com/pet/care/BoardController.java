@@ -182,10 +182,13 @@ public class BoardController {
 	@ResponseBody
 	public String boardDelete(String b_idx) {
 		
+		int res = 0;
+		
 		// 숫자만 허용하는 정규식
 		String check = "^[\\d]*$";
 		
-		String result = "[{'param':'no'}]";
+		String result = "[{'res':'no'}]";
+		
 		if(b_idx == null) {
 			return result;
 		}
@@ -196,9 +199,18 @@ public class BoardController {
 			return result;
 		}
 		
+		
+		int deleteBoardIdx = boardDAO.selectOne(Integer.parseInt(b_idx)).getU_idx();
 		UserVO loginUserData = (UserVO) request.getSession().getAttribute("id");
 		
-		return null;
+		if(loginUserData.getU_idx() == deleteBoardIdx) {
+			res = boardDAO.boardDelete(Integer.parseInt(b_idx));
+		}
+		
+		if(res > 0) {
+			result = "[{'res':'yes'}]";
+		}
+		return result;
 	}
 
 }

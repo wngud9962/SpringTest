@@ -67,4 +67,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT b.*,u.U_NICKNAME FROM BOARD b LEFT JOIN USERINFO u
 		ON b.U_IDX = u.U_IDX WHERE B_IDX = #{b_idx}
 	</select>
+
+	<delete id="boardDelete" parameterType="int">
+		DELETE FROM BOARD WHERE B_IDX = #{b_idx}
+	</delete>
 </mapper>

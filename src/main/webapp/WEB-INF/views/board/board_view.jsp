@@ -9,8 +9,33 @@
 <link
 	href="${pageContext.request.contextPath}/resources/css/board/board_view.css"
 	rel="stylesheet">
+<script
+	src="${pageContext.request.contextPath}/resources/js/httpRequest.js"></script>
 <script type="text/javascript">
+	function del(b_idx) {
+		
+		let url = "board_delete.do";
+		let param = "b_idx="+b_idx;
+		let method = "POST";
+		
+		sendRequest(url, param, delAfter, method);
+	}
+	function delAfter() {
+		if(xhr.readyState == 4 && xhr.status == 200){
+			let data = xhr.responseText;
+			let JSON = eval(data);
+		
+			if(JSON[0].res == 'no'){
+				alert("게시물 삭제에 실패하였습니다.");
+				return;
+			}
+			if(JSON[0].res == 'yes'){
+				alert("게시물이 삭제되었습니다.");
+				location.href = 'board_main.do';
+			}
 	
+		}
+	}
 </script>
 </head>
 <body>
@@ -53,7 +78,8 @@
 		<!-- 버튼 영역 시작 -->
 		<div class="actionButton">
 			<input class="actionButtons" type="button" value="수정"> <input
-				class="actionButtons" type="button" value="삭제">
+				class="actionButtons" type="button" value="삭제"
+				onclick="del(${boardData.b_idx})">
 		</div>
 		<!-- 버튼 영역 끝 -->
 
