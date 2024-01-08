@@ -52,6 +52,21 @@ a {
 	color: white;
 	padding: 10px 20px;
 }
+.actionButton{
+	margin-top: 5px;
+	text-align: right;
+}
+.actionButtons{
+	border-radius: 5px;
+	background-Color: orange;
+	font-weight: bold;
+	color: white;	
+}
+
+.actionButtons:hover{
+	background-color: red;
+}
+
 
 .inputBtn:hover {
 	background: tomato;
@@ -187,15 +202,73 @@ tr.listData tr:last-child {
 	margin: 10px 0;
 }
 
-.board_content table tr {
-	border: 2px solid orange;
-	border-radius: 10px;
+#board_data {
+	width: 1000px;
+	margin: 10px auto;
 }
-.board_content table tr th{
-	border-right: 2px solid orange;
+
+div.titleData {
+	margin-top : 10px;
+	border-top: 2px solid orange;
+	border-bottom: 2px solid orange;
 }
-.board_content table {
-	border-radius: 10px;
-	border-style: hidden;
-	box-shadow: 0 0 0 2px orange;
+
+.title {
+	margin-top : 5px;
+	margin-bottom: 5px;
+	padding-left: 10px;
+}
+
+.nickname {
+	font-size: 10px;
+}
+
+.nickAndDateAndReadHit {
+	justify-content: space-between;
+	margin-bottom: 5px;
+}
+.nickAndDate {
+	padding-left: 10px;
+}
+.date {
+	font-size: 8px;
+}
+
+.readHit {
+	font-size: 13px;
+	padding-right: 10px;
+}
+.content {
+	margin-top : 10px;
+	padding-left : 20px;
+	min-height : 200px;
+	border-bottom: 2px solid orange;
+}
+
+.dflex {
+	display: flex;
+}
+
+.comment {
+	margin: 10px auto;
+	font-size: 13px;
+}
+.commentDatas {
+		border-top: 2px solid orange;
+		
+}
+.commentData{
+	justify-content: space-between;
+}
+
+.commentNickName{
+	width: 150px;
+}
+
+.commentText{
+	flex: 1 0 auto;
+}
+.commentRegdate{
+	width: 150px;
+	text-align: right;
 }

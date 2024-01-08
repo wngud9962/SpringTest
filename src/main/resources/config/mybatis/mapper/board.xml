@@ -5,19 +5,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="b">
 	<!-- 공지글 전체 조회 -->
 	<select id="noticeSelectList" resultType="vo.BoardVO">
-		SELECT B1.*,RANK() OVER(ORDER BY B1.B_IDX DESC) AS
+		SELECT B1.*,RANK()
+		OVER(ORDER BY B1.B_IDX DESC) AS
 		"RANK"
-		FROM (SELECT * FROM (SELECT B.*, U.U_NICKNAME FROM BOARD B LEFT
+		FROM (SELECT * FROM (SELECT B.*,
+		U.U_NICKNAME FROM BOARD B LEFT
 		JOIN
-		USERINFO U ON B.U_IDX = U.U_IDX) WHERE POINT = 0)B1
+		USERINFO U ON B.U_IDX = U.U_IDX)
+		WHERE POINT = 0)B1
 	</select>
 
-	<!--  일반글 조회 -->
-	<select id="nomalSelectList" resultType="vo.BoardVO" parameterType="HashMap">
+	<!-- 일반글 조회 -->
+	<select id="nomalSelectList" resultType="vo.BoardVO"
+		parameterType="HashMap">
 		SELECT B2.*
-		FROM (SELECT B1.*,RANK() OVER(ORDER BY B1.B_IDX DESC) AS "RANK" FROM
-		(SELECT * FROM (SELECT B.*, U.U_NICKNAME FROM BOARD B LEFT JOIN
-		USERINFO U ON B.U_IDX = U.U_IDX) WHERE POINT = 1)B1) B2
+		FROM (SELECT B1.*,RANK() OVER(ORDER BY
+		B1.B_IDX DESC) AS "RANK" FROM
+		(SELECT * FROM (SELECT B.*, U.U_NICKNAME
+		FROM BOARD B LEFT JOIN
+		USERINFO U ON B.U_IDX = U.U_IDX) WHERE POINT =
+		1)B1) B2
 		WHERE "RANK" BETWEEN #{minData} AND #{maxData}
 	</select>
 
@@ -34,7 +41,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		0,
 		0)
 	</insert>
-	
+
 	<!-- 파일 등록 없이 게시글 등록 -->
 	<insert id="noFileBoardInsert" parameterType="vo.BoardVO">
 		INSERT INTO BOARD
@@ -48,13 +55,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		0,
 		0)
 	</insert>
-	
+
 	<!-- 일반게시물 전체 개수 조회 -->
 	<select id="totalPagingCount" resultType="int">
-		SELECT COUNT(*) FROM BOARD WHERE POINT = 1
+		SELECT COUNT(*) FROM
+		BOARD WHERE POINT = 1
 	</select>
-	
-	<select id="selectOne" parameterType="int" resultType="vo.BoardVO">
-		SELECT * FROM BOARD WHERE B_IDX = #{b_idx}
+
+	<select id="selectOne" parameterType="int"
+		resultType="vo.BoardVO">
+		SELECT b.*,u.U_NICKNAME FROM BOARD b LEFT JOIN USERINFO u
+		ON b.U_IDX = u.U_IDX WHERE B_IDX = #{b_idx}
 	</select>
 </mapper>
