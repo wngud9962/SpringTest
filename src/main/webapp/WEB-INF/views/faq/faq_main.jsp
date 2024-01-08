@@ -108,22 +108,22 @@
 	
 		<hr>
 		<div id="test">
-			<c:forEach var="faq" items="${list }">
+			<c:forEach var="faq" items="${list}">
 				<div class="listBox" onclick="location.href='faq_view.do'">
 					
 					
-					<a href="faq_view.do?f_idx=${faq.f_idx }">
+					<a href="faq_view.do?f_idx=${faq.f_idx}">
 						<div class="table">
 							<span class="th">번호</span>
 							<span class="align">${faq.f_idx }</span>
 						</div>
 						<div class="table">
 							<span class="th">제목</span>
-							<span class="align">${faq.f_title }</span>
+							<span class="align">${faq.f_title}</span>
 						</div>
 						<div class="table">
 							<span class="th">일자</span>
-							<span class="align">${faq.f_regdate }</span>
+							<span class="align">${faq.f_regdate}</span>
 						</div> 
 							<c:if test="${faq.f_filename!='no_file'}">
 						<div class="table">

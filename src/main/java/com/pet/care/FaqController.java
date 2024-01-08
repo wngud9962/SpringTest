@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -55,7 +56,8 @@ public class FaqController {
 
 	// 게시물 한건 조회 (상세보기)
 	@RequestMapping("faq_view.do")
-	public String faq_view(Model model, int f_idx) {
+	public String faq_view(Model model, @RequestParam("f_idx") int f_idx) {
+	
 		FaqVO faqVO = faq_dao.selectOne(f_idx);
 
 		model.addAttribute("faqVO", faqVO);
@@ -65,14 +67,11 @@ public class FaqController {
 	// 게시글 삭제하기
 	@RequestMapping("faq_del.do")
 	@ResponseBody
-	// view의 var url=faq_del.do의 DB를 갔다오기 위한 경유지
-	// 그 화면을 유지하기 위해서 사용
 	public String faq_del(int f_idx) {
 		int result = faq_dao.faq_del(f_idx);
 
 		if (result == 1) {
 			return "[{'result':'yes'}]";
-			// return "redirect:faq_view.do?u_idx="+u_idx; 차이점?
 		} else {
 			return "[{'result':'no'}]";
 		}
@@ -119,7 +118,7 @@ public class FaqController {
 			try {
 				file.transferTo(saveFile);
 			} catch (Exception e) {
-				System.out.println("파일저장 안된거같어");
+				System.out.println("파일저장 실패추정");
 			}
 		}
 
@@ -166,7 +165,7 @@ public class FaqController {
 			try {
 				file.transferTo(saveFile);
 			} catch (Exception e) {
-				System.out.println("파일저장 안된거같어");
+				System.out.println("파일저장 실패추정");
 			}
 		}
 
