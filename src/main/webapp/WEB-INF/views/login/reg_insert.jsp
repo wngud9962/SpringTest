@@ -159,11 +159,11 @@
             var url = "nNameCheck.do";
             var param = "u_nickName=" + encodeURIComponent(u_nickName);
 
-            sendRequest(url, param, resultFn2, "POST");
+            sendRequest(url, param, after_NnameCheck, "POST");
         }
 
         // 콜백
-        function resultFn2() {
+        function after_NnameCheck() {
             if (xhr.readyState === 4 && xhr.status === 200) {
 
                 var data = xhr.responseText;
@@ -177,7 +177,7 @@
                     b_NnameCheck = true;
                 }
             }
-        } // ResultFn2()
+        } // after_NnameCheck()
 
         // 아이디 중복체크
         function idCheck() {
@@ -200,11 +200,11 @@
             var url = "idCheck.do";
             var param = "u_email=" + encodeURIComponent(u_email);
 
-            sendRequest(url, param, resultFn, "POST");
+            sendRequest(url, param, after_idCheck, "POST");
         } // idCheck()
 
         // 콜백
-        function resultFn() {
+        function after_idCheck() {
             if (xhr.readyState === 4 && xhr.status === 200) {
 
                 var data = xhr.responseText;
@@ -217,7 +217,7 @@
                     b_idCheck = true;
                 }
             }
-        } // resultFn()
+        } // after_idCheck()
 
         // 전화번호 중복체크
         function telCheck() {
@@ -241,11 +241,11 @@
             var url = "telCheck.do";
             var param = "u_tel=" + encodeURIComponent(u_tel);
 
-            sendRequest(url, param, resultFn3, "POST");
+            sendRequest(url, param, after_telCheck, "POST");
         }
 
         // 콜백
-        function resultFn3() {
+        function after_telCheck() {
             if (xhr.readyState === 4 && xhr.status === 200) {
 
                 var data = xhr.responseText;
@@ -258,7 +258,7 @@
                     b_telCheck = true;
                 }
             }
-        } // resultFn()
+        } // after_telCheck()
 
         // 중복체크용
         function changed_id() {
@@ -276,31 +276,26 @@
         } // changed_tel()
 
         function execDaumPostcode() {
-        new daum.Postcode({
-            oncomplete: function(data) {
-                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-
-                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-                var addr = ''; // 주소 변수
-                var extraAddr = ''; // 참고항목 변수
-
-                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-                    addr = data.roadAddress;
-                } else { // 사용자가 지번 주소를 선택했을 경우(J)
-                    addr = data.jibunAddress;
-                }
-
-
-                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                document.getElementById("address").value = addr;
-            }
-        }).open();
-    }
-        
-        
-        
+	        new daum.Postcode({
+	            oncomplete: function(data) {
+	                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+	
+	                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+	                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+	                var addr = ''; // 주소 변수
+	                var extraAddr = ''; // 참고항목 변수
+	
+	                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+	                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+	                    addr = data.roadAddress;
+	                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+	                    addr = data.jibunAddress;
+	                }	
+	                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+	                document.getElementById("address").value = addr;
+	            }
+	        }).open();
+	    }
     </script>
 </head>
 <body class="body" style="background-repeat: no-repeat; background-size:100%; background-color:#E7D7B2;">
@@ -320,9 +315,11 @@
                     <input type="text" id="u_Nname" name="u_nickName" placeholder="NickName" onchange="changed_nickname()"> 
                     <input type="button"  class="checkbtn" id="check_nName" value="중복확인" onclick="nNameCheck(this.form)">
                 </div>
-
-                <h3>Name</h3>
-                <input type="text" name="u_name" placeholder="Name">
+										
+                <div class="id_input">
+	                <h3>Name</h3>
+	                <input type="text" name="u_name" placeholder="Name">
+                </div>
 
                 <div class="id_input">
                     <h3>Email</h3>

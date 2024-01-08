@@ -103,4 +103,9 @@ body{
     cursor: pointer;
 }  
 
-
+#update_btn{
+	color: #171717; /* 버튼 글자색 */
+    font-size: 16px;
+    background-color: #A582CF; /* 버튼 배경색 */
+    margin-top: 20px;
+    }

@@ -91,4 +91,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		DELETE FROM USERINFO WHERE U_IDX = #{u_idx}
 	</delete>
 	
+	<update id="update_userinfo" parameterType="vo.UserVO">
+		update USERINFO
+		set u_nickname=#{u_nickName},
+		u_name=#{u_name},
+		u_email=#{u_email},
+		u_pwd=#{u_pwd},
+		u_tel=#{u_tel},
+		u_addr=#{u_addr}
+		where
+		u_idx=#{u_idx}
+	</update>
+	
 </mapper>

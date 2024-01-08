@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -64,8 +65,6 @@ public class LoginController {
 	@RequestMapping("logout.do")
 	public String logout() {
 		session.removeAttribute("id");
-		session.removeAttribute("u_email");
-		session.removeAttribute("u_pwd");
 		
 		return "redirect:main_home.do";
 	} 
@@ -159,9 +158,6 @@ public class LoginController {
 			return "[{'res':'no'}]";
 		} 
 		
-		session.setAttribute("u_email", vo.getU_email());
-		
-		System.out.println(vo.getU_email());
 		return "[{'res':'yes'}]";
 		
 	}
@@ -205,7 +201,8 @@ public class LoginController {
 	
 	///////////////////////////
 	
-	// 내정보 조회
+	// 내정보 조회 (폼으로 이동)
+	// 수정필요
 	@RequestMapping("updateInfo.do")
 	public String updateInfo() {
 		
@@ -215,13 +212,28 @@ public class LoginController {
 		/* session.removeAttribute("id"); */
 		
 		vo = user_dao.select_info(u_idx);
-		
 		session.setAttribute("id", vo);
 		
-		System.out.println(vo.getU_nickName());
 		
 		return VIEW_PATH + "updateInfo.jsp";
 	}
+	
+	//내 정보 갱신 반영
+	@PostMapping("update_userinfo")
+	public String update_userinfo(UserVO uservo){
+		UserVO base_user = (UserVO) session.getAttribute("id");
+		if(base_user==null) {
+			return "WEB-INF/views/login/login_main.jsp";
+		}
+		
+		uservo.setU_idx(base_user.getU_idx());
+		
+		int res = user_dao.update_userinfo(uservo);
+		
+		return "redirect:main_home.do";
+	}
+	
+	
 	
 	// 정보 수정을 위한 비번 확인페이지로
 	@RequestMapping("check_up.do")

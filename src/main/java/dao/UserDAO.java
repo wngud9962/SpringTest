@@ -88,4 +88,9 @@ public class UserDAO {
 	public int deleteUser(String u_idx) {
 		return sqlSession.delete("u.delete", u_idx);
 	}
+	
+	//유저 정보 변경
+	public int update_userinfo(UserVO uvo) {
+		return sqlSession.update("u.update_userinfo",uvo);
+	}
 }
