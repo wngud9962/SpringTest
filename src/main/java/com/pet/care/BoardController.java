@@ -228,7 +228,7 @@ public class BoardController {
 		
 		File file = new File(readPath);
 		
-		String downloadPath = "C:\\Users\\admin";
+		String downloadPath = "D:\\sms\\download";
 		BufferedInputStream in = null;
 		BufferedOutputStream out = null;
 		try {
