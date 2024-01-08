@@ -12,6 +12,7 @@
 <script
 	src="${pageContext.request.contextPath}/resources/js/httpRequest.js"></script>
 <script type="text/javascript">
+	
 	function del(b_idx) {
 		
 		let url = "board_delete.do";
@@ -57,6 +58,9 @@
 			<div class="title">
 				<span>${boardData.title}</span>
 			</div>
+			<div class="download">
+				<span>첨부파일</span>
+			</div>
 			<div class="nickAndDateAndReadHit dflex">
 				<div class="nickAndDate">
 					<span class="nickname">${boardData.u_nickname}</span> <span
@@ -66,9 +70,7 @@
 					<span>조회</span> ${boardData.select}
 				</div>
 			</div>
-			<div class="download">
-				<span>첨부파일</span>
-			</div>
+
 		</div>
 		<div class="content">
 			<span>${boardData.content}</span>
@@ -76,10 +78,12 @@
 		<!-- 게시글 영역 끝 -->
 
 		<!-- 버튼 영역 시작 -->
-		<div class="actionButton">
-			<input class="actionButtons" type="button" value="수정"> <input
-				class="actionButtons" type="button" value="삭제"
-				onclick="del(${boardData.b_idx})">
+		<div class="actionButton dflex" style="justify-content: space-between;">
+			<input class="actionButtons" type="button" value="목록" onclick="location.href='board_main.do'">
+			<div>
+			<input class="actionButtons" type="button" value="수정" onclick="location.href='board_update.do?b_idx=${boardData.b_idx}'">
+			 <input class="actionButtons" type="button" value="삭제" onclick="del(${boardData.b_idx})">
+				</div>
 		</div>
 		<!-- 버튼 영역 끝 -->
 
