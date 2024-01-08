@@ -44,15 +44,21 @@
 				alert('가입 내역이 존재하지 않습니다. 입력한정보가 맞는지 확인해 주세요');
 				return;
 			} else {
-				 alert('비번 찾음?');
-
-				location.href="find_pwd2.do";
+				console.log(json[0].res);
+				let show_tag = document.getElementById('pw_show_input');
+				
+				let pwd_h_tag = document.getElementById('pwd_h');
+				pwd_h_tag.style.display='block';
+				
+				
+				show_tag.type='text';
+				show_tag.value=json[0].res;
+				show_tag.readOnly=true;
+				
+				alert('비밀번호 찾기 성공');
 			}
-			
 		}
-			
 	}
-	
 </script>
 </head>
 <body class="body"  style="	background-repeat: no-repeat;
@@ -69,8 +75,12 @@
 		<div class="find_wrapper"> <!-- 값 받기 -->
 			<h2>Forget Your Password?</h2>
 			<form id="find_form">
+				<h3>Name</h3>
 				<input type="text" name="u_name" placeholder="Name">
-				<input type="text" name="u_email" placeholder="Email">
+				<h3>Email</h3>
+				<input type="text" name="u_email" placeholder="Email">				
+				<h3 id="pwd_h" style="display:none">Password</h3>
+				<input type="hidden" id="pw_show_input">
 				<input type="button" class="checkbtn" value="Find!!" onclick="send(this.form)">
 			</form>
 		</div>

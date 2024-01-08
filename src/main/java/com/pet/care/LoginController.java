@@ -194,12 +194,7 @@ public class LoginController {
 		if(vo == null) { // 비밀번호 X
 			return "[{'res':'no'}]";
 		}
-		
-		model.addAttribute("u_pwd", vo.getU_pwd());
-		
-		System.out.println(vo.getU_pwd()); // 확인용
-		return "[{'res':'yes'}]";
-		
+		return "[{'res':'"+vo.getU_pwd()+"'}]";		
 	}
 	
 	// 비밀번호 확인창

@@ -21,18 +21,14 @@
         	
         	var passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/;
         	if(!passwordRegex.test($password)){
-        		console.log('정규식에안맞음');
         		b_passwordCheck=false;
         		return;
         	}
         	
         	if($password === $passwordCheck){
         		b_passwordCheck=true;
-        		console.log(b_passwordCheck);
         	}else{
         		b_passwordCheck=false;
-        		console.log($password);
-        		console.log($passwordCheck);
         	}
         }
 
