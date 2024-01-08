@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import vo.BoardVO;
 
+
 public class BoardDAO {
 
 	@Autowired

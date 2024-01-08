@@ -4,11 +4,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import dao.BoardDAO;
-import dao.PetDAO;
 import dao.FaqDAO;
+import dao.PetDAO;
 import dao.RevDAO;
 import dao.ReviewDAO;
 import dao.UserDAO;
+
 
 @Configuration
 public class Context_3_dao {

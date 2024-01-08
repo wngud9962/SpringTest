@@ -13,6 +13,11 @@
 	src="${pageContext.request.contextPath}/resources/js/httpRequest.js"></script>
 <script type="text/javascript">
 
+windows.onload = function(){
+	
+	 document.getElementById('fileInput').removeAttribute('disabled');
+	
+}
 </script>
 </head>
 <body>
@@ -43,7 +48,7 @@
 
 		<div class="download">
 			<span>첨부파일</span>
-			<input type="file" value="${updateData.filename}">
+			<input type="file" value="${updateData.filename}" id="fileInput">
 		</div>
 		<!-- 게시글 영역 끝 -->
 

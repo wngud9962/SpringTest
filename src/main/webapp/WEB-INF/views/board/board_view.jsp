@@ -58,9 +58,15 @@
 			<div class="title">
 				<span>${boardData.title}</span>
 			</div>
+			<c:if test="${boardData.filename!=null}">
 			<div class="download">
 				<span>첨부파일</span>
+				<a href="#">
+				<img src="${pageContext.request.contextPath}/resources/img/saveImg.png"
+				style="width: 10px;">
+				${boardData.filename}</a>
 			</div>
+			</c:if>
 			<div class="nickAndDateAndReadHit dflex">
 				<div class="nickAndDate">
 					<span class="nickname">${boardData.u_nickname}</span> <span

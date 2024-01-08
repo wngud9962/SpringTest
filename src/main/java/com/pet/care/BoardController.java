@@ -178,6 +178,9 @@ public class BoardController {
 		boardData.setRegdate(boardData.getRegdate().split(" ")[0]);
 		model.addAttribute("boardData", boardData);
 
+		
+		
+		
 		// 조회수 증가
 		if (request.getSession().getAttribute("id") != null) {
 			boardDAO.boardUpReadHit(b_idx);
@@ -242,6 +245,7 @@ public class BoardController {
 
 			resultView = VIEW_PATH + "board_update.jsp";
 
+			
 			model.addAttribute("updateData", updateData);
 
 			return resultView;
