@@ -47,4 +47,9 @@ public class BoardDAO {
 		return sqlSession.delete("b.boardDelete", b_idx);
 	}
 	
+	//조회수 증가
+	public int boardUpReadHit(int b_idx) {
+		return sqlSession.update("b.boardUpReadHit", b_idx);
+	}
+	
 }
