@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -153,27 +154,51 @@ public class BoardController {
 		if (idx == null) {
 			return "redirect:board_main.do";
 		}
-		
+
 		idx = idx.trim();
-		
-		if(idx.isBlank() || !Pattern.matches(check, idx)) {
+
+		if (idx.isBlank() || !Pattern.matches(check, idx)) {
 			return "redirect:board_main.do";
 		}
-		
+
 		int b_idx = Integer.parseInt(idx);
-		
+
 		BoardVO boardData = boardDAO.selectOne(b_idx);
-		
-		if(boardData == null) {
+
+		if (boardData == null) {
 			return "redirect:board_main.do";
 		}
-		
-		boardData.setContent(boardData.getContent().replaceAll("\n", "<br>")); 
-		
+
+		boardData.setContent(boardData.getContent().replaceAll("\n", "<br>"));
+
 		boardData.setRegdate(boardData.getRegdate().split(" ")[0]);
 		model.addAttribute("boardData", boardData);
-		
+
 		return VIEW_PATH + "board_view.jsp";
+	}
+
+	//게시글 삭제
+	@RequestMapping("board_delete.do")
+	@ResponseBody
+	public String boardDelete(String b_idx) {
+		
+		// 숫자만 허용하는 정규식
+		String check = "^[\\d]*$";
+		
+		String result = "[{'param':'no'}]";
+		if(b_idx == null) {
+			return result;
+		}
+		
+		b_idx = b_idx.trim();
+		
+		if(b_idx.isBlank() || !Pattern.matches(check, b_idx)) {
+			return result;
+		}
+		
+		UserVO loginUserData = (UserVO) request.getSession().getAttribute("id");
+		
+		return null;
 	}
 
 }

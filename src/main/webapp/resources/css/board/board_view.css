@@ -238,6 +238,10 @@ div.titleData {
 	font-size: 13px;
 	padding-right: 10px;
 }
+.download {
+	text-align: right;
+	font-size: 13px;
+}
 .content {
 	margin-top : 10px;
 	padding-left : 20px;

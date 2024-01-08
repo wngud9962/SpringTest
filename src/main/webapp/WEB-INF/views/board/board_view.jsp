@@ -41,22 +41,25 @@
 					<span>조회</span> ${boardData.select}
 				</div>
 			</div>
+			<div class="download">
+				<span>첨부파일</span>
+			</div>
 		</div>
 		<div class="content">
 			<span>${boardData.content}</span>
 		</div>
-			<!-- 게시글 영역 끝 -->
-			
-			<!-- 버튼 영역 시작 -->
+		<!-- 게시글 영역 끝 -->
+
+		<!-- 버튼 영역 시작 -->
 		<div class="actionButton">
 			<input class="actionButtons" type="button" value="수정"> <input
 				class="actionButtons" type="button" value="삭제">
 		</div>
-			<!-- 버튼 영역 끝 -->
-			
-				<!-- 댓글 영역 -->
-	<div class="comment">
-	<span>댓글</span>
+		<!-- 버튼 영역 끝 -->
+
+		<!-- 댓글 영역 -->
+		<div class="comment">
+			<span>댓글</span>
 			<div class="commentDatas">
 				<div class="commentData dflex">
 					<div class="commentNickName">
@@ -71,7 +74,7 @@
 				</div>
 			</div>
 		</div>
-			
+
 	</div>
 
 
