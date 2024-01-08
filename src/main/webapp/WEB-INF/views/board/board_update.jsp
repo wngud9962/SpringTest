@@ -43,6 +43,7 @@
 
 		<div class="download">
 			<span>첨부파일</span>
+			<input type="file" value="${updateData.filename}">
 		</div>
 		<!-- 게시글 영역 끝 -->
 
@@ -55,7 +56,7 @@
 				<input class="actionButtons" type="button" value="수정"
 					onclick="location.href='board_update.do?b_idx=${boardData.b_idx}'">
 				<input class="actionButtons" type="button" value="취소"
-					onclick="del(${boardData.b_idx})">
+					onclick="location.href='board_view.do?idx=${updateData.b_idx}'">
 			</div>
 		</div>
 		<!-- 버튼 영역 끝 -->

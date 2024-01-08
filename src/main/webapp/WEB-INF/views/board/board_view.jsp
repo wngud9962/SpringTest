@@ -81,8 +81,10 @@
 		<div class="actionButton dflex" style="justify-content: space-between;">
 			<input class="actionButtons" type="button" value="목록" onclick="location.href='board_main.do'">
 			<div>
+			<c:if test="${id!=null && id.u_idx == boardData.u_idx}">
 			<input class="actionButtons" type="button" value="수정" onclick="location.href='board_update.do?b_idx=${boardData.b_idx}'">
 			 <input class="actionButtons" type="button" value="삭제" onclick="del(${boardData.b_idx})">
+			 </c:if>
 				</div>
 		</div>
 		<!-- 버튼 영역 끝 -->
