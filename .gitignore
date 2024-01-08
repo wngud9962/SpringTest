@@ -1,2 +1,5 @@
 ## 학원에서 192.168.4.20일때 ##
 Context_1_dataSource.java
+
+*.class
+pom.properties
