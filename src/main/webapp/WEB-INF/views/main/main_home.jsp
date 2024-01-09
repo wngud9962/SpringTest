@@ -175,63 +175,10 @@
         </div>
         
         <div class="line"></div>
-      
-	<div class="footer">
-        <div>멍이 냥이 동물병원</div>
-        <div id="info">
-          CEO. 김가나다 <br>
-          Addr. 인천광역시 부평구 시장로 7 MH타워 5층 <br>
-          Fax/Tel. 032-262-5890 <br>
-          ⓒ2023.hospital name All rights reserved.
-        </div>
-        <div class="sns">
-			<a href="https://www.instagram.com/projecttest0103?igshid=NGVhN2U2NjQ0Yg%3D%3D&utm_source=qr">
-				<img src="resources/img/insta.jpg" width="100px" height="100px">
-			</a>
-		</div>
-      </div>
+	
+	<jsp:include page="/WEB-INF/views/template/footerTemplate.jsp"/>   
+
     </div>
-	
-
-
-<!-- 	<!-- 자동롤링배너 
-			<div class="wrap"> 배너표시영역
-		        <div class="rolling-list"> 원본배너
-		            <ul>
-		                <li>
-		                    <div class="image-wrap"><img src="https://images.unsplash.com/photo-1471922694854-ff1b63b20054?ixlib=rb-4.0.3&ixid=M3wxM jA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200" alt=""></div>
-		                </li>
-		                <li>
-		                    <div class="image-wrap"><img src="https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200" alt=""></div>
-		                </li>
-		                <li>
-		                    <div class="image-wrap"><img src="https://images.unsplash.com/photo-1501493870936-9c2e41625521?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200" alt=""></div>
-		                </li>
-		                <li>
-		                    <div class="image-wrap"><img src="https://images.unsplash.com/photo-1611832197549-ff910be125dd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200" alt=""></div>
-		                </li>
-		            </ul>
-		        </div>
-		    </div>
-	
-	
-	 <script type="text/javascript">
-        // 롤링 배너 복제본 생성
-        let roller = document.querySelector('.rolling-list');
-        roller.id = 'roller1'; // 아이디 부여
- 
-        let clone = roller.cloneNode(true)
-        // cloneNode : 노드 복제. 기본값은 false. 자식 노드까지 복제를 원하면 true 사용
-        clone.id = 'roller2';
-        document.querySelector('.wrap').appendChild(clone); // wrap 하위 자식으로 부착
- 
-        document.querySelector('#roller1').style.left = '0px';
-        document.querySelector('#roller2').style.left = document.querySelector('.rolling-list ul').offsetWidth + 'px';
-        // offsetWidth : 요소의 크기 확인(margin을 제외한 padding값, border값까지 계산한 값)
- 
-        roller.classList.add('original');
-        clone.classList.add('clone');
-    </script> -->
     
     <script type="text/javascript">
 	    var currentSlide = 0;
