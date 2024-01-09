@@ -99,8 +99,9 @@ public class FaqController {
 
 		MultipartFile uploadfile = vo.getF_file();
 		
-		String filename = Uploadmodule.fileupload(webPath,uploadfile,request);
+		String filename = "no_file";
 		
+		filename = Uploadmodule.fileupload(webPath,filename,uploadfile,request);		
 
 		vo.setF_filename(filename);
 
@@ -128,27 +129,9 @@ public class FaqController {
 		MultipartFile file = faqVO.getF_file();
 
 		String filename = faqVO.getF_filename();
-
-		// file
-		if (!file.isEmpty() && (file != null)) {
-			filename = file.getOriginalFilename();
-
-			File saveFile = new File(savePath, filename);
-			if (!saveFile.exists()) {
-				saveFile.mkdirs();
-			} else {
-				long time = System.currentTimeMillis();
-				filename = String.format("%d_%s", time, filename);
-				saveFile = new File(savePath, filename);
-			}
-
-			try {
-				file.transferTo(saveFile);
-			} catch (Exception e) {
-				System.out.println("파일저장 실패추정");
-			}
-		}
-
+		
+		filename= Uploadmodule.fileupload(webPath, filename, file, request);
+		
 		faqVO.setF_filename(filename);
 
 		int res = faq_dao.faq_update(faqVO);

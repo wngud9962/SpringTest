@@ -7,13 +7,12 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.multipart.MultipartFile;
 
 public class Uploadmodule {
-	public static String fileupload(String webPath,MultipartFile file,HttpServletRequest request) {
+	public static String fileupload(String webPath,String originfilename,MultipartFile file,HttpServletRequest request) {
 		
 //		String webPath = "/resources/upload/faq";
 		String savePath = request.getServletContext().getRealPath(webPath);
 		System.out.println(savePath);
-
-		String filename = "no_file";
+		String filename = originfilename;
 		
 //		MultipartFile file = vo.getF_file();
 
