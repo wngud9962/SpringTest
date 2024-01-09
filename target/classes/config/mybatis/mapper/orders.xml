@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="o">
+	<select id="selectOrdersByIdx" resultType="vo.OrdersVO" parameterType="int">
+		select * from orders 
+		where u_idx = #{u_idx}
+	</select>
+</mapper>

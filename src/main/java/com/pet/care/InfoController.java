@@ -6,12 +6,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class InfoController {
 	
-	public final static String VIEW_PATH = "/WEB-INF/views/info/";
-	
+	public final static String VIEW_PATH = "/WEB-INF/views/info/";	
 	
 	@RequestMapping("info_main.do")
 	public String info_main() {
 		return VIEW_PATH + "info_main.jsp";
-	}
-	
+	}	
 }

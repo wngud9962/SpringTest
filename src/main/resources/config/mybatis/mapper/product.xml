@@ -18,5 +18,5 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		INSERT INTO TEST_PM.PRODUCT_IMAGE
 		(PI_IDX, P_IDX, PI_IMAGENAME, PI_TYPE)
 		VALUES(seq_product_image.nextval, #{p_idx}, #{pi_imagename}, #{pi_type})
-	</insert>
+	</insert>	
 </mapper>
