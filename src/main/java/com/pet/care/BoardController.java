@@ -320,5 +320,28 @@ public class BoardController {
 
 		return resultView;
 	}
+	
+	@RequestMapping("board_updateProcess.do")
+	public RedirectView boardUpdateProcess(BoardVO updateData) {
+		
+		String filename = null;
+		
+		filename = updateData.getFile().getOriginalFilename();
+		
+		if(filename.isBlank()) {
+			boardDAO.noFileBoardUpdate(updateData);
+		}
+		
+		if(!filename.isBlank()) {	
+			String wepPath = "/resources/boardUpload";
+			String realPath = request.getServletContext().getRealPath(wepPath);
+			
+			boardDAO.boardUpdate(updateData);
+		}
+		
+	
+		return new RedirectView("board_main.do");
+	}
+	
 
 }

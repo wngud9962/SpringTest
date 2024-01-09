@@ -53,4 +53,14 @@ public class BoardDAO {
 		return sqlSession.update("b.boardUpReadHit", b_idx);
 	}
 	
+	//파일 등록 후 게시글 수정
+	public int boardUpdate(BoardVO updateData) {
+		return sqlSession.update("b.boardUpdate", updateData);
+	}
+	
+	//파일 등록 없이 게시글 수정
+	public int noFileBoardUpdate(BoardVO updateData) {
+		return sqlSession.update("b.noFileBoardUpdate", updateData);
+	}
+	
 }
