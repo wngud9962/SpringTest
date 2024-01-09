@@ -1,8 +1,11 @@
 package dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import vo.OrdersVO;
 import vo.ProductImageVO;
 import vo.ProductVO;
 
@@ -21,5 +24,9 @@ public class ProductDAO {
 	
 	public int insert_product_image(ProductImageVO productImageVO) {
 		return sqlSession.insert("product.insert_product_image",productImageVO);
+	}
+	
+	public List<OrdersVO> selectAllProduct(){
+		return sqlSession.selectList("product.selectAllProduct");
 	}
 }

@@ -19,4 +19,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		(PI_IDX, P_IDX, PI_IMAGENAME, PI_TYPE)
 		VALUES(seq_product_image.nextval, #{p_idx}, #{pi_imagename}, #{pi_type})
 	</insert>	
+	
+	<select id="selectAllProduct" resultType="vo.ProductVO">
+		SELECT * FROM PRODUCTVIEW
+	</select>
 </mapper>
