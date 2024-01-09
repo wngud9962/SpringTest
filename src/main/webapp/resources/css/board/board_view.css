@@ -263,6 +263,20 @@ div.titleData {
 }
 .commentData{
 	justify-content: space-between;
+	padding : 10px;
+	margin-top: 10px;
+	height : 100px;
+	border-radius : 10px;
+	border-style : solid;
+	border-width : 2px;
+	border-color : orange;
+	background-color: rgba(255,127,0,0.2);
+}
+
+.commentData:hover{
+	border-width : 3px;
+	border-color: red;
+	
 }
 
 .commentNickName{
@@ -274,5 +288,41 @@ div.titleData {
 }
 .commentRegdate{
 	width: 150px;
+	text-align: right;
+}
+.myCommentArea{
+	width : 860px;
+	height : 100px;
+	margin : 10px;
+	resize: none;
+	border-radius: 10px;
+	padding : 10px;
+	border-style: dashed;
+	border-width: 3px;
+}
+
+.myCommentArea:focus{
+	outline: none;
+}
+
+.commentButton{
+	background-color: orange;
+	width: 100px;
+	height: 100px;
+	margin: 10px;
+	border-radius: 10px;
+	font-weight: bold;
+	color: white;
+}
+
+.commentRegdate{
+	display: inline-block;
+	height: 60px;
+}
+
+.commentButton:hover {
+	background-color: red;
+}
+.commentAfter{
 	text-align: right;
 }
