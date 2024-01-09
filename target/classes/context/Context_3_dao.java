@@ -4,8 +4,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import dao.BoardDAO;
+import dao.CartDAO;
 import dao.FaqDAO;
+import dao.OrderDetailDAO;
+import dao.OrdersDAO;
 import dao.PetDAO;
+import dao.ProductImageDAO;
 import dao.RevDAO;
 import dao.ReviewDAO;
 import dao.UserDAO;
@@ -43,5 +47,24 @@ public class Context_3_dao {
 	public BoardDAO boardDAO() {
 		return new BoardDAO();
 	}
-
+	
+	@Bean
+	public CartDAO cartDAO() {
+		return new CartDAO();
+	}
+	
+	@Bean
+	public OrderDetailDAO orderDetailDAO() {
+		return new OrderDetailDAO();
+	}
+	
+	@Bean
+	public OrdersDAO ordersDAO() {
+		return new OrdersDAO();
+	}
+	
+	@Bean
+	public ProductImageDAO productImageDAO() {
+		return new ProductImageDAO();
+	}
 }

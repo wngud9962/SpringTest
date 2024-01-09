@@ -14,6 +14,7 @@ import com.pet.care.MainController;
 import com.pet.care.PetController;
 import com.pet.care.RevController;
 import com.pet.care.ReviewController;
+import com.pet.care.ShopController;
 
 //어노테이션에도 상속관계가 있다
 /*
@@ -78,5 +79,10 @@ public class Servlet_Context implements WebMvcConfigurer {
 	@Bean
 	public BoardController boardController() {
 		return new BoardController();
+	}
+	
+	@Bean
+	public ShopController shopController() {
+		return new ShopController();
 	}
 }
