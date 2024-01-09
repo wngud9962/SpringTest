@@ -75,4 +75,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="boardUpReadHit">
 		UPDATE BOARD SET "SELECT" = "SELECT" +1 WHERE B_IDX = #{b_idx}
 	</update>
+	
+	<!--업로드 파일 등록 후 게시글 수정 -->
+	<update id="boardUpdate" parameterType="vo.BoardVO">
+		UPDATE BOARD SET TITLE = #{title}, CONTENT = #{content}, FILENAME = ${filename} WHERE B_IDX = #{b_idx}
+	</update>
+	
+	<!--업로드 없이 게시글 수정 -->
+	<update id="noFileBoardUpdate" parameterType="vo.BoardVO">
+		UPDATE BOARD SET TITLE = #{title}, CONTENT = #{content}, FILENAME = null WHERE B_IDX = #{b_idx}
+	</update>
 </mapper>

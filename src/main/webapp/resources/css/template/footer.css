@@ -1,7 +1,6 @@
 @charset "UTF-8";
 
 .footer{
-  display: flex;
   background: #1f1f1f;
   padding:30px;
   border-radius: 10px;
