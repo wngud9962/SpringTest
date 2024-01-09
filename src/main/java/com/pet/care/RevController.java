@@ -43,8 +43,6 @@ public class RevController {
 		int month = cal.get(Calendar.MONTH) + 1;
 		int date = cal.get(Calendar.DATE);
 		
-//		String toDay = year+"-"+month+"-"+date;
-//		String today = String.format("%04d-%02d-%02dT00:00", year, month, date);
 		String today = String.format("%04d-%02d-%02d", year, month, date);
 		
 		model.addAttribute("today", today);

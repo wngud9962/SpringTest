@@ -28,7 +28,6 @@ public class TimeSet {
 		
 		for(int i = starttime; i < endtime; i++) {
 			time.add((i)+":00");
-			System.out.println("추가됨"+time.toString());
 		} // for문
 		
 		time.removeAll(list);

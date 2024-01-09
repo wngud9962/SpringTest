@@ -14,12 +14,10 @@ public class RevDAO {
 	// 예약리스트
 	public List<RevVO> rev_selectList(int u_idx) {
 		return sqlSession.selectList("r.rev_list", u_idx);
-
 	}
 
 	public List<String> rev_selectList2(String rv_day) {
 		return sqlSession.selectList("r.rev_list2", rv_day);
-
 	}
 
 	// 예약 등록하기
