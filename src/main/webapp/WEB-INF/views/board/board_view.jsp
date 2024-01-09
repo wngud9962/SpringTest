@@ -101,15 +101,25 @@
 		<div class="comment">
 			<span>댓글</span>
 			<div class="commentDatas">
-				<div class="commentData dflex">
-					<div class="commentNickName">
-						<span>노지학</span>
+			<div class="myComment dflex">
+			<textarea class="myCommentArea"></textarea>
+			<input class="commentButton" type="button" value="댓글 쓰기">
+			</div>
+				<div class="commentData">
+					<div class="dflex">
+						<div class="commentNickName">
+							<span>노지학</span>
+						</div>
+						<div class="commentText">
+							<span>자살각</span>
+						</div>
+						<div class="commentRegdate">
+							<span>24.01.08 07:32:25</span>
+						</div>
 					</div>
-					<div class="commentText">
-						<span>자살각</span>
-					</div>
-					<div class="commentRegdate">
-						<span>24.01.08 07:32:25</span>
+					<div class="commentAfter">
+					<input class="actionButtons" type="button" value="수정">
+					<input class="actionButtons" type="button" value="답글">
 					</div>
 				</div>
 			</div>
