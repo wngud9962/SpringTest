@@ -25,6 +25,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import dao.BoardDAO;
 import dao.UserDAO;
 import util.Common;
+import util.Uploadmodule;
 import vo.BoardVO;
 import vo.UserVO;
 
@@ -333,8 +334,12 @@ public class BoardController {
 		}
 		
 		if(!filename.isBlank()) {	
-			String wepPath = "/resources/boardUpload";
-			String realPath = request.getServletContext().getRealPath(wepPath);
+			String webPath = "/resources/boardUpload";
+			String realPath = request.getServletContext().getRealPath(webPath);
+			
+			filename = Uploadmodule.fileupload(webPath,filename,updateData.getFile(),request);
+			
+			updateData.setFilename(filename);
 			
 			boardDAO.boardUpdate(updateData);
 		}
