@@ -9,6 +9,7 @@ import dao.FaqDAO;
 import dao.OrderDetailDAO;
 import dao.OrdersDAO;
 import dao.PetDAO;
+import dao.ProductDAO;
 import dao.ProductImageDAO;
 import dao.RevDAO;
 import dao.ReviewDAO;
@@ -66,5 +67,10 @@ public class Context_3_dao {
 	@Bean
 	public ProductImageDAO productImageDAO() {
 		return new ProductImageDAO();
+	}
+	
+	@Bean
+	public ProductDAO productDAO() {
+		return new ProductDAO();
 	}
 }

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import dao.FaqDAO;
+import util.Uploadmodule;
 import vo.FaqVO;
 import vo.UserVO;
 
@@ -95,32 +96,11 @@ public class FaqController {
 		vo.setU_idx(u_idx);
 
 		String webPath = "/resources/upload/faq";
-		String savePath = request.getServletContext().getRealPath(webPath);
-		System.out.println(savePath);
 
-		MultipartFile file = vo.getF_file();
-
-		String filename = "no_file";
-
-		// file
-		if (!file.isEmpty() && (file != null)) {
-			filename = file.getOriginalFilename();
-
-			File saveFile = new File(savePath, filename);
-			if (!saveFile.exists()) {
-				saveFile.mkdirs();
-			} else {
-				long time = System.currentTimeMillis();
-				filename = String.format("%d_%s", time, filename);
-				saveFile = new File(savePath, filename);
-			}
-
-			try {
-				file.transferTo(saveFile);
-			} catch (Exception e) {
-				System.out.println("파일저장 실패추정");
-			}
-		}
+		MultipartFile uploadfile = vo.getF_file();
+		
+		String filename = Uploadmodule.fileupload(webPath,uploadfile,request);
+		
 
 		vo.setF_filename(filename);
 
