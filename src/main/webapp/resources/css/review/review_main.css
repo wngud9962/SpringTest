@@ -132,25 +132,6 @@ a:visited {
 	font-weight: bold;
 }
 
-.footer{
-  display: flex;
-  background: #1f1f1f;
-  padding:30px;
-  border-radius: 10px;
-}
-.footer > div:first-child {
-  flex:3;
-  text-align: center;
-  color: #fff;
-}
-.footer #info {
-  flex:9;
-  color: #fff;
-}
-.footer .sns{
-	float: right;
-	
-}
 
 /* 수정 버튼 */
 

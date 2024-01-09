@@ -90,34 +90,10 @@
 			background-color:#E7D7B2;">
 					
 	<div class="wrapper">
-		<div class="intro-bg">
-		<div class="header">
-			<div class="logo">
-					<a href="main_home.do" id="logoa"><img src="resources/img/titleLogo.jpg" width="130px" height="130px"></a>
-		        </div>
-			<div class="title">
-		        	<ul class="nav">
-			            <li><a href="info_main.do">병원소개</a></li>
-			            <li><a href="review_main.do">리뷰</a></li>
-			            <li><a href="qna_main.do">QNA</a></li>
-			            <li><a href="rev_main.do">예약</a></li>
-			          	<c:choose>
-							<c:when test="${empty id}">
-								<li><a href="login_main.do">펫 등록</a></li>
-								<li><a href="login_main.do">정보수정</a></li>
-								<li><a href="login_main.do">로그인</a></li>
-							</c:when>
-							<c:when test="${not empty id}">
-								<li><a href="petinfo_main.do">펫 등록</a></li>
-								<li><a href="check_up.do">정보수정</a></li>
-								<li><a href="logout.do">로그아웃</a></li>
-							</c:when>
-						</c:choose>
-					</ul>
-				</div>
-			</div>
-		</div>
+	
+	<jsp:include page="/WEB-INF/views/template/headerTemplate.jsp"/>
 	</div>
+	
 				
 	
 	
@@ -167,20 +143,8 @@
 			</tr>
 		</table>
 	</form>
-	
-	<div class="footer">
-        <div>멍이 냥이 동물병원</div>
-        <div id="info">
-          CEO. 김가나다 <br>
-          Addr. 인천광역시 부평구 시장로 7 MH타워 5층 <br>
-          Fax/Tel. 032-262-5890 <br>
-          ⓒ2023.hospital name All rights reserved.
-        </div>
-        <div class="sns">
-			<a href="https://www.instagram.com">
-				<img src="resources/img/insta.jpg" width="100px" height="100px">
-			</a>
-		</div>
-      </div>
+
+	<jsp:include page="/WEB-INF/views/template/footerTemplate.jsp"/>
+
 </body>
 </html>

@@ -155,20 +155,8 @@ function go_pet(){
 	
 	<div class="line"></div>
       
-	<div class="footer">
-        <div>멍이 냥이 동물병원</div>
-        <div id="info">
-          CEO. 김가나다 <br>
-          Addr. 인천광역시 부평구 시장로 7 MH타워 5층 <br>
-          Fax/Tel. 032-262-5890 <br>
-          ⓒ2023.hospital name All rights reserved.
-        </div>
-        <div class="sns">
-			<a href="https://www.instagram.com">
-				<img src="resources/img/insta.jpg" width="100px" height="100px">
-			</a>
-		</div>
-      </div>
+	<jsp:include page="/WEB-INF/views/template/footerTemplate.jsp"/> 
+	
     </div>
 </body>
 </html>
