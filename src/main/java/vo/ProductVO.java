@@ -11,6 +11,6 @@ import lombok.ToString;
 @ToString
 public class ProductVO {
 	private int p_idx,u_idx,p_stockcount,p_discount;
-	private String[] p_name;
+	private String p_name;
 	private MultipartFile[] files;
 }

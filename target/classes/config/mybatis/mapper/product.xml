@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="p">
+<mapper namespace="product">
 	
-	<select id="getp_idx" resultType="int">
+	<select id="getP_idx" resultType="int">
 		select seq_product.currval from dual
 	</select>
 
@@ -12,5 +12,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		INSERT INTO TEST_PM.PRODUCT
 		(P_IDX, U_IDX, P_NAME, P_STOCKCOUNT, P_DISCOUNT)
 		VALUES(seq_product.nextval, #{u_idx}, #{p_name}, #{p_stockcount}, #{p_discount})
+	</insert>
+	
+	<insert id="insert_product_image" parameterType="vo.ProductImageVO">
+		INSERT INTO TEST_PM.PRODUCT_IMAGE
+		(PI_IDX, P_IDX, PI_IMAGENAME, PI_TYPE)
+		VALUES(seq_product_image.nextval, #{p_idx}, #{pi_imagename}, #{pi_type})
 	</insert>
 </mapper>

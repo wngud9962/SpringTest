@@ -1,5 +1,6 @@
 package com.pet.care;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,9 +8,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.multipart.MultipartFile;
 
 import dao.ProductDAO;
+import util.Uploadmodule;
+import vo.ProductImageVO;
 import vo.ProductVO;
 import vo.UserVO;
 
@@ -18,6 +20,9 @@ public class ShopController {
 	
 	@Autowired
 	ProductDAO product_dao;
+	
+	@Autowired
+	HttpServletRequest request;
 	
 	@Autowired
 	HttpSession session;
@@ -40,21 +45,42 @@ public class ShopController {
 	
 	@PostMapping("product_insert")
 	public String product_insert(ProductVO productVO) {
-		System.out.println(productVO);
+		
 		UserVO user_base = (UserVO) session.getAttribute("id");
 		productVO.setU_idx(user_base.getU_idx());
+		System.out.println(productVO);
 		int res = product_dao.insert_product(productVO);
-		if(res>0) {
-			int p_idx = product_dao.getP_idx();
-			//성공 product에 값이 잘 들어갔다면
-			//순회하며 productimage insert를 해줄차례
-			for(MultipartFile file : productVO.getFiles()) {
-				
+		if(res==0) {
+			System.out.println("상품 정보db에 넣는중 에러 발생");
+			return null;
+		}
+		
+		int p_idx = product_dao.getP_idx();
+		//성공 product에 값이 잘 들어갔다면
+		//순회하며 productimage insert를 해줄차례
+		for(int i=0;i<productVO.getFiles().length;i++) {
+			ProductImageVO productImageVO = new ProductImageVO();
+			productImageVO.setP_idx(p_idx);
+			productImageVO.setFile(productVO.getFiles()[i]);
+			
+			if(i==0) {
+				productImageVO.setPi_type(0);
+			}else {
+				productImageVO.setPi_type(1);
 			}
 			
-		}else {
+			String webPath ="/resources/upload/product";
+			String filename = productImageVO.getFile().getOriginalFilename();
+			filename = Uploadmodule.fileupload(webPath,filename,productImageVO.getFile(),request);
+			productImageVO.setPi_imagename(filename);
 			
+			res = product_dao.insert_product_image(productImageVO);
+			
+			if(res==0) {
+				System.out.println("세부이미지정보 db에 insert중 error발생");
+			}
 		}
+		
 		return "redirect:insert_product_form";
 	}
 	
