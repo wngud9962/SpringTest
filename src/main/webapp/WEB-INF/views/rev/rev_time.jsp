@@ -47,32 +47,31 @@
 		
 		<div class="txt1">
 			<h2>예약하실 <br> 시간을 선택해주세요</h2>
-		<form>
-			<input type="hidden" value="${rv_day}" name="rv_day">
-			<div class="timearea">
-				<input type="text" name="rv_time" id="rv_time" readonly>
-				<c:choose>
-					<c:when test="${empty time}">
-						예약이 모두 끝났습니다 ㅠ
-						<input type="button" value="완료" onclick="window.close()">
-					</c:when>
-					<c:when test="${not empty time}">
-						<div class="btnarea">
-						<ul class="btl">
-							<c:forEach var="time" items="${time}">
-								<li class="li"><input type="button" id="${time}" value="${time}" onClick="time('${time}')"
-									style="cursor:pointer;"></li>
-							</c:forEach>
-						</ul>
-						</div>
-						<div class="next2">
-							<input type="button" value="다음" onclick="go(this.form)"
-								   style="cursor: pointer;">
-						</div>
-					</c:when>
-				</c:choose>
-			</div>
-		</form>
+			<form>
+				<input type="hidden" value="${rv_day}" name="rv_day">
+				<div class="timearea">
+					<input type="text" name="rv_time" id="rv_time" readonly>
+					<c:choose>
+						<c:when test="${empty time}">
+							해당 날짜는 예약이 모두 끝났습니다
+							<input type="button" value="완료" onclick="window.close()">
+						</c:when>
+						<c:when test="${not empty time}">
+							<div class="btnarea">
+							<ul class="btl">
+								<c:forEach var="time" items="${time}">
+									<li class="li"><input type="button" id="${time}" value="${time}" onClick="time('${time}')"
+										style="cursor:pointer;"></li>
+								</c:forEach>
+							</ul>
+							</div>
+							<div class="next2">
+								<input type="button" value="다음" onclick="go(this.form)" style="cursor: pointer;">
+							</div>
+						</c:when>
+					</c:choose>
+				</div>
+			</form>
 		</div>
 	</div>	
 </body>

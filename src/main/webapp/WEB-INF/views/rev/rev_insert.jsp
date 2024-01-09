@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>예약하기</title>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/rev/rev_pop.css">
 <script type="text/javascript">
@@ -12,14 +12,12 @@
 		var userId = f.userId.value;
 		var rv_day = f.rv_day.value;
 		
-		
 		if(rv_day == ''){
 			alert('날짜를 선택해 주세요.');
 			return;
 		}
 		
-		console.log(rv_day);
-		
+		console.log(rv_day);		
 		
 		f.action = "rev_time.do";
 		f.submit();
@@ -37,14 +35,13 @@
 
 			<form>
 				<input type="hidden" name="userId" id="userId" value="${successLoginUser}">
-			<div class="date">
-				<label for="rev_date">예약 날짜 고르기</label><br>
-		        <input type="date" min="${today}" name="rv_day" id="rev_Date">
-	        </div>
-	        <div class="next">
-	        	<input type="button" value="다음" onclick="next(this.form)"
-	        	       style="cursor:pointer;">
-	        </div>
+				<div class="date">
+					<label for="rev_date">예약 날짜 고르기</label><br>
+			        <input type="date" min="${today}" name="rv_day" id="rev_Date">
+		        </div>
+		        <div class="next">
+		        	<input type="button" value="다음" onclick="next(this.form)" style="cursor:pointer;">
+		        </div>
 			</form>
 		</div>
 	</div>

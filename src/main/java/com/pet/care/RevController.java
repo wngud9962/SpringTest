@@ -43,20 +43,22 @@ public class RevController {
 		int month = cal.get(Calendar.MONTH) + 1;
 		int date = cal.get(Calendar.DATE);
 		
-		String toDay = year+"-"+month+"-"+date;
+//		String toDay = year+"-"+month+"-"+date;
+//		String today = String.format("%04d-%02d-%02dT00:00", year, month, date);
+		String today = String.format("%04d-%02d-%02d", year, month, date);
 		
-		model.addAttribute("today", toDay);
+		model.addAttribute("today", today);
 		
 		return VIEW_PATH + "rev_insert.jsp";
 	}
 	
 	// 예약 시간 설정
 	@RequestMapping("rev_time.do")
-	public String rev_time(Model model, String rv_day , String userId) {
-
+	public String rev_time(Model model, String rv_day , String userId) {		
+		
 		List<String> list = rev_dao.rev_selectList2(rv_day);
 
-		model.addAttribute("time", TimeSet.timeSet(list));
+		model.addAttribute("time", TimeSet.timeSet(list,rv_day));
 		model.addAttribute("rv_day", rv_day);
 		
 		return VIEW_PATH + "rev_time.jsp";
