@@ -331,6 +331,7 @@ div.titleData {
 	height: 100px;
 	margin: 10px 0px;
 	margin-left: 10px;
+	display: none;
 }
 .commentInCommentArea::before {
 	content: 'ㄴ';

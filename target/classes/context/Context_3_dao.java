@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 
 import dao.BoardDAO;
 import dao.CartDAO;
+import dao.CommentDAO;
 import dao.FaqDAO;
 import dao.OrderDetailDAO;
 import dao.OrdersDAO;
@@ -72,5 +73,10 @@ public class Context_3_dao {
 	@Bean
 	public ProductDAO productDAO() {
 		return new ProductDAO();
+	}
+	
+	@Bean
+	public CommentDAO commentDAO() {
+		return new CommentDAO();
 	}
 }

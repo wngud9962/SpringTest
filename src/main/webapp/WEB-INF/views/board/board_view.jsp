@@ -39,10 +39,29 @@
 	
 		}
 	}
+	
+	function commentSend(f) {
+		let commentArea = f.content.value.trim();
+		
+		if(commentArea == ''){
+			alert('댓글 내용이 비워져 있습니다.');
+			return;
+		}
+		
+		f.method = "POST";
+		f.action = "commentInsert.do";
+		f.submit();
+		
+		
+	}
 
 	function commentInput(){
 		let displayOnTag = document.getElementsByClassName('commentInCommentArea');
-		displayOnTag[0].style.display = 'block';
+		if(displayOnTag[0].style.display == 'none'){
+		displayOnTag[0].style.display = 'flex';			
+		} else{
+			displayOnTag[0].style.display = 'none';	
+		}
 	}
 
 </script>
@@ -109,10 +128,13 @@
 			<span>댓글</span>
 			<div class="commentDatas">
 			<c:if test="${id!=null}">
+			<form>
 			<div class="myComment dflex">
-			<textarea class="myCommentArea" placeholder="댓글 입력"></textarea>
-			<input class="commentButton" type="button" value="댓글 쓰기">
+			<input type="hidden" name = "b_idx" value="${boardData.b_idx}">
+			<textarea name="content"class="myCommentArea" placeholder="댓글 입력"></textarea>
+			<input class="commentButton" type="button" value="댓글 쓰기" onclick="commentSend(this.form)" >
 			</div>
+			</form>
 			</c:if>
 				<div class="commentData">
 					<div class="dflex">
@@ -132,7 +154,7 @@
 					<input class="actionButtons" type="button" value="답글" onclick="commentInput()">
 					</div>
 					</c:if>
-					<div class="commentInCommentArea dflex">
+					<div class="commentInCommentArea" style="display: none;">
 					 <div class = "commentInComment">
 					 <textarea placeholder="답글 입력"></textarea>
 					 </div>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="c">
+
+	<!-- step 조회 -->
+	<select id="maxStepSelect" parameterType="int" resultType="String">
+		SELECT STEP FROM(SELECT c.*,RANK() OVER(ORDER BY c.STEP DESC) AS "RANK" FROM
+		"COMMENT" c WHERE REF = #{b_idx}) WHERE "RANK" = 1
+	</select>
+
+	<!-- 댓글 등록 -->
+	<insert id="commentInsert" parameterType="vo.CommentVO">
+		INSERT INTO "COMMENT" VALUES(SEQ_COMMENT.NEXTVAL,#{u_idx},#{content},#{ref},#{step},#{depth},SYSDATE)
+	</insert>
+</mapper>
