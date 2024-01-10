@@ -397,13 +397,15 @@ div.titleData {
 	min-height : 100px;
 	background-color: rgba(255, 127, 0, 0.2);
 	margin-top : 10px;
-	margin-bottom : 10px;
 	margin-left : 10px;
 	border-style: solid;
 	border-width: 2px;
 	border-color: orange;
 	border-radius: 10px;
 	padding: 10px;
+}
+.commentAndCommentData:hover {
+	border-color: red;
 }
 
 

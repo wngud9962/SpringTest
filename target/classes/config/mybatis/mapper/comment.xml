@@ -21,8 +21,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 댓글 조회 -->
 	<select id="commentSelectList" parameterType="int"
 		resultType="vo.CommentVO">
-		SELECT C_IDX,U_IDX,CONTENT,"REF",STEP,"DEPTH",REGDATE FROM (SELECT
-		c.*,RANK() OVER(ORDER BY c.STEP ASC,c."DEPTH" ASC) AS "RANK" FROM
-		"COMMENT" c WHERE "REF" = #{b_idx}) ORDER BY "RANK" ASC
+		SELECT * FROM (SELECT
+		c.*,RANK() OVER(ORDER BY c.STEP
+		ASC,c."DEPTH" ASC) AS "RANK" FROM
+		"COMMENT" c WHERE "REF" = #{b_idx})
+		ORDER BY "RANK" ASC
 	</select>
+
+	<!-- depth 최대값 조회 -->
+	<select id="selectMaxDepth" parameterType="vo.CommentVO"
+		resultType="int">
+		SELECT "DEPTH" FROM (SELECT c.*,RANK() OVER(ORDER BY
+		c."DEPTH" DESC) AS
+		"RANK" FROM "COMMENT" c WHERE "REF" = #{ref} AND
+		STEP = #{step}) WHERE
+		"RANK" = 1
+	</select>
+
+	<!-- 대댓글 등록 -->
+	<insert id="commentInCommentInsert" parameterType="vo.CommentVO">
+		INSERT INTO "COMMENT"
+		VALUES(SEQ_COMMENT.NEXTVAL,#{u_idx},#{content},#{ref},#{step},#{depth},SYSDATE)
+	</insert>
 </mapper>

@@ -55,13 +55,26 @@
 		
 	}
 
-	function commentInput(){
-		let displayOnTag = document.getElementsByClassName('commentInCommentArea');
-		if(displayOnTag[0].style.display == 'none'){
-		displayOnTag[0].style.display = 'flex';			
+	function commentInput(rank){
+		let displayOnTag = document.getElementsByClassName('hiddenArea');
+		if(displayOnTag[rank-1].style.display == 'none'){
+		displayOnTag[rank-1].style.display = 'flex';			
 		} else{
-			displayOnTag[0].style.display = 'none';	
+			displayOnTag[rank-1].style.display = 'none';	
 		}
+	}
+	
+	function commentInCommentSend(f){
+		let content = f.commentContent.value.trim();
+		
+		if(content == ''){
+			alert('답글 내용이 비워져 있습니다.');
+			return;
+		}
+		
+		f.method = 'POST';
+		f.action = 'commentInCommentInsert.do';
+		f.submit();
 	}
 
 </script>
@@ -148,45 +161,12 @@
 
 				<c:if test="${commentData[0] != null}">
 					<c:forEach items="${commentData}" var="commentData">
-						<c:choose>
+						<form>
+							<c:choose>
 
-							<c:when test="${commentData.depth == 0}">
-								<div class="commentData">
-									<div class="dflex">
-										<div class="commentNickName">
-											<span>${commentData.u_idx}</span>
-										</div>
-										<div class="commentText">
-											<span>${commentData.content}</span>
-										</div>
-										<div class="commentRegdate">
-											<span>${commentData.regdate}</span>
-										</div>
-									</div>
-									<c:if test="${id!=null}">
-										<div class="commentAfter">
-											<input class="actionButtons" type="button" value="수정">
-											<input class="actionButtons" type="button" value="답글"
-												onclick="commentInput()">
-										</div>
-									</c:if>
-									<div class="commentInCommentArea" style="display: none;">
-										<div class="commentInComment">
-											<textarea placeholder="답글 입력"></textarea>
-										</div>
-										<div class="commentInCommentButtons">
-											<input class="commentInCommentButton" type="button"
-												value="답글 쓰기">
-										</div>
-									</div>
-								</div>
-							</c:when>
-
-							<c:otherwise>
-								<div class="commentAndCommentDatas">
-								<div class="left"></div>
-									<div class="right">
-										<div class="commentAndCommentData">
+								<c:when test="${commentData.depth == 0}">
+									<div class="commentData">
+										<div class="dflex">
 											<div class="commentNickName">
 												<span>${commentData.u_idx}</span>
 											</div>
@@ -197,13 +177,51 @@
 												<span>${commentData.regdate}</span>
 											</div>
 										</div>
+										<c:if test="${id!=null}">
+											<div class="commentAfter">
+												<input class="actionButtons" type="button" value="수정">
+												<input class="actionButtons" type="button" value="답글"
+													onclick="commentInput(${commentData.rank})">
+											</div>
+										</c:if>
+										<div class="commentInCommentArea hiddenArea"
+											style="display: none;">
+											<input type="hidden" name="commentRef" value="${commentData.ref}">
+											<input type="hidden" name="commentStep" value="${commentData.step}">
+											<div class="commentInComment">
+												<textarea placeholder="답글 입력" name="commentContent"></textarea>
+											</div>
+											<div class="commentInCommentButtons">
+												<input class="commentInCommentButton" type="button"
+													value="답글 쓰기" onclick="commentInCommentSend(this.form)">
+											</div>
+										</div>
 									</div>
-								</div>
-							</c:otherwise>
+								</c:when>
+
+								<c:otherwise>
+									<div class="commentAndCommentDatas hiddenArea">
+										<div class="left"></div>
+										<div class="right">
+											<div class="commentAndCommentData">
+												<div class="commentNickName">
+													<span>${commentData.u_idx}</span>
+												</div>
+												<div class="commentText">
+													<span>${commentData.content}</span>
+												</div>
+												<div class="commentRegdate">
+													<span>${commentData.regdate}</span>
+												</div>
+											</div>
+										</div>
+									</div>
+								</c:otherwise>
 
 
-						</c:choose>
+							</c:choose>
 
+						</form>
 					</c:forEach>
 				</c:if>
 

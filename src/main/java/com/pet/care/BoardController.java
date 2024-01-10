@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
@@ -37,7 +38,7 @@ public class BoardController {
 
 	@Autowired
 	UserDAO userDAO;
-	
+
 	@Autowired
 	CommentDAO commentDAO;
 
@@ -193,55 +194,52 @@ public class BoardController {
 			boardDAO.boardUpReadHit(b_idx);
 			boardData.setSelect(boardData.getSelect() + 1);
 		}
-		
-		
-		//댓글관련
+
+		// 댓글관련
 		List<CommentVO> commentData = commentDAO.commentSelectList(b_idx);
-		
-		
-		//댓글 불필요한 날짜 데이터 자르기 작업
-		for(CommentVO data : commentData) {
-			data.setRegdate(data.getRegdate().substring(0, data.getRegdate().length()-2));
+
+		// 댓글 불필요한 날짜 데이터 자르기 작업
+		for (CommentVO data : commentData) {
+			data.setRegdate(data.getRegdate().substring(0, data.getRegdate().length() - 2));
 		}
-		
-		//댓글 데이터 바운딩 및 포워딩
+
+		// 댓글 데이터 바운딩 및 포워딩
 		model.addAttribute("commentData", commentData);
-		
+
 		return VIEW_PATH + "board_view.jsp";
 	}
-	
-	
+
 	@RequestMapping("board_download.do")
-	public String boardDownload(String filename,String b_idx) {
-		
+	public String boardDownload(String filename, String b_idx) {
+
 		String resultView = "redirect:board_main.do";
-		
+
 		int idx = 0;
-		
-		if(filename==null || filename.isBlank()) {
+
+		if (filename == null || filename.isBlank()) {
 			return resultView;
 		}
-		
-		if(b_idx==null) {
+
+		if (b_idx == null) {
 			return resultView;
 		}
-		
+
 		b_idx = b_idx.trim();
-		
-		if(b_idx.isBlank() || !Pattern.matches(check, b_idx)) {
+
+		if (b_idx.isBlank() || !Pattern.matches(check, b_idx)) {
 			return resultView;
 		}
-		
+
 		idx = Integer.parseInt(b_idx);
-		
+
 		String webPath = "/resources/boardUpload/";
 		String readPath = request.getServletContext().getRealPath(webPath);
 		readPath += filename;
-		
+
 		System.out.println(readPath);
-		
+
 		File file = new File(readPath);
-		
+
 		String downloadPath = "D:\\sms\\download";
 		BufferedInputStream in = null;
 		BufferedOutputStream out = null;
@@ -249,24 +247,23 @@ public class BoardController {
 			in = new BufferedInputStream(new FileInputStream(file));
 			out = new BufferedOutputStream(new FileOutputStream(new File(downloadPath)));
 			int read = 0;
-			while ((read=in.read())!=-1) {
+			while ((read = in.read()) != -1) {
 				out.write(read);
 			}
-			if(in != null) {
+			if (in != null) {
 				in.close();
 			}
-			
-			if(out != null) {
+
+			if (out != null) {
 				out.close();
 			}
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-			
-		resultView = "redirect:board_view.do?idx="+idx;
-		
-		
+
+		resultView = "redirect:board_view.do?idx=" + idx;
+
 		return resultView;
 	}
 
@@ -325,7 +322,6 @@ public class BoardController {
 
 			resultView = VIEW_PATH + "board_update.jsp";
 
-			
 			model.addAttribute("updateData", updateData);
 
 			return resultView;
@@ -334,62 +330,89 @@ public class BoardController {
 
 		return resultView;
 	}
-	
+
 	@RequestMapping("board_updateProcess.do")
 	public RedirectView boardUpdateProcess(BoardVO updateData) {
-		
+
 		String filename = null;
-		
+
 		filename = updateData.getFile().getOriginalFilename();
-		
-		if(filename.isBlank()) {
+
+		if (filename.isBlank()) {
 			boardDAO.noFileBoardUpdate(updateData);
 		}
-		
-		if(!filename.isBlank()) {	
+
+		if (!filename.isBlank()) {
 			String webPath = "/resources/boardUpload";
 			String realPath = request.getServletContext().getRealPath(webPath);
-			
-			filename = Uploadmodule.fileupload(webPath,filename,updateData.getFile(),request);
-			
+
+			filename = Uploadmodule.fileupload(webPath, filename, updateData.getFile(), request);
+
 			updateData.setFilename(filename);
-			
+
 			boardDAO.boardUpdate(updateData);
 		}
-		
-	
+
 		return new RedirectView("board_main.do");
 	}
-	
+
 	@RequestMapping("commentInsert.do")
-	public RedirectView commentInsert(CommentVO commentData,int b_idx) {
-		
-		//현재 게시물의 가장 큰 step을 담는 변수
+	public RedirectView commentInsert(CommentVO commentData, int b_idx) {
+
+		// 현재 게시물의 가장 큰 step을 담는 변수
 		String step = null;
+
+		// 로그인 되어있는지 체크
+		UserVO loginUser = (UserVO) request.getSession().getAttribute("id");
+
+		if (loginUser == null) {
+			return new RedirectView(request.getHeader("referer"));
+		}
+
+		commentData.setU_idx(loginUser.getU_idx());
+		commentData.setRef(b_idx);
+
+		step = commentDAO.commetMaxStepSelect(b_idx);
+
+		if (step == null) {
+			step = "0";
+			commentData.setStep(Integer.parseInt(step));
+		} else {
+			commentData.setStep((Integer.parseInt(step)) + 1);
+		}
+
+		commentDAO.commentInsert(commentData);
+
+		return new RedirectView(request.getHeader("referer"));
+	}
+
+	@RequestMapping("commentInCommentInsert.do")
+	public RedirectView commentInCommentInsert(@RequestParam int commentRef, @RequestParam int commentStep,
+			@RequestParam String commentContent) {
+
+		UserVO loginUser = (UserVO) request.getSession().getAttribute("id");
 		
-		//로그인 되어있는지 체크
-		UserVO loginUser = (UserVO)request.getSession().getAttribute("id");
-		
-		if(loginUser==null) {
-			return new RedirectView(request.getHeader("referer")); 
+		//로그인 유무 체크
+		if(loginUser == null) {
+			return new RedirectView(request.getHeader("referer"));
 		}
 		
-			commentData.setU_idx(loginUser.getU_idx());
-			commentData.setRef(b_idx);
-			
-			step = commentDAO.commetMaxStepSelect(b_idx);
-			
-			if(step == null) {
-				step = "0";
-				commentData.setStep(Integer.parseInt(step));
-			} else {
-				commentData.setStep((Integer.parseInt(step))+1);
-			}
-			
-			commentDAO.commentInsert(commentData);
-			
-		return new RedirectView(request.getHeader("referer")); 
+		CommentVO insertData = new CommentVO();
+
+		insertData.setU_idx(loginUser.getU_idx());
+		insertData.setRef(commentRef);
+		insertData.setStep(commentStep);
+		insertData.setContent(commentContent);
+		
+		//현재 depth 높은 값 가져와야함
+		insertData.setDepth((commentDAO.selectMaxDepth(insertData))+1);
+		
+		System.out.println(insertData);
+
+		
+		commentDAO.commentInCommentInsert(insertData);
+		
+		return new RedirectView(request.getHeader("referer"));
 	}
-	
 
 }

@@ -19,4 +19,7 @@ public class CommentVO {
 	
 	//join
 	private String u_nickname;
+	
+	//가상 변수
+	private int rank;
 }
