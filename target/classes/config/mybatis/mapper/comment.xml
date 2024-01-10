@@ -21,11 +21,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 댓글 조회 -->
 	<select id="commentSelectList" parameterType="int"
 		resultType="vo.CommentVO">
-		SELECT * FROM (SELECT
-		c.*,RANK() OVER(ORDER BY c.STEP
-		ASC,c."DEPTH" ASC) AS "RANK" FROM
-		"COMMENT" c WHERE "REF" = #{b_idx})
-		ORDER BY "RANK" ASC
+		SELECT * FROM (SELECT c.*,u.U_NICKNAME,RANK() OVER(ORDER BY c.STEP
+		ASC,c."DEPTH" ASC) AS "RANK" FROM "COMMENT" c LEFT JOIN USERINFO u ON
+		c.U_IDX = u.U_IDX WHERE "REF" = #{b_idx}) ORDER BY "RANK" ASC
 	</select>
 
 	<!-- depth 최대값 조회 -->
@@ -40,7 +38,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- 대댓글 등록 -->
 	<insert id="commentInCommentInsert" parameterType="vo.CommentVO">
-		INSERT INTO "COMMENT"
+		INSERT INTO
+		"COMMENT"
 		VALUES(SEQ_COMMENT.NEXTVAL,#{u_idx},#{content},#{ref},#{step},#{depth},SYSDATE)
 	</insert>
 </mapper>

@@ -406,6 +406,7 @@ div.titleData {
 }
 .commentAndCommentData:hover {
 	border-color: red;
+	border-width: 3px;
 }
 
 

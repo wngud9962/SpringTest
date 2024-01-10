@@ -345,6 +345,7 @@ public class BoardController {
 		if (!filename.isBlank()) {
 			String webPath = "/resources/boardUpload";
 			String realPath = request.getServletContext().getRealPath(webPath);
+			System.out.println(realPath);
 
 			filename = Uploadmodule.fileupload(webPath, filename, updateData.getFile(), request);
 

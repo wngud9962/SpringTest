@@ -168,7 +168,7 @@
 									<div class="commentData">
 										<div class="dflex">
 											<div class="commentNickName">
-												<span>${commentData.u_idx}</span>
+												<span>${commentData.u_nickname}</span>
 											</div>
 											<div class="commentText">
 												<span>${commentData.content}</span>
@@ -205,7 +205,7 @@
 										<div class="right">
 											<div class="commentAndCommentData">
 												<div class="commentNickName">
-													<span>${commentData.u_idx}</span>
+													<span>${commentData.u_nickname}</span>
 												</div>
 												<div class="commentText">
 													<span>${commentData.content}</span>
