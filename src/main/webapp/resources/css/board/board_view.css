@@ -52,21 +52,22 @@ a {
 	color: white;
 	padding: 10px 20px;
 }
-.actionButton{
+
+.actionButton {
 	margin-top: 5px;
 	text-align: right;
 }
-.actionButtons{
+
+.actionButtons {
 	border-radius: 5px;
 	background-Color: orange;
 	font-weight: bold;
-	color: white;	
+	color: white;
 }
 
-.actionButtons:hover{
+.actionButtons:hover {
 	background-color: red;
 }
-
 
 .inputBtn:hover {
 	background: tomato;
@@ -208,13 +209,13 @@ tr.listData tr:last-child {
 }
 
 div.titleData {
-	margin-top : 10px;
+	margin-top: 10px;
 	border-top: 2px solid orange;
 	border-bottom: 2px solid orange;
 }
 
 .title {
-	margin-top : 5px;
+	margin-top: 5px;
 	margin-bottom: 5px;
 	padding-left: 10px;
 }
@@ -227,9 +228,11 @@ div.titleData {
 	justify-content: space-between;
 	margin-bottom: 5px;
 }
+
 .nickAndDate {
 	padding-left: 10px;
 }
+
 .date {
 	font-size: 8px;
 }
@@ -238,14 +241,16 @@ div.titleData {
 	font-size: 13px;
 	padding-right: 10px;
 }
+
 .download {
 	text-align: right;
 	font-size: 13px;
 }
+
 .content {
-	margin-top : 10px;
-	padding-left : 20px;
-	min-height : 200px;
+	margin-top: 10px;
+	padding-left: 20px;
+	min-height: 200px;
 	border-bottom: 2px solid orange;
 }
 
@@ -257,55 +262,57 @@ div.titleData {
 	margin: 10px auto;
 	font-size: 13px;
 }
+
 .commentDatas {
-		border-top: 2px solid orange;
-		
+	border-top: 2px solid orange;
 }
-.commentData{
+
+.commentData {
 	justify-content: space-between;
-	padding : 10px;
+	padding: 10px;
 	margin-top: 10px;
-	min-height : 100px;
-	border-radius : 10px;
-	border-style : solid;
-	border-width : 2px;
-	border-color : orange;
-	background-color: rgba(255,127,0,0.2);
+	min-height: 100px;
+	border-radius: 10px;
+	border-style: solid;
+	border-width: 2px;
+	border-color: orange;
+	background-color: rgba(255, 127, 0, 0.2);
 }
 
-.commentData:hover{
-	border-width : 3px;
+.commentData:hover {
+	border-width: 3px;
 	border-color: red;
-	
 }
 
-.commentNickName{
+.commentNickName {
 	width: 150px;
 }
 
-.commentText{
+.commentText {
 	flex: 1 0 auto;
 }
-.commentRegdate{
+
+.commentRegdate {
 	width: 150px;
 	text-align: right;
 }
-.myCommentArea{
-	width : 860px;
-	height : 100px;
-	margin : 10px;
+
+.myCommentArea {
+	width: 860px;
+	height: 100px;
+	margin: 10px;
 	resize: none;
 	border-radius: 10px;
-	padding : 10px;
+	padding: 10px;
 	border-style: dashed;
 	border-width: 3px;
 }
 
-.myCommentArea:focus{
+.myCommentArea:focus {
 	outline: none;
 }
 
-.commentButton{
+.commentButton {
 	background-color: orange;
 	width: 100px;
 	height: 100px;
@@ -315,7 +322,7 @@ div.titleData {
 	color: white;
 }
 
-.commentRegdate{
+.commentRegdate {
 	display: inline-block;
 	height: 60px;
 }
@@ -323,9 +330,11 @@ div.titleData {
 .commentButton:hover {
 	background-color: red;
 }
-.commentAfter{
+
+.commentAfter {
 	text-align: right;
 }
+
 .commentInCommentArea {
 	width: 100%;
 	height: 100px;
@@ -333,17 +342,19 @@ div.titleData {
 	margin-left: 10px;
 	display: none;
 }
+
 .commentInCommentArea::before {
 	content: 'ㄴ';
 	color: orange;
 	font-size: 20px;
-	font-weight:900;
+	font-weight: 900;
 }
+
 .commentInComment {
 	width: 800px;
 	margin: auto 10px;
-
 }
+
 .commentInComment>textarea {
 	resize: none;
 	width: 800px;
@@ -353,11 +364,12 @@ div.titleData {
 	border-style: dashed;
 	border-width: 2px;
 }
-.commentInComment>textarea:focus{
+
+.commentInComment>textarea:focus {
 	outline: none;
 }
 
-.commentInCommentButton{
+.commentInCommentButton {
 	background-color: orange;
 	width: 80px;
 	height: 80px;
@@ -365,9 +377,48 @@ div.titleData {
 	font-weight: bold;
 	color: white;
 }
-.commentInCommentButton:hover{
+
+.commentInCommentButton:hover {
 	background-color: red;
 }
-.commentInCommentButtons{
-	margin : auto;
+
+.commentInCommentButtons {
+	margin: auto;
 }
+
+.commentAndCommentDatas {
+	text-align: right;
+	display: flex;
+}
+
+.commentAndCommentData {
+	display: flex;
+	flex : 1 0 auto;
+	min-height : 100px;
+	background-color: rgba(255, 127, 0, 0.2);
+	margin-top : 10px;
+	margin-bottom : 10px;
+	margin-left : 10px;
+	border-style: solid;
+	border-width: 2px;
+	border-color: orange;
+	border-radius: 10px;
+	padding: 10px;
+}
+
+
+.right{
+	display: inline-block;
+	text-align: left;
+	flex: 1 0 auto;
+}
+.left {
+	width: 100px;
+}
+.left:before {
+		content: 'ㄴ';
+	font-size: 20px;
+	font-weight: 900;
+	color: orange;
+}
+	

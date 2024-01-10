@@ -76,7 +76,7 @@
 	</div>
 	<!-- qna_wrapperBox -->
 
-	
+
 
 	<hr>
 
@@ -87,13 +87,14 @@
 				<span>${boardData.title}</span>
 			</div>
 			<c:if test="${boardData.filename!=null}">
-			<div class="download">
-				<span>첨부파일</span>
-				<a href="board_download.do?filename=${boardData.filename}&b_idx=${boardData.b_idx}">
-				<img src="${pageContext.request.contextPath}/resources/img/saveImg.png"
-				style="width: 10px;">
-				${boardData.filename}</a>
-			</div>
+				<div class="download">
+					<span>첨부파일</span> <a
+						href="board_download.do?filename=${boardData.filename}&b_idx=${boardData.b_idx}">
+						<img
+						src="${pageContext.request.contextPath}/resources/img/saveImg.png"
+						style="width: 10px;"> ${boardData.filename}
+					</a>
+				</div>
 			</c:if>
 			<div class="nickAndDateAndReadHit dflex">
 				<div class="nickAndDate">
@@ -112,14 +113,18 @@
 		<!-- 게시글 영역 끝 -->
 
 		<!-- 버튼 영역 시작 -->
-		<div class="actionButton dflex" style="justify-content: space-between;">
-			<input class="actionButtons" type="button" value="목록" onclick="location.href='board_main.do'">
+		<div class="actionButton dflex"
+			style="justify-content: space-between;">
+			<input class="actionButtons" type="button" value="목록"
+				onclick="location.href='board_main.do'">
 			<div>
-			<c:if test="${id!=null && id.u_idx == boardData.u_idx}">
-			<input class="actionButtons" type="button" value="수정" onclick="location.href='board_update.do?b_idx=${boardData.b_idx}'">
-			 <input class="actionButtons" type="button" value="삭제" onclick="del(${boardData.b_idx})">
-			 </c:if>
-				</div>
+				<c:if test="${id!=null && id.u_idx == boardData.u_idx}">
+					<input class="actionButtons" type="button" value="수정"
+						onclick="location.href='board_update.do?b_idx=${boardData.b_idx}'">
+					<input class="actionButtons" type="button" value="삭제"
+						onclick="del(${boardData.b_idx})">
+				</c:if>
+			</div>
 		</div>
 		<!-- 버튼 영역 끝 -->
 
@@ -127,42 +132,83 @@
 		<div class="comment">
 			<span>댓글</span>
 			<div class="commentDatas">
-			<c:if test="${id!=null}">
-			<form>
-			<div class="myComment dflex">
-			<input type="hidden" name = "b_idx" value="${boardData.b_idx}">
-			<textarea name="content"class="myCommentArea" placeholder="댓글 입력"></textarea>
-			<input class="commentButton" type="button" value="댓글 쓰기" onclick="commentSend(this.form)" >
-			</div>
-			</form>
-			</c:if>
-				<div class="commentData">
-					<div class="dflex">
-						<div class="commentNickName">
-							<span>노지학</span>
+				<c:if test="${id!=null}">
+					<form>
+						<div class="myComment dflex">
+							<input type="hidden" name="b_idx" value="${boardData.b_idx}">
+							<textarea name="content" class="myCommentArea"
+								placeholder="댓글 입력"></textarea>
+							<input class="commentButton" type="button" value="댓글 쓰기"
+								onclick="commentSend(this.form)">
 						</div>
-						<div class="commentText">
-							<span>아 프론트하기 겁나 싫다</span>
-						</div>
-						<div class="commentRegdate">
-							<span>24.01.08 07:32:25</span>
-						</div>
-					</div>
-					<c:if test="${id!=null}">
-					<div class="commentAfter">
-					<input class="actionButtons" type="button" value="수정">
-					<input class="actionButtons" type="button" value="답글" onclick="commentInput()">
-					</div>
-					</c:if>
-					<div class="commentInCommentArea" style="display: none;">
-					 <div class = "commentInComment">
-					 <textarea placeholder="답글 입력"></textarea>
-					 </div>
-					 <div class="commentInCommentButtons">
-					 <input class="commentInCommentButton" type="button" value="답글 쓰기">
-					</div>
-					</div>
-				</div>
+					</form>
+				</c:if>
+
+
+
+				<c:if test="${commentData[0] != null}">
+					<c:forEach items="${commentData}" var="commentData">
+						<c:choose>
+
+							<c:when test="${commentData.depth == 0}">
+								<div class="commentData">
+									<div class="dflex">
+										<div class="commentNickName">
+											<span>${commentData.u_idx}</span>
+										</div>
+										<div class="commentText">
+											<span>${commentData.content}</span>
+										</div>
+										<div class="commentRegdate">
+											<span>${commentData.regdate}</span>
+										</div>
+									</div>
+									<c:if test="${id!=null}">
+										<div class="commentAfter">
+											<input class="actionButtons" type="button" value="수정">
+											<input class="actionButtons" type="button" value="답글"
+												onclick="commentInput()">
+										</div>
+									</c:if>
+									<div class="commentInCommentArea" style="display: none;">
+										<div class="commentInComment">
+											<textarea placeholder="답글 입력"></textarea>
+										</div>
+										<div class="commentInCommentButtons">
+											<input class="commentInCommentButton" type="button"
+												value="답글 쓰기">
+										</div>
+									</div>
+								</div>
+							</c:when>
+
+							<c:otherwise>
+								<div class="commentAndCommentDatas">
+								<div class="left"></div>
+									<div class="right">
+										<div class="commentAndCommentData">
+											<div class="commentNickName">
+												<span>${commentData.u_idx}</span>
+											</div>
+											<div class="commentText">
+												<span>${commentData.content}</span>
+											</div>
+											<div class="commentRegdate">
+												<span>${commentData.regdate}</span>
+											</div>
+										</div>
+									</div>
+								</div>
+							</c:otherwise>
+
+
+						</c:choose>
+
+					</c:forEach>
+				</c:if>
+
+
+
 			</div>
 		</div>
 

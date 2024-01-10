@@ -188,15 +188,25 @@ public class BoardController {
 		boardData.setRegdate(boardData.getRegdate().split(" ")[0]);
 		model.addAttribute("boardData", boardData);
 
-		
-		
-		
 		// 조회수 증가
 		if (request.getSession().getAttribute("id") != null) {
 			boardDAO.boardUpReadHit(b_idx);
 			boardData.setSelect(boardData.getSelect() + 1);
 		}
-
+		
+		
+		//댓글관련
+		List<CommentVO> commentData = commentDAO.commentSelectList(b_idx);
+		
+		
+		//댓글 불필요한 날짜 데이터 자르기 작업
+		for(CommentVO data : commentData) {
+			data.setRegdate(data.getRegdate().substring(0, data.getRegdate().length()-2));
+		}
+		
+		//댓글 데이터 바운딩 및 포워딩
+		model.addAttribute("commentData", commentData);
+		
 		return VIEW_PATH + "board_view.jsp";
 	}
 	
@@ -375,18 +385,9 @@ public class BoardController {
 			} else {
 				commentData.setStep((Integer.parseInt(step))+1);
 			}
-			System.out.println(commentData);
-			
-
 			
 			commentDAO.commentInsert(commentData);
 			
-			
-			
-			
-			
-			
-		
 		return new RedirectView(request.getHeader("referer")); 
 	}
 	

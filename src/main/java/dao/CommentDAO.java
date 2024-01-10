@@ -1,5 +1,7 @@
 package dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -18,5 +20,10 @@ public class CommentDAO {
 	//댓글 추가
 	public int commentInsert(CommentVO commentData) {
 		return sqlSession.insert("c.commentInsert", commentData);
+	}
+	
+	//댓글 조회
+	public List<CommentVO> commentSelectList(int b_idx) {
+		return sqlSession.selectList("c.commentSelectList", b_idx);
 	}
 }

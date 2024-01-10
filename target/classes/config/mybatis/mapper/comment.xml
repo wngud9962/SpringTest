@@ -5,13 +5,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="c">
 
 	<!-- step 조회 -->
-	<select id="maxStepSelect" parameterType="int" resultType="String">
-		SELECT STEP FROM(SELECT c.*,RANK() OVER(ORDER BY c.STEP DESC) AS "RANK" FROM
+	<select id="maxStepSelect" parameterType="int"
+		resultType="String">
+		SELECT STEP FROM(SELECT c.*,RANK() OVER(ORDER BY c.STEP
+		DESC) AS "RANK" FROM
 		"COMMENT" c WHERE REF = #{b_idx}) WHERE "RANK" = 1
 	</select>
 
 	<!-- 댓글 등록 -->
 	<insert id="commentInsert" parameterType="vo.CommentVO">
-		INSERT INTO "COMMENT" VALUES(SEQ_COMMENT.NEXTVAL,#{u_idx},#{content},#{ref},#{step},#{depth},SYSDATE)
+		INSERT INTO "COMMENT"
+		VALUES(SEQ_COMMENT.NEXTVAL,#{u_idx},#{content},#{ref},#{step},#{depth},SYSDATE)
 	</insert>
+
+	<!-- 댓글 조회 -->
+	<select id="commentSelectList" parameterType="int"
+		resultType="vo.CommentVO">
+		SELECT C_IDX,U_IDX,CONTENT,"REF",STEP,"DEPTH",REGDATE FROM (SELECT
+		c.*,RANK() OVER(ORDER BY c.STEP ASC,c."DEPTH" ASC) AS "RANK" FROM
+		"COMMENT" c WHERE "REF" = #{b_idx}) ORDER BY "RANK" ASC
+	</select>
 </mapper>
