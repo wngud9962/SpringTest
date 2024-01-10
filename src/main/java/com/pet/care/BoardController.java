@@ -2,12 +2,10 @@ package com.pet.care;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -23,10 +21,12 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
 
 import dao.BoardDAO;
+import dao.CommentDAO;
 import dao.UserDAO;
 import util.Common;
 import util.Uploadmodule;
 import vo.BoardVO;
+import vo.CommentVO;
 import vo.UserVO;
 
 @Controller
@@ -37,6 +37,9 @@ public class BoardController {
 
 	@Autowired
 	UserDAO userDAO;
+	
+	@Autowired
+	CommentDAO commentDAO;
 
 	@Autowired
 	HttpServletRequest request;
@@ -346,6 +349,45 @@ public class BoardController {
 		
 	
 		return new RedirectView("board_main.do");
+	}
+	
+	@RequestMapping("commentInsert.do")
+	public RedirectView commentInsert(CommentVO commentData,int b_idx) {
+		
+		//현재 게시물의 가장 큰 step을 담는 변수
+		String step = null;
+		
+		//로그인 되어있는지 체크
+		UserVO loginUser = (UserVO)request.getSession().getAttribute("id");
+		
+		if(loginUser==null) {
+			return new RedirectView(request.getHeader("referer")); 
+		}
+		
+			commentData.setU_idx(loginUser.getU_idx());
+			commentData.setRef(b_idx);
+			
+			step = commentDAO.commetMaxStepSelect(b_idx);
+			
+			if(step == null) {
+				step = "0";
+				commentData.setStep(Integer.parseInt(step));
+			} else {
+				commentData.setStep((Integer.parseInt(step))+1);
+			}
+			System.out.println(commentData);
+			
+
+			
+			commentDAO.commentInsert(commentData);
+			
+			
+			
+			
+			
+			
+		
+		return new RedirectView(request.getHeader("referer")); 
 	}
 	
 

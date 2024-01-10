@@ -39,6 +39,31 @@
 	
 		}
 	}
+	
+	function commentSend(f) {
+		let commentArea = f.content.value.trim();
+		
+		if(commentArea == ''){
+			alert('댓글 내용이 비워져 있습니다.');
+			return;
+		}
+		
+		f.method = "POST";
+		f.action = "commentInsert.do";
+		f.submit();
+		
+		
+	}
+
+	function commentInput(){
+		let displayOnTag = document.getElementsByClassName('commentInCommentArea');
+		if(displayOnTag[0].style.display == 'none'){
+		displayOnTag[0].style.display = 'flex';			
+		} else{
+			displayOnTag[0].style.display = 'none';	
+		}
+	}
+
 </script>
 </head>
 <body>
@@ -51,6 +76,7 @@
 	</div>
 	<!-- qna_wrapperBox -->
 
+	
 
 	<hr>
 
@@ -101,25 +127,40 @@
 		<div class="comment">
 			<span>댓글</span>
 			<div class="commentDatas">
+			<c:if test="${id!=null}">
+			<form>
 			<div class="myComment dflex">
-			<textarea class="myCommentArea"></textarea>
-			<input class="commentButton" type="button" value="댓글 쓰기">
+			<input type="hidden" name = "b_idx" value="${boardData.b_idx}">
+			<textarea name="content"class="myCommentArea" placeholder="댓글 입력"></textarea>
+			<input class="commentButton" type="button" value="댓글 쓰기" onclick="commentSend(this.form)" >
 			</div>
+			</form>
+			</c:if>
 				<div class="commentData">
 					<div class="dflex">
 						<div class="commentNickName">
 							<span>노지학</span>
 						</div>
 						<div class="commentText">
-							<span>자살각</span>
+							<span>아 프론트하기 겁나 싫다</span>
 						</div>
 						<div class="commentRegdate">
 							<span>24.01.08 07:32:25</span>
 						</div>
 					</div>
+					<c:if test="${id!=null}">
 					<div class="commentAfter">
 					<input class="actionButtons" type="button" value="수정">
-					<input class="actionButtons" type="button" value="답글">
+					<input class="actionButtons" type="button" value="답글" onclick="commentInput()">
+					</div>
+					</c:if>
+					<div class="commentInCommentArea" style="display: none;">
+					 <div class = "commentInComment">
+					 <textarea placeholder="답글 입력"></textarea>
+					 </div>
+					 <div class="commentInCommentButtons">
+					 <input class="commentInCommentButton" type="button" value="답글 쓰기">
+					</div>
 					</div>
 				</div>
 			</div>
