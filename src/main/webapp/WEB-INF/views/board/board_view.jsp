@@ -179,7 +179,9 @@
 										</div>
 										<c:if test="${id!=null}">
 											<div class="commentAfter">
+											<c:if test="${id.u_idx == commentData.u_idx}">
 												<input class="actionButtons" type="button" value="수정">
+												</c:if>
 												<input class="actionButtons" type="button" value="답글"
 													onclick="commentInput(${commentData.rank})">
 											</div>
