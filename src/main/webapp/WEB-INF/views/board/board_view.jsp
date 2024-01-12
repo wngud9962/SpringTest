@@ -184,6 +184,10 @@
 												</c:if>
 												<input class="actionButtons" type="button" value="답글"
 													onclick="commentInput(${commentData.rank})">
+											
+											<c:if test="${id.u_idx == commentData.u_idx || id.u_type == '0'}">
+											<input class="actionButtons" type="button" value="삭제">
+											</c:if>
 											</div>
 										</c:if>
 										<div class="commentInCommentArea hiddenArea"
