@@ -36,4 +36,9 @@ public class CommentDAO {
 	public int commentInCommentInsert(CommentVO insertData) {
 		return sqlSession.insert("c.commentInCommentInsert", insertData);
 	}
+	
+	//댓글 수정
+	public int commentUpdate(CommentVO updateData) {
+		return sqlSession.update("c.commentUpdate", updateData);
+	}
 }

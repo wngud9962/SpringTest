@@ -424,5 +424,27 @@ public class BoardController {
 		
 		return new RedirectView(request.getHeader("referer"));
 	}
+	
+	@RequestMapping("commentUpdateProcess.do")
+	@ResponseBody
+	public String commentUpdateProcess(CommentVO updateData) {
+		
+		String result = "[{'res':'no'}]";
+		UserVO loginUser = (UserVO)request.getSession().getAttribute("id");
+		
+		if(loginUser == null) {
+			return result;
+		}
+		
+		if(loginUser.getU_idx() != updateData.getU_idx()) {
+			return result;
+		}
+		
+		commentDAO.commentUpdate(updateData);
+		
+		result = "[{'res':'yes'}]";
+		
+		return result;
+	}
 
 }

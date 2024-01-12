@@ -102,6 +102,39 @@
 		alert('삭제 메세지');
 		return;
 	}
+	
+	function commentUpdateProcess(f) {
+		let content = f.content.value;
+		let c_idx = f.c_idx.value;
+		let u_idx = f.u_idx.value;
+		
+		let url = "commentUpdateProcess.do";
+		let param = "c_idx="+c_idx+"&content="+content+"&u_idx="+u_idx;
+		let method = "POST";
+		
+		sendRequest(url, param, commentUpdateProcessAfter, method);
+		
+	}
+	
+	function commentUpdateProcessAfter() {
+
+		
+		if(xhr.readyState == 4 && xhr.status == 200){
+			
+			let data = xhr.responseText;
+			let JSON = eval(data);
+			
+			if(JSON[0].res == 'no'){
+				alert("변경에 실패하였습니다.");
+				return;
+			}else{
+				alert("변경완료되었습니다.");
+				location.href='board_main.do';
+			}
+			
+		}
+		
+	}
 
 </script>
 </head>
@@ -188,8 +221,10 @@
 				<c:if test="${commentData[0] != null}">
 					<c:forEach items="${commentData}" var="commentData">
 						<form>
+							<input type="hidden" value="${commentData.c_idx}" name="c_idx">
+							<input type="hidden" value="${commentData.u_idx}" name="u_idx">
 							<c:choose>
-
+	
 								<c:when test="${commentData.depth == 0}">
 									<div class="commentData">
 										<div class="dflex">
@@ -198,7 +233,7 @@
 											</div>
 											<div class="commentText">
 												<textarea class="commentUpdateArea" readonly="readonly"
-													maxlength="98">${commentData.content}</textarea>
+													maxlength="98" name = "content">${commentData.content}</textarea>
 											</div>
 											<div class="commentRegdate">
 												<span>${commentData.regdate}</span>
@@ -210,7 +245,7 @@
 													<input class="actionButtons commentUpdateDisplay" type="button" value="수정"
 														onclick="commentUpdate(this)" style="display: inline;">
 													<input class="actionButtons commentUpdateProcess"
-														type="button" value="수정2" style="display: none;">
+														type="button" value="수정" style="display: none;" onclick="commentUpdateProcess(this.form)">
 												</c:if>
 												<input class="actionButtons" type="button" value="답글"
 													onclick="commentInput(${commentData.rank})">
@@ -248,7 +283,7 @@
 													<span>${commentData.u_nickname}</span>
 												</div>
 												<div class="commentText">
-													<textarea class="commentUpdateArea" readonly="readonly">${commentData.content}</textarea>
+													<textarea class="commentUpdateArea" readonly="readonly" name = "content">${commentData.content}</textarea>
 												</div>
 												<div class="commentRegdate">
 													<span>${commentData.regdate}</span>
@@ -258,7 +293,8 @@
 												<c:if test="${id.u_idx == commentData.u_idx}">
 													<input type="button" class="actionButtons commentUpdateDisplay" value="수정" style="display: inline;"
 														onclick="commentUpdate(this)">
-													<input type="button" class="actionButtons commentUpdateProcess" value="수정2" style="display: none;">
+													<input type="button" class="actionButtons commentUpdateProcess" value="수정" style="display: none;"
+													onclick="commentUpdateProcess(this.form)">
 												</c:if>
 												
 												<c:if

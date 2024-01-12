@@ -42,4 +42,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		"COMMENT"
 		VALUES(SEQ_COMMENT.NEXTVAL,#{u_idx},#{content},#{ref},#{step},#{depth},SYSDATE)
 	</insert>
+	
+	<update id="commentUpdate" parameterType="vo.CommentVO">
+	UPDATE "COMMENT" SET CONTENT = #{content} WHERE C_IDX = ${c_idx}
+	</update>
 </mapper>
