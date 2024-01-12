@@ -176,7 +176,7 @@
 												<span>${commentData.u_nickname}</span>
 											</div>
 											<div class="commentText">
-												<span>${commentData.content}</span>
+											<textarea readonly="readonly">${commentData.content}</textarea>
 											</div>
 											<div class="commentRegdate">
 												<span>${commentData.regdate}</span>
@@ -219,11 +219,15 @@
 													<span>${commentData.u_nickname}</span>
 												</div>
 												<div class="commentText">
-													<span>${commentData.content}</span>
+												<textarea readonly="readonly">${commentData.content}</textarea>
 												</div>
 												<div class="commentRegdate">
 													<span>${commentData.regdate}</span>
 												</div>
+											</div>
+											<div style="text-align: right;">
+											<input type="button" class="actionButtons" value="수정">
+											<input type="button" class="actionButtons" value="삭제">
 											</div>
 										</div>
 									</div>

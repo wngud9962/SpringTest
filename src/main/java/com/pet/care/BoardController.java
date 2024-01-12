@@ -6,8 +6,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -195,9 +193,8 @@ public class BoardController {
 		if (boardData == null) {
 			return "redirect:board_main.do";
 		}
-
+		
 		boardData.setContent(boardData.getContent().replaceAll("\n", "<br>"));
-
 		boardData.setRegdate(boardData.getRegdate().split(" ")[0]);
 		model.addAttribute("boardData", boardData);
 

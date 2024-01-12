@@ -41,6 +41,11 @@
 						<td>${noticeData.b_idx}</td>
 						<td style="color: red; font-weight: bold;">공지</td>
 						<td style="text-align: left; padding-left: 15px;"><a href="board_view.do?idx=${noticeData.b_idx}">${noticeData.title}</a>
+						
+						<c:if test="${noticeData.filename != null}">
+						<img src="${pageContext.request.contextPath}/resources/img/saveImg.png" style="width: 10px;">
+						</c:if>
+						
 						<span style="color: red; font-weight: bold">[${noticeData.commentCount}]</span>
 						</td>
 						<td>${noticeData.u_nickname}</td>
@@ -57,6 +62,9 @@
 						<td>${nomalData.b_idx}</td>
 						<td>일반</td>
 						<td style="text-align: left; padding-left: 15px;"><a href="board_view.do?idx=${nomalData.b_idx}">${nomalData.title}</a>
+						<c:if test="${nomalData.filename != null}">
+						<img src="${pageContext.request.contextPath}/resources/img/saveImg.png" style="width: 10px;">
+						</c:if>
 						<span style="color: red; font-weight: bold">[${nomalData.commentCount}]</span></td>
 						<td>${nomalData.u_nickname}</td>
 						<td>${nomalData.regdate}</td>
