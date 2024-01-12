@@ -7,9 +7,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- step 조회 -->
 	<select id="maxStepSelect" parameterType="int"
 		resultType="String">
-		SELECT STEP FROM(SELECT c.*,RANK() OVER(ORDER BY c.STEP
-		DESC) AS "RANK" FROM
-		"COMMENT" c WHERE REF = #{b_idx}) WHERE "RANK" = 1
+		SELECT STEP FROM (SELECT c.*,RANK() OVER(ORDER BY c.STEP
+		DESC,c.C_IDX) AS "RANK" FROM "COMMENT" c WHERE "REF" = #{b_idx})WHERE
+		"RANK" = 1
 	</select>
 
 	<!-- 댓글 등록 -->
@@ -21,8 +21,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 댓글 조회 -->
 	<select id="commentSelectList" parameterType="int"
 		resultType="vo.CommentVO">
-		SELECT * FROM (SELECT c.*,u.U_NICKNAME,RANK() OVER(ORDER BY c.STEP
-		ASC,c."DEPTH" ASC) AS "RANK" FROM "COMMENT" c LEFT JOIN USERINFO u ON
+		SELECT * FROM (SELECT c.*,u.U_NICKNAME,RANK() OVER(ORDER BY
+		c.STEP
+		ASC,c."DEPTH" ASC) AS "RANK" FROM "COMMENT" c LEFT JOIN USERINFO
+		u ON
 		c.U_IDX = u.U_IDX WHERE "REF" = #{b_idx}) ORDER BY "RANK" ASC
 	</select>
 
@@ -42,8 +44,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		"COMMENT"
 		VALUES(SEQ_COMMENT.NEXTVAL,#{u_idx},#{content},#{ref},#{step},#{depth},SYSDATE)
 	</insert>
-	
+
 	<update id="commentUpdate" parameterType="vo.CommentVO">
-	UPDATE "COMMENT" SET CONTENT = #{content} WHERE C_IDX = ${c_idx}
+		UPDATE "COMMENT" SET CONTENT = #{content} WHERE C_IDX = ${c_idx}
 	</update>
 </mapper>
