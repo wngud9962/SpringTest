@@ -40,7 +40,9 @@
 					<tr class="listData">
 						<td>${noticeData.b_idx}</td>
 						<td style="color: red; font-weight: bold;">공지</td>
-						<td style="text-align: left; padding-left: 15px;"><a href="board_view.do?idx=${noticeData.b_idx}">${noticeData.title}</a></td>
+						<td style="text-align: left; padding-left: 15px;"><a href="board_view.do?idx=${noticeData.b_idx}">${noticeData.title}</a>
+						<span style="color: red; font-weight: bold">[${noticeData.commentCount}]</span>
+						</td>
 						<td>${noticeData.u_nickname}</td>
 						<td>${noticeData.regdate}</td>
 						<td>${noticeData.select}</td>
@@ -54,7 +56,8 @@
 					<tr class="listData">
 						<td>${nomalData.b_idx}</td>
 						<td>일반</td>
-						<td style="text-align: left; padding-left: 15px;"><a href="board_view.do?idx=${nomalData.b_idx}">${nomalData.title}</a></td>
+						<td style="text-align: left; padding-left: 15px;"><a href="board_view.do?idx=${nomalData.b_idx}">${nomalData.title}</a>
+						<span style="color: red; font-weight: bold">[${nomalData.commentCount}]</span></td>
 						<td>${nomalData.u_nickname}</td>
 						<td>${nomalData.regdate}</td>
 						<td>${nomalData.select}</td>

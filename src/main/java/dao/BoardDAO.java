@@ -23,6 +23,11 @@ public class BoardDAO {
 		return sqlSession.selectList("b.nomalSelectList",pageData);
 	}
 	
+	//게시물 댓글 개수 조회
+	public int boardCommentCount(int b_idx){
+		return sqlSession.selectOne("b.boardCommentCount", b_idx);
+	}
+	
 	//파일 첨부 게시물 등록
 	public int boardInsert(BoardVO boardVO) {
 		return sqlSession.insert("b.boardInsert", boardVO);

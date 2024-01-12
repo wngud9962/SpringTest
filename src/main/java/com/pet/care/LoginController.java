@@ -55,6 +55,7 @@ public class LoginController {
 		
 		// id와 비밀번호 체크에 문제가 없다면 세션에 바인딩한다.
 		session.setAttribute("id", vo);
+		session.setMaxInactiveInterval(60*60*2);
 		
 		// 로그인에 성공한 경우
 		return "[{'param':'clear'}]";

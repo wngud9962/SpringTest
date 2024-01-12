@@ -24,4 +24,7 @@ public class BoardVO {
 	
 	//조인
 	private String u_nickname;
+	
+	//댓글수
+	private int commentCount;
 }

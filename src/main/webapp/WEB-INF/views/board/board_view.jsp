@@ -76,6 +76,11 @@
 		f.action = 'commentInCommentInsert.do';
 		f.submit();
 	}
+	
+	function commentDelete() {
+		alert('노지학 컷');
+		return;
+	}
 
 </script>
 </head>
@@ -186,7 +191,7 @@
 													onclick="commentInput(${commentData.rank})">
 											
 											<c:if test="${id.u_idx == commentData.u_idx || id.u_type == '0'}">
-											<input class="actionButtons" type="button" value="삭제">
+											<input class="actionButtons" type="button" value="삭제" onclick="commentDelete()">
 											</c:if>
 											</div>
 										</c:if>

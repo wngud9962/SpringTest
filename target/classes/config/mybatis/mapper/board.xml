@@ -27,6 +27,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		1)B1) B2
 		WHERE "RANK" BETWEEN #{minData} AND #{maxData}
 	</select>
+	
+	<select id="boardCommentCount" parameterType="int" resultType="int">
+		SELECT COUNT(*) FROM "COMMENT" c WHERE "REF" = #{b_idx}
+	</select>
 
 	<!-- 파일첨부 후 게시글 등록 -->
 	<insert id="boardInsert" parameterType="vo.BoardVO">

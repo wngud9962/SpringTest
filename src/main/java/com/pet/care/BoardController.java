@@ -6,6 +6,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -80,6 +82,8 @@ public class BoardController {
 
 		// 일반 게시물 데이터
 		List<BoardVO> nomalList = boardDAO.nomalSelectList(pageData);
+		
+		
 
 		// 공지 게시물 등록일 날짜 필터링
 		for (BoardVO vo : noticeList) {
@@ -89,6 +93,14 @@ public class BoardController {
 		// 일반 게시물 등록일 날짜 필터링
 		for (BoardVO vo : nomalList) {
 			vo.setRegdate(vo.getRegdate().split(" ")[0]);
+		}
+			
+		for(BoardVO noticeData : noticeList) {
+			noticeData.setCommentCount(boardDAO.boardCommentCount(noticeData.getB_idx()));
+		}
+		
+		for(BoardVO nomalData : nomalList) {
+		nomalData.setCommentCount(boardDAO.boardCommentCount(nomalData.getB_idx()));
 		}
 
 		// 데이터 바운딩
