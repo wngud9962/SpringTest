@@ -408,11 +408,6 @@ div.titleData {
 	display: flex;
 	flex : 1 0 auto;
 }
-.commentAndCommentData:hover {
-	border-color: red;
-	border-width: 3px;
-}
-
 
 .right{
 	display: inline-block;
@@ -427,13 +422,21 @@ div.titleData {
 	border-radius: 10px;
 	padding: 10px;
 }
+
+.right:hover{
+		border-color: red;
+	border-width: 3px;
+}
+
 .left {
 	width: 100px;
 }
+
 .left:before {
 		content: 'ㄴ';
 	font-size: 20px;
 	font-weight: 900;
 	color: orange;
 }
+
 	

@@ -55,12 +55,33 @@
 		
 	}
 
+	//답글쓰기
 	function commentInput(rank){
 		let displayOnTag = document.getElementsByClassName('hiddenArea');
 		if(displayOnTag[rank-1].style.display == 'none'){
 		displayOnTag[rank-1].style.display = 'flex';			
 		} else{
 			displayOnTag[rank-1].style.display = 'none';	
+		}
+	}
+	
+	//수정 눌렀을때 textarea leadonly 해제
+	function commentUpdate(inputObject){
+		let displayOnTag = inputObject.parentNode.previousElementSibling.children[1].children[0];
+		let upDateButton = inputObject;
+		let upDateProcessButton = inputObject.nextElementSibling;
+		
+		console.log(upDateButton.style.display);
+		
+		if(upDateButton.style.display == "inline"){
+			upDateButton.style.display = "none";
+			upDateProcessButton.style.display = "inline";
+		}
+		
+		if(displayOnTag.hasAttribute("readonly") == true){
+		displayOnTag.removeAttribute("readonly");
+		displayOnTag.style.backgroundColor = "WHITE";
+		displayOnTag.style.borderStyle = "solid";
 		}
 	}
 	
@@ -78,7 +99,7 @@
 	}
 	
 	function commentDelete() {
-		alert('노지학 컷');
+		alert('삭제 메세지');
 		return;
 	}
 
@@ -155,7 +176,7 @@
 						<div class="myComment dflex">
 							<input type="hidden" name="b_idx" value="${boardData.b_idx}">
 							<textarea name="content" class="myCommentArea"
-								placeholder="댓글 입력"></textarea>
+								placeholder="댓글 입력" maxlength="98"></textarea>
 							<input class="commentButton" type="button" value="댓글 쓰기"
 								onclick="commentSend(this.form)">
 						</div>
@@ -176,7 +197,8 @@
 												<span>${commentData.u_nickname}</span>
 											</div>
 											<div class="commentText">
-											<textarea readonly="readonly">${commentData.content}</textarea>
+												<textarea class="commentUpdateArea" readonly="readonly"
+													maxlength="98">${commentData.content}</textarea>
 											</div>
 											<div class="commentRegdate">
 												<span>${commentData.regdate}</span>
@@ -184,21 +206,27 @@
 										</div>
 										<c:if test="${id!=null}">
 											<div class="commentAfter">
-											<c:if test="${id.u_idx == commentData.u_idx}">
-												<input class="actionButtons" type="button" value="수정">
+												<c:if test="${id.u_idx == commentData.u_idx}">
+													<input class="actionButtons commentUpdateDisplay" type="button" value="수정"
+														onclick="commentUpdate(this)" style="display: inline;">
+													<input class="actionButtons commentUpdateProcess"
+														type="button" value="수정2" style="display: none;">
 												</c:if>
 												<input class="actionButtons" type="button" value="답글"
 													onclick="commentInput(${commentData.rank})">
-											
-											<c:if test="${id.u_idx == commentData.u_idx || id.u_type == '0'}">
-											<input class="actionButtons" type="button" value="삭제" onclick="commentDelete()">
-											</c:if>
+
+												<c:if
+													test="${id.u_idx == commentData.u_idx || id.u_type == '0'}">
+													<input class="actionButtons" type="button" value="삭제"
+														onclick="commentDelete()">
+												</c:if>
 											</div>
 										</c:if>
 										<div class="commentInCommentArea hiddenArea"
 											style="display: none;">
-											<input type="hidden" name="commentRef" value="${commentData.ref}">
-											<input type="hidden" name="commentStep" value="${commentData.step}">
+											<input type="hidden" name="commentRef"
+												value="${commentData.ref}"> <input type="hidden"
+												name="commentStep" value="${commentData.step}">
 											<div class="commentInComment">
 												<textarea placeholder="답글 입력" name="commentContent"></textarea>
 											</div>
@@ -216,18 +244,29 @@
 										<div class="right">
 											<div class="commentAndCommentData">
 												<div class="commentNickName">
+
 													<span>${commentData.u_nickname}</span>
 												</div>
 												<div class="commentText">
-												<textarea readonly="readonly">${commentData.content}</textarea>
+													<textarea class="commentUpdateArea" readonly="readonly">${commentData.content}</textarea>
 												</div>
 												<div class="commentRegdate">
 													<span>${commentData.regdate}</span>
 												</div>
 											</div>
 											<div style="text-align: right;">
-											<input type="button" class="actionButtons" value="수정">
-											<input type="button" class="actionButtons" value="삭제">
+												<c:if test="${id.u_idx == commentData.u_idx}">
+													<input type="button" class="actionButtons commentUpdateDisplay" value="수정" style="display: inline;"
+														onclick="commentUpdate(this)">
+													<input type="button" class="actionButtons commentUpdateProcess" value="수정2" style="display: none;">
+												</c:if>
+												
+												<c:if
+													test="${id.u_idx == commentData.u_idx || id.u_type == '0'}">
+													<input type="button" class="actionButtons" value="삭제"
+														onclick="commentDelete()">
+												</c:if>
+
 											</div>
 										</div>
 									</div>
