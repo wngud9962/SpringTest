@@ -9,11 +9,26 @@
 <link
 	href="${pageContext.request.contextPath}/resources/css/board/board_main.css"
 	rel="stylesheet">
+	<script type="text/javascript">
+	function search() {
+		let check = /^[0-9]*$/;
+		let searchType = document.getElementById('searchField').value;
+		let searchContent = document.getElementById('searchWord').value.trim();
+		
+		if(searchType == 'idx'){
+			if(!check.test(searchContent)){
+				alert('숫자만 입력해 주세요');
+				return;
+			}
+		}
+		alert('검색');	
+	}
+	</script>
 </head>
 <body>
 	<input type="hidden" value="${searchField}" id="hiddenSearchField">
 	<div class="main_category board_wrapperBox">
-		<span class="board_category">커뮤니티 게시판</span>
+		<span class="board_category" onclick="location.href='board_main.do'">커뮤니티 게시판</span>
 		<div class="board_category">
 			<input type="button" value="메인으로 돌아가기" class="inputBtn"
 				onclick="location.href='main_home.do'">
@@ -114,7 +129,7 @@
 					<select id="searchField">
 						<option value="idx">글 번호</option>
 						<option value="title">제목</option>
-						<option value="content">내용</option>
+						<option value="writter">작성자</option>
 					</select>
 					<c:choose>
 						<c:when test="${searchWord!=null}">
@@ -126,7 +141,7 @@
 								style="width: 855px;" placeholder="검색어를 입력하세요">
 						</c:otherwise>
 					</c:choose>
-					<button class="submit" type="button" onclick="send()">
+					<button class="submit" type="button" onclick="search()">
 						<img
 							src="https://www.coffeebeankorea.com/images/btn/btn_list_search.png">
 					</button>
