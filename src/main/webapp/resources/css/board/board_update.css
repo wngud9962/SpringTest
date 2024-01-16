@@ -241,6 +241,8 @@ div.titleData {
 .download {
 	text-align: left;
 	font-size: 13px;
+	padding: 5px;
+	border-bottom: 2px solid orange;
 }
 .content {
 	margin-top : 10px;

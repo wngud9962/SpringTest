@@ -64,7 +64,7 @@
 						<td>일반</td>
 						<c:choose>
 							<c:when test="${nomalData.delinfo > 0}">
-								<td>삭제된 게시물 입니다.</td>
+								<td style="text-align: left; padding-left: 15px;">삭제된 게시물 입니다.</td>
 							</c:when>
 							<c:otherwise>
 								<td style="text-align: left; padding-left: 15px;"><a
@@ -95,8 +95,8 @@
 	<div class="board_wrapperBox">
 		<div id="inputButtons">
 			<div class="arraysButton" style="margin-left: 10px;">
-				<input type="button" value="공지"> <input type="button"
-					value="일반">
+				<input type="button" value="공지" onclick="location.href='${mapping}?page=1&searchType=notice'"> <input type="button"
+					value="일반" onclick="location.href='${mapping}?page=1&searchType=nomal'">
 			</div>
 			<c:if test="${id!=null}">
 				<input type="button" value="글쓰기" style="margin-right: 10px;"

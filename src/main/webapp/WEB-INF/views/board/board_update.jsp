@@ -55,13 +55,13 @@
 			<div class="titleData">
 				<div class="title">
 					<input type="text" name="title" value="${updateData.title}"
-						style="width: 980px;">
+						style="width: 980px;" placeholder="제목 입력">
 				</div>
 
 			</div>
 			<div class="content">
 				<textarea
-					name="content" style="resize: none; border-width: 0px; width: 980px; overflow: hidden; min-height: 200px;">${updateData.content}</textarea>
+					name="content" style="resize: none; border-width: 0px; width: 980px; overflow: hidden; min-height: 200px;" placeholder="내용 입력">${updateData.content}</textarea>
 			</div>
 
 			<div class="download">

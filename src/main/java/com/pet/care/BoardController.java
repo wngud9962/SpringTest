@@ -52,9 +52,13 @@ public class BoardController {
 
 	// board게시판 default 조회페이지 이동
 	@RequestMapping("board_main.do")
-	public String boardMain(Model model, String page) {
+	public String boardMain(Model model, String page,String searchType) {
 
 		String mapping = "board_main.do";
+		
+		if(searchType == null) {
+			searchType = "all";
+		}
 
 		// 페이지당 보여줄 게시물의 개수
 		int perPage = 10;
@@ -101,12 +105,19 @@ public class BoardController {
 		nomalData.setCommentCount(boardDAO.boardCommentCount(nomalData.getB_idx()));
 		}
 
+
 		// 데이터 바운딩
-		model.addAttribute("noticeList", noticeList);
-		model.addAttribute("nomalList", nomalList);
-		model.addAttribute("nowPage", nowPage);
-		model.addAttribute("maxPagingIdx", maxPagingIdx);
-		model.addAttribute("mapping", mapping);
+		if(!searchType.equals("nomal")) {
+			model.addAttribute("noticeList", noticeList);
+		}
+		
+		if(!searchType.equals("notice")) {
+			
+			model.addAttribute("nomalList", nomalList);
+			model.addAttribute("nowPage", nowPage);
+			model.addAttribute("maxPagingIdx", maxPagingIdx);
+			model.addAttribute("mapping", mapping);
+		}
 
 		return VIEW_PATH + "board_main.jsp";
 	}
