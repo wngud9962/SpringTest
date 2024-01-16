@@ -41,4 +41,14 @@ public class CommentDAO {
 	public int commentUpdate(CommentVO updateData) {
 		return sqlSession.update("c.commentUpdate", updateData);
 	}
+	
+	//댓글 삭제
+	public int commentDelete(int c_idx) {
+		return sqlSession.update("c.commentDelete",c_idx);
+	}
+	
+	//댓글 1개 조회
+	public CommentVO commentSelectOne(int c_idx) {
+		return sqlSession.selectOne("c.commentSelectOne",c_idx);
+	}
 }

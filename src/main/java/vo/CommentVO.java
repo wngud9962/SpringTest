@@ -16,6 +16,7 @@ public class CommentVO {
 	private int step;
 	private int depth;
 	private String regdate;
+	private int delinfo;
 	
 	//join
 	private String u_nickname;

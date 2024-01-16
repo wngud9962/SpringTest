@@ -56,12 +56,12 @@
 	}
 
 	//답글쓰기
-	function commentInput(rank){
-		let displayOnTag = document.getElementsByClassName('hiddenArea');
-		if(displayOnTag[rank-1].style.display == 'none'){
-		displayOnTag[rank-1].style.display = 'flex';			
+	function commentInput(searchData){
+		let displayOnTag = searchData.parentNode.parentNode.children[2];
+		if(displayOnTag.style.display == 'none'){
+			displayOnTag.style.display = 'flex';			
 		} else{
-			displayOnTag[rank-1].style.display = 'none';	
+			displayOnTag.style.display = 'none';	
 		}
 	}
 	
@@ -98,10 +98,6 @@
 		f.submit();
 	}
 	
-	function commentDelete() {
-		alert('삭제 메세지');
-		return;
-	}
 	
 	function commentUpdateProcess(f) {
 		let content = f.content.value;
@@ -129,11 +125,49 @@
 				return;
 			}else{
 				alert("변경완료되었습니다.");
-				location.href='board_main.do';
+				location.reload();
 			}
 			
 		}
 		
+	}
+	
+	//댓글 삭제
+	function commentDelete(deleteSearch) {
+		
+		let deleteComment = deleteSearch.parentNode.parentNode.previousElementSibling.previousElementSibling;
+		let url = "commentDelete.do";
+		let param = "c_idx="+deleteComment.value;
+		let method = "POST";
+		sendRequest(url, param, commentDeleteAfter, method);
+	}
+	
+	//대댓글 삭제
+	function commentInCommentDelete(deleteSearch) {
+		
+		let deleteComment = deleteSearch.parentNode.parentNode.parentNode.previousElementSibling.previousElementSibling;
+		let url = "commentDelete.do";
+		let param = "c_idx="+deleteComment.value;
+		let method = "POST";
+		sendRequest(url, param, commentDeleteAfter, method);
+	}
+	
+	
+	
+	
+	function commentDeleteAfter() {
+		if(xhr.readyState == 4 && xhr.status == 200){
+			let data = xhr.responseText;
+			let JSON = eval(data);
+			
+			if(JSON[0].res == 'no'){
+				alert("댓글 삭제 실패");
+				return;
+			}else{
+				alert("댓글 삭제 성공");
+				location.reload();
+			}
+		}
 	}
 
 </script>
@@ -220,11 +254,11 @@
 
 				<c:if test="${commentData[0] != null}">
 					<c:forEach items="${commentData}" var="commentData">
+							
 						<form>
 							<input type="hidden" value="${commentData.c_idx}" name="c_idx">
 							<input type="hidden" value="${commentData.u_idx}" name="u_idx">
 							<c:choose>
-	
 								<c:when test="${commentData.depth == 0}">
 									<div class="commentData">
 										<div class="dflex">
@@ -232,28 +266,38 @@
 												<span>${commentData.u_nickname}</span>
 											</div>
 											<div class="commentText">
+											<c:choose>
+											<c:when test="${commentData.delinfo != 0}">
 												<textarea class="commentUpdateArea" readonly="readonly"
-													maxlength="98" name = "content">${commentData.content}</textarea>
+													maxlength="98" name="content">삭제된 댓글입니다.</textarea>
+											</c:when>
+											<c:otherwise>
+												<textarea class="commentUpdateArea" readonly="readonly"
+													maxlength="98" name="content">${commentData.content}</textarea>						
+											</c:otherwise>
+											</c:choose>
 											</div>
 											<div class="commentRegdate">
 												<span>${commentData.regdate}</span>
 											</div>
 										</div>
-										<c:if test="${id!=null}">
+										<c:if test="${id != null}">
 											<div class="commentAfter">
-												<c:if test="${id.u_idx == commentData.u_idx}">
-													<input class="actionButtons commentUpdateDisplay" type="button" value="수정"
-														onclick="commentUpdate(this)" style="display: inline;">
+												<c:if test="${id.u_idx == commentData.u_idx && commentData.delinfo == 0}">
+													<input class="actionButtons commentUpdateDisplay"
+														type="button" value="수정" onclick="commentUpdate(this)"
+														style="display: inline;">
 													<input class="actionButtons commentUpdateProcess"
-														type="button" value="수정" style="display: none;" onclick="commentUpdateProcess(this.form)">
+														type="button" value="변경" style="display: none;"
+														onclick="commentUpdateProcess(this.form)">
 												</c:if>
 												<input class="actionButtons" type="button" value="답글"
-													onclick="commentInput(${commentData.rank})">
+													onclick="commentInput(this)">
 
 												<c:if
-													test="${id.u_idx == commentData.u_idx || id.u_type == '0'}">
+													test="${(id.u_idx == commentData.u_idx || id.u_type == '0')&& commentData.delinfo == 0}">
 													<input class="actionButtons" type="button" value="삭제"
-														onclick="commentDelete()">
+														onclick="commentDelete(this)">
 												</c:if>
 											</div>
 										</c:if>
@@ -277,33 +321,48 @@
 									<div class="commentAndCommentDatas hiddenArea">
 										<div class="left"></div>
 										<div class="right">
+							
 											<div class="commentAndCommentData">
 												<div class="commentNickName">
 
 													<span>${commentData.u_nickname}</span>
 												</div>
 												<div class="commentText">
-													<textarea class="commentUpdateArea" readonly="readonly" name = "content">${commentData.content}</textarea>
+												<c:choose>
+												<c:when test="${commentData.delinfo == 0}">
+												<textarea class="commentUpdateArea" readonly="readonly"
+														name="content">${commentData.content}</textarea>
+												</c:when>
+												<c:otherwise>
+												<textarea class="commentUpdateArea" readonly="readonly"
+														name="content">삭제된 댓글입니다.</textarea>
+												</c:otherwise>
+												</c:choose>	
 												</div>
 												<div class="commentRegdate">
 													<span>${commentData.regdate}</span>
 												</div>
 											</div>
+											<c:if test="${commentData.delinfo == 0}">
 											<div style="text-align: right;">
 												<c:if test="${id.u_idx == commentData.u_idx}">
-													<input type="button" class="actionButtons commentUpdateDisplay" value="수정" style="display: inline;"
-														onclick="commentUpdate(this)">
-													<input type="button" class="actionButtons commentUpdateProcess" value="수정" style="display: none;"
-													onclick="commentUpdateProcess(this.form)">
+													<input type="button"
+														class="actionButtons commentUpdateDisplay" value="수정"
+														style="display: inline;" onclick="commentUpdate(this)">
+													<input type="button"
+														class="actionButtons commentUpdateProcess" value="변경"
+														style="display: none;"
+														onclick="commentUpdateProcess(this.form)">
 												</c:if>
-												
+
 												<c:if
 													test="${id.u_idx == commentData.u_idx || id.u_type == '0'}">
 													<input type="button" class="actionButtons" value="삭제"
-														onclick="commentDelete()">
+														onclick="commentInCommentDelete(this)">
 												</c:if>
-
 											</div>
+											</c:if>
+											
 										</div>
 									</div>
 								</c:otherwise>

@@ -218,6 +218,7 @@ public class BoardController {
 		return VIEW_PATH + "board_view.jsp";
 	}
 
+	//게시글 첨부파일 다운로드
 	@RequestMapping("board_download.do")
 	public String boardDownload(String filename, String b_idx) {
 
@@ -366,6 +367,8 @@ public class BoardController {
 		return new RedirectView("board_main.do");
 	}
 
+	
+	//댓글 등록
 	@RequestMapping("commentInsert.do")
 	public RedirectView commentInsert(CommentVO commentData, int b_idx) {
 
@@ -396,6 +399,7 @@ public class BoardController {
 		return new RedirectView(request.getHeader("referer"));
 	}
 
+	//대댓글 등록
 	@RequestMapping("commentInCommentInsert.do")
 	public RedirectView commentInCommentInsert(@RequestParam int commentRef, @RequestParam int commentStep,
 			@RequestParam String commentContent) {
@@ -446,5 +450,28 @@ public class BoardController {
 		
 		return result;
 	}
+	
+	//댓글 삭제
+	@RequestMapping("commentDelete.do")
+	@ResponseBody
+	public String commentDelete(int c_idx) {
+		String result = "[{'res':'no'}]";
+		int res = 0;
+		UserVO loginUserData = (UserVO) request.getSession().getAttribute("id");
+		CommentVO deleteCommentData = commentDAO.commentSelectOne(c_idx);
+		
+		if(loginUserData.getU_idx()!=deleteCommentData.getU_idx()) {
+			return result;
+		}
+		
+		res = commentDAO.commentDelete(c_idx);
+		
+		if(res > 0) {
+			result = "[{'res':'yes'}]";
+		}
+		
+		return result;
+	}
+	
 
 }

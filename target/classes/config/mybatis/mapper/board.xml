@@ -43,6 +43,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		#{filename},
 		SYSDATE,
 		0,
+		0,
 		0)
 	</insert>
 
@@ -57,6 +58,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		null,
 		SYSDATE,
 		0,
+		0,
 		0)
 	</insert>
 
@@ -66,16 +68,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		BOARD WHERE POINT = 1
 	</select>
 
+	<!-- 게시물 상세보기 페이지 데이터 조회 -->
 	<select id="selectOne" parameterType="int"
 		resultType="vo.BoardVO">
 		SELECT b.*,u.U_NICKNAME FROM BOARD b LEFT JOIN USERINFO u
 		ON b.U_IDX = u.U_IDX WHERE B_IDX = #{b_idx}
 	</select>
 
-	<delete id="boardDelete" parameterType="int">
-		DELETE FROM BOARD WHERE B_IDX = #{b_idx}
-	</delete>
+	<!-- 게시물 삭제 -->
+	<update id="boardDelete" parameterType="int">
+		UPDATE BOARD SET DELINFO = 1 WHERE B_IDX = #{b_idx}
+	</update>
 	
+	<!-- 게시물 조회수 증가-->
 	<update id="boardUpReadHit">
 		UPDATE BOARD SET "SELECT" = "SELECT" +1 WHERE B_IDX = #{b_idx}
 	</update>

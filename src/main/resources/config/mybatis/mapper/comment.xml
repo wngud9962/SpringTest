@@ -15,7 +15,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 댓글 등록 -->
 	<insert id="commentInsert" parameterType="vo.CommentVO">
 		INSERT INTO "COMMENT"
-		VALUES(SEQ_COMMENT.NEXTVAL,#{u_idx},#{content},#{ref},#{step},#{depth},SYSDATE)
+		VALUES(SEQ_COMMENT.NEXTVAL,#{u_idx},#{content},#{ref},#{step},#{depth},SYSDATE,0)
 	</insert>
 
 	<!-- 댓글 조회 -->
@@ -42,10 +42,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="commentInCommentInsert" parameterType="vo.CommentVO">
 		INSERT INTO
 		"COMMENT"
-		VALUES(SEQ_COMMENT.NEXTVAL,#{u_idx},#{content},#{ref},#{step},#{depth},SYSDATE)
+		VALUES(SEQ_COMMENT.NEXTVAL,#{u_idx},#{content},#{ref},#{step},#{depth},SYSDATE,0)
 	</insert>
 
+	<!-- 댓글 수정-->
 	<update id="commentUpdate" parameterType="vo.CommentVO">
 		UPDATE "COMMENT" SET CONTENT = #{content} WHERE C_IDX = ${c_idx}
 	</update>
+	
+	<!--  댓글 삭제 -->
+	<update id="commentDelete" parameterType="int">
+		UPDATE "COMMENT" SET DELINFO = 1 WHERE C_IDX = #{c_idx}
+	</update>
+	
+	<!-- 댓글 1개 조회 -->
+	<select id="commentSelectOne" parameterType="int" resultType="vo.CommentVO">
+		SELECT * FROM "COMMENT" WHERE C_IDX = #{c_idx}
+	</select>
 </mapper>

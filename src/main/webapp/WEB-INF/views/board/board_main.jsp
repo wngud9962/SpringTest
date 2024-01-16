@@ -40,13 +40,14 @@
 					<tr class="listData">
 						<td>${noticeData.b_idx}</td>
 						<td style="color: red; font-weight: bold;">공지</td>
-						<td style="text-align: left; padding-left: 15px;"><a href="board_view.do?idx=${noticeData.b_idx}">${noticeData.title}</a>
-						
-						<c:if test="${noticeData.filename != null}">
-						<img src="${pageContext.request.contextPath}/resources/img/saveImg.png" style="width: 10px;">
-						</c:if>
-						
-						<span style="color: red; font-weight: bold">[${noticeData.commentCount}]</span>
+						<td style="text-align: left; padding-left: 15px;"><a
+							href="board_view.do?idx=${noticeData.b_idx}">${noticeData.title}</a>
+
+							<c:if test="${noticeData.filename != null}">
+								<img
+									src="${pageContext.request.contextPath}/resources/img/saveImg.png"
+									style="width: 10px;">
+							</c:if> <span style="color: red; font-weight: bold">[${noticeData.commentCount}]</span>
 						</td>
 						<td>${noticeData.u_nickname}</td>
 						<td>${noticeData.regdate}</td>
@@ -61,11 +62,20 @@
 					<tr class="listData">
 						<td>${nomalData.b_idx}</td>
 						<td>일반</td>
-						<td style="text-align: left; padding-left: 15px;"><a href="board_view.do?idx=${nomalData.b_idx}">${nomalData.title}</a>
-						<c:if test="${nomalData.filename != null}">
-						<img src="${pageContext.request.contextPath}/resources/img/saveImg.png" style="width: 10px;">
-						</c:if>
-						<span style="color: red; font-weight: bold">[${nomalData.commentCount}]</span></td>
+						<c:choose>
+							<c:when test="${nomalData.delinfo > 0}">
+								<td>삭제된 게시물 입니다.</td>
+							</c:when>
+							<c:otherwise>
+								<td style="text-align: left; padding-left: 15px;"><a
+									href="board_view.do?idx=${nomalData.b_idx}">${nomalData.title}</a>
+									<c:if test="${nomalData.filename != null}">
+										<img
+											src="${pageContext.request.contextPath}/resources/img/saveImg.png"
+											style="width: 10px;">
+									</c:if> <span style="color: red; font-weight: bold">[${nomalData.commentCount}]</span></td>
+							</c:otherwise>
+						</c:choose>
 						<td>${nomalData.u_nickname}</td>
 						<td>${nomalData.regdate}</td>
 						<td>${nomalData.select}</td>
@@ -93,9 +103,9 @@
 					onclick="location.href='board_form.do'">
 			</c:if>
 		</div>
-		
-	<jsp:include page="../paging/paging.jsp"></jsp:include>
-		
+
+		<jsp:include page="../paging/paging.jsp"></jsp:include>
+
 		<div class="list_search" style="background-color: white">
 			<form class="searchform" name="list_search_form">
 				<fieldset>

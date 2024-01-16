@@ -19,6 +19,7 @@ public class BoardVO {
 	private int select;
 	private int follow;
 	private MultipartFile file;
+	private int delinfo;
 	
 	
 	
