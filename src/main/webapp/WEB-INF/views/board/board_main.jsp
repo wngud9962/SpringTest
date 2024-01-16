@@ -37,6 +37,7 @@
 			</tr>
 			<c:if test="${noticeList[0] != null }">
 				<c:forEach items="${noticeList}" var="noticeData">
+				<c:if test="${noticeData.delinfo == 0}">
 					<tr class="listData">
 						<td>${noticeData.b_idx}</td>
 						<td style="color: red; font-weight: bold;">공지</td>
@@ -54,6 +55,7 @@
 						<td>${noticeData.select}</td>
 						<td>${noticeData.follow}</td>
 					</tr>
+					</c:if>
 				</c:forEach>
 			</c:if>
 
