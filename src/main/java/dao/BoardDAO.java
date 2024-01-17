@@ -68,4 +68,33 @@ public class BoardDAO {
 		return sqlSession.update("b.noFileBoardUpdate", updateData);
 	}
 	
+	//idx 기준으로 전체게시물 개수 조회
+	public int idxPagingCount(int b_idx){
+		return sqlSession.selectOne("b.idxPagingCount", b_idx);
+	}
+	
+	//제목 기준으로 전체게시물 개수 조회
+	public int titlePagingCount(String title){
+		return sqlSession.selectOne("b.titlePagingCount", title);
+	}
+	
+	//작성자 기준으로 전체게시물 개수 조회
+	public int writterPagingCount(String writter) {
+		return sqlSession.selectOne("b.writterPagingCount", writter);
+	}
+	
+	//idx 기준으로 검색했을때 전체게시물 조회
+	public List<BoardVO> idxNomalSelectList(Map<String, Integer> pageData){
+		return sqlSession.selectList("b.idxNomalSelectList", pageData);
+	}
+	
+	//제목 기준으로 검색했을때 전체게시물 조회
+	public List<BoardVO> titleNomalSelectList(Map<String, Integer> pageData){
+		return sqlSession.selectList("b.titleNomalSelectList", pageData);
+	}
+	//작성자 기준으로 검색했을때 전체게시물 조회
+	public List<BoardVO> writterNomalSelectList(Map<String, Integer> pageData){
+		return sqlSession.selectList("b.writterNomalSelectList", pageData);
+	}
+	
 }

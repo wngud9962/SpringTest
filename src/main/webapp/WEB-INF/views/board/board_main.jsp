@@ -12,16 +12,23 @@
 <script type="text/javascript">
 	function search() {
 		let check = /^[0-9]*$/;
-		let searchType = document.getElementById('searchField').value;
+		let searchTypeHead = document.getElementById('searchField').value;
 		let searchContent = document.getElementById('searchWord').value.trim();
 
-		if (searchType == 'idx') {
+		if (searchTypeHead == 'idx') {
 			if (!check.test(searchContent)) {
 				alert('숫자만 입력해 주세요');
 				return;
 			}
 		}
-		alert('검색');
+		
+		if(searchContent == ''){
+			alert('내용을 입력해 주세요.');
+			return;
+		}
+		
+		location.href='board_main.do?searchTypeHead='+searchTypeHead+'&searchContent='+searchContent;
+		
 	}
 </script>
 </head>

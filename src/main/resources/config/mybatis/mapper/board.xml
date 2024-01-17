@@ -13,12 +13,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- 일반글 조회 -->
 	<select id="nomalSelectList" resultType="vo.BoardVO"
-		parameterType="HashMap">
-		SELECT B2.* FROM (SELECT B1.*,RANK() OVER(ORDER BY B1.B_IDX DESC) AS "RANK"
+		parameterType="java.util.HashMap">
+		SELECT B2.* FROM (SELECT B1.*,RANK() OVER(ORDER BY
+		B1.B_IDX DESC) AS "RANK"
 		FROM
-		(SELECT * FROM (SELECT B.*, U.U_NICKNAME,U.U_TYPE FROM BOARD B
-		LEFT JOIN USERINFO U ON B.U_IDX = U.U_IDX) WHERE POINT = 1)B1) B2
-		WHERE "RANK" BETWEEN #{minData} AND #{maxData}
+		(SELECT * FROM (SELECT B.*,
+		U.U_NICKNAME,U.U_TYPE FROM BOARD B
+		LEFT JOIN USERINFO U ON B.U_IDX =
+		U.U_IDX) WHERE POINT = 1)B1) B2
+		WHERE "RANK" BETWEEN #{minData} AND
+		#{maxData}
 	</select>
 
 	<select id="boardCommentCount" parameterType="int"
@@ -65,7 +69,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 게시물 상세보기 페이지 데이터 조회 -->
 	<select id="selectOne" parameterType="int"
 		resultType="vo.BoardVO">
-		SELECT b.*,u.U_NICKNAME,u.U_TYPE FROM BOARD b LEFT JOIN USERINFO u
+		SELECT b.*,u.U_NICKNAME,u.U_TYPE FROM BOARD b LEFT JOIN
+		USERINFO u
 		ON b.U_IDX = u.U_IDX WHERE B_IDX = #{b_idx}
 	</select>
 
@@ -94,4 +99,63 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		TITLE = #{title}, CONTENT = #{content}, FILENAME = null WHERE B_IDX =
 		#{b_idx}
 	</update>
+
+	<!-- idx 기준으로 전체게시물 개수 조회 -->
+	<select id="idxPagingCount" parameterType="int" resultType="int">
+		SELECT COUNT(*) FROM BOARD WHERE B_IDX = #{b_idx} AND POINT = 1
+	</select>
+
+	<!-- 제목 기준으로 전체게시물 개수 조회 -->
+	<select id="titlePagingCount" parameterType="String"
+		resultType="int">
+		SELECT COUNT(*) FROM BOARD WHERE TITLE LIKE #{title} AND
+		POINT = 1
+	</select>
+
+	<!-- 작성자 기준으로 전체게시물 개수 조회 -->
+	<select id="writterPagingCount" parameterType="String"
+		resultType="int">
+		SELECT COUNT(*) FROM BOARD b LEFT JOIN USERINFO u ON
+		b.U_IDX = u.U_IDX WHERE
+		u.U_NICKNAME LIKE #{writter} AND b.POINT = 1
+	</select>
+
+	<!-- idx로 검색했을때 전체게시물 조회-->
+	<select id="idxNomalSelectList" parameterMap="java.util.HashMap"
+		resultType="vo.BoardVO">
+		SELECT B2.* FROM (SELECT B1.*,RANK() OVER(ORDER BY B1.B_IDX
+		DESC) AS "RANK"
+		FROM (SELECT * FROM (SELECT B.*, U.U_NICKNAME,U.U_TYPE
+		FROM BOARD B
+		LEFT JOIN USERINFO U ON B.U_IDX = U.U_IDX) WHERE POINT = 1
+		AND B_IDX =
+		#{b_idx})B1) B2 WHERE "RANK" BETWEEN #{minData} AND
+		#{maxData}
+	</select>
+	
+	<!-- idx로 검색했을때 전체게시물 조회-->
+	<select id="titleNomalSelectList" parameterMap="java.util.HashMap"
+		resultType="vo.BoardVO">
+		SELECT B2.* FROM (SELECT B1.*,RANK() OVER(ORDER BY B1.B_IDX
+		DESC) AS "RANK"
+		FROM (SELECT * FROM (SELECT B.*, U.U_NICKNAME,U.U_TYPE
+		FROM BOARD B
+		LEFT JOIN USERINFO U ON B.U_IDX = U.U_IDX) WHERE POINT = 1
+		AND B_IDX =
+		#{b_idx})B1) B2 WHERE "RANK" BETWEEN #{minData} AND
+		#{maxData}
+	</select>
+	
+	<!-- idx로 검색했을때 전체게시물 조회-->
+	<select id="writterNomalSelectList" parameterMap="java.util.HashMap"
+		resultType="vo.BoardVO">
+		SELECT B2.* FROM (SELECT B1.*,RANK() OVER(ORDER BY B1.B_IDX
+		DESC) AS "RANK"
+		FROM (SELECT * FROM (SELECT B.*, U.U_NICKNAME,U.U_TYPE
+		FROM BOARD B
+		LEFT JOIN USERINFO U ON B.U_IDX = U.U_IDX) WHERE POINT = 1
+		AND B_IDX =
+		#{b_idx})B1) B2 WHERE "RANK" BETWEEN #{minData} AND
+		#{maxData}
+	</select>
 </mapper>

@@ -52,7 +52,7 @@ public class BoardController {
 
 	// board게시판 default 조회페이지 이동
 	@RequestMapping("board_main.do")
-	public String boardMain(Model model, String page,String searchType) {
+	public String boardMain(Model model, String page,String searchType,String searchTypeHead, String searchContent) {
 
 		String mapping = "board_main.do";
 		
@@ -64,7 +64,30 @@ public class BoardController {
 		int perPage = 10;
 
 		// 일반 게시물 총 개수
-		int totalPagingCount = boardDAO.totalPagingCount();
+		int totalPagingCount = 0;
+		
+		List<BoardVO> nomalList = null;
+		
+		//검색 안했을 때 개수 검색
+		if(searchTypeHead == null && searchContent == null) {			
+			totalPagingCount = boardDAO.totalPagingCount();
+		}
+		
+		//검색 글번호로 검색 개수
+		if(searchTypeHead.equals("idx")) {
+			totalPagingCount = boardDAO.idxPagingCount(Integer.parseInt(searchContent));
+		}
+		
+		//검색 제목으로 검색 개수
+		if(searchTypeHead.equals("title")) {
+			searchContent = "%"+searchContent+"%";
+			totalPagingCount = boardDAO.titlePagingCount(searchContent);
+		}
+		
+		if(searchTypeHead.equals("writter")) {
+			searchContent = "%"+searchContent+"%";
+			totalPagingCount = boardDAO.writterPagingCount(searchContent);
+		}
 
 		// 현재 페이지
 		int nowPage = Common.pageParameterCheck(page);
@@ -83,7 +106,23 @@ public class BoardController {
 		List<BoardVO> noticeList = boardDAO.noticeSelectList();
 
 		// 일반 게시물 데이터
-		List<BoardVO> nomalList = boardDAO.nomalSelectList(pageData);
+		nomalList = boardDAO.nomalSelectList(pageData);
+		
+		if(searchTypeHead.equals("idx")) {
+			pageData.put("b_idx", Integer.parseInt(searchContent));
+			nomalList = boardDAO.idxNomalSelectList(pageData);
+		}
+		
+		if(searchTypeHead.equals("title")) {
+			pageData.put("b_idx", Integer.parseInt(searchContent));
+			nomalList = boardDAO.titleNomalSelectList(pageData);
+		}
+		
+		if(searchTypeHead.equals("writter")) {
+			pageData.put("b_idx", Integer.parseInt(searchContent));
+			nomalList = boardDAO.writterNomalSelectList(pageData);
+		}
+		
 		
 		
 
