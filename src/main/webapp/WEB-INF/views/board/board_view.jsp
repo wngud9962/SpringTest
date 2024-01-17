@@ -222,7 +222,7 @@
 		<div class="actionButton dflex"
 			style="justify-content: space-between;">
 			<input class="actionButtons" type="button" value="목록"
-				onclick="location.href='board_main.do'">
+				onclick="location.href='board_main.do?page=${nowPage}'">
 			<div>
 				<c:if test="${id!=null && id.u_idx == boardData.u_idx}">
 					<input class="actionButtons" type="button" value="수정"

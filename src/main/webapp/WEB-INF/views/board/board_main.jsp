@@ -57,7 +57,7 @@
 						<td>${noticeData.b_idx}</td>
 						<td style="color: red; font-weight: bold;">공지</td>
 						<td style="text-align: left; padding-left: 15px;"><a
-							href="board_view.do?idx=${noticeData.b_idx}">${noticeData.title}</a>
+							href="board_view.do?idx=${noticeData.b_idx}&page=${nowPage}">${noticeData.title}</a>
 
 							<c:if test="${noticeData.filename != null}">
 								<img
@@ -85,7 +85,7 @@
 							</c:when>
 							<c:otherwise>
 								<td style="text-align: left; padding-left: 15px;"><a
-									href="board_view.do?idx=${nomalData.b_idx}">${nomalData.title}</a>
+									href="board_view.do?idx=${nomalData.b_idx}&page=${nowPage}">${nomalData.title}</a>
 									<c:if test="${nomalData.filename != null}">
 										<img
 											src="${pageContext.request.contextPath}/resources/img/saveImg.png"
@@ -121,7 +121,9 @@
 			</c:if>
 		</div>
 
+		<c:if test="${searchType != 'notice'}">
 		<jsp:include page="../paging/paging.jsp"></jsp:include>
+		</c:if>
 
 		<div class="list_search" style="background-color: white">
 			<form class="searchform" name="list_search_form">

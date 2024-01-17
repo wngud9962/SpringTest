@@ -118,6 +118,7 @@ public class BoardController {
 			model.addAttribute("maxPagingIdx", maxPagingIdx);
 			model.addAttribute("mapping", mapping);
 		}
+		model.addAttribute("searchType", searchType);
 
 		return VIEW_PATH + "board_main.jsp";
 	}
@@ -185,7 +186,13 @@ public class BoardController {
 
 	// 게시판 상세보기 페이지 이동
 	@RequestMapping("board_view.do")
-	public String boardView(Model model, String idx) {
+	public String boardView(Model model, String idx,String page) {
+		
+		int nowPage= 1;
+		
+		if(page!=null && Pattern.matches(check, page) && !page.isBlank()) {
+			nowPage = Integer.parseInt(page);
+		}
 
 		if (idx == null) {
 			return "redirect:board_main.do";
@@ -225,6 +232,7 @@ public class BoardController {
 
 		// 댓글 데이터 바운딩 및 포워딩
 		model.addAttribute("commentData", commentData);
+		model.addAttribute("nowPage", nowPage);
 
 		return VIEW_PATH + "board_view.jsp";
 	}

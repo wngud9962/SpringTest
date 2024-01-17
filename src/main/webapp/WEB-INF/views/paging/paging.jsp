@@ -13,11 +13,11 @@
 			<c:choose>
 
 				<c:when test="${nowPage>3}">
-					<span><a href="${mapping}?page=${nowPage-3}">&lt; <span>이전</span></a></span>
+					<span><a href="${mapping}?page=${nowPage-3}&searchType=${searchType}">&lt; <span>이전</span></a></span>
 				</c:when>
 
 				<c:when test="${nowPage<=3 && nowPage>1}">
-					<span><a href="${mapping}?page=1">&lt; <span>이전</span></a></span>
+					<span><a href="${mapping}?page=1&searchType=${searchType}">&lt; <span>이전</span></a></span>
 				</c:when>
 
 				<c:otherwise>
@@ -30,7 +30,7 @@
 
 				<c:choose>
 					<c:when test="${page>=nowPage-2 && page<nowPage}">
-						<span><a href="${mapping}?page=${page}">${page}</a></span>
+						<span><a href="${mapping}?page=${page}&searchType=${searchType}">${page}</a></span>
 					</c:when>
 
 					<c:when test="${page == nowPage}">
@@ -41,7 +41,7 @@
 					</c:when>
 
 					<c:when test="${page<=nowPage+2 && page>nowPage}">
-						<span><a href="${mapping}?page=${page}">${page}</a></span>
+						<span><a href="${mapping}?page=${page}&searchType=${searchType}">${page}</a></span>
 					</c:when>
 
 				</c:choose>
@@ -49,11 +49,11 @@
 
 			<c:choose>
 				<c:when test="${nowPage<maxPagingIdx-3}">
-					<span><a href="${mapping}?page=${nowPage+3}"><span>다음</span> &gt;</a></span>
+					<span><a href="${mapping}?page=${nowPage+3}&searchType=${searchType}"><span>다음</span> &gt;</a></span>
 				</c:when>
 				
 				<c:when test="${nowPage>maxPagingIdx-3 && nowPage<maxPagingIdx}">
-					<span><a href="${mapping}?page=${maxPagingIdx}"><span>다음</span> &gt;</a></span>
+					<span><a href="${mapping}?page=${maxPagingIdx}&searchType=${searchType}"><span>다음</span> &gt;</a></span>
 				</c:when>
 				
 				<c:otherwise>

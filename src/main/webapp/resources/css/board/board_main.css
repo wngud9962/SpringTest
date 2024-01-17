@@ -178,6 +178,7 @@ tr.listData tr:last-child {
 	background-color: orange;
 	color: white;
 	font-weight: bold;
+	margin-bottom: 10px;
 }
 
 #inputButtons input:hover{
@@ -185,6 +186,7 @@ tr.listData tr:last-child {
 }
 
 .paging {
-	margin: 10px 0;
+	margin: 0px 0;
+	margin-bottom: 10px;
 }
 
