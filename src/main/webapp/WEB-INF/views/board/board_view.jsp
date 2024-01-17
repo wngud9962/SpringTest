@@ -204,7 +204,13 @@
 			</c:if>
 			<div class="nickAndDateAndReadHit dflex">
 				<div class="nickAndDate">
-					<span class="nickname">${boardData.u_nickname}</span> <span
+				<c:if test="${boardData.u_type == '0'}">
+								<img
+									src="${pageContext.request.contextPath}/resources/img/admin.png"
+									style="width: 10px; height: 10px;">
+							</c:if>
+					<span class="nickname">
+					${boardData.u_nickname}</span> <span
 						class="date">${boardData.regdate}</span>
 				</div>
 				<div class="readHit">
@@ -222,7 +228,7 @@
 		<div class="actionButton dflex"
 			style="justify-content: space-between;">
 			<input class="actionButtons" type="button" value="목록"
-				onclick="location.href='board_main.do?page=${nowPage}'">
+				onclick="location.href='board_main.do?page=${nowPage}&searchType=${searchType}'">
 			<div>
 				<c:if test="${id!=null && id.u_idx == boardData.u_idx}">
 					<input class="actionButtons" type="button" value="수정"

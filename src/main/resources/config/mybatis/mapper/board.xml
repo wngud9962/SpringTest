@@ -6,29 +6,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 공지글 전체 조회 -->
 	<select id="noticeSelectList" resultType="vo.BoardVO">
 		SELECT B1.*,RANK()
-		OVER(ORDER BY B1.B_IDX DESC) AS
-		"RANK"
-		FROM (SELECT * FROM (SELECT B.*,
-		U.U_NICKNAME FROM BOARD B LEFT
-		JOIN
-		USERINFO U ON B.U_IDX = U.U_IDX)
-		WHERE POINT = 0)B1
+		OVER(ORDER BY B1.B_IDX DESC) AS "RANK" FROM (SELECT * FROM (SELECT
+		B.*, U.U_NICKNAME,U.U_TYPE FROM BOARD B LEFT JOIN USERINFO U ON
+		B.U_IDX = U.U_IDX) WHERE POINT = 0)B1
 	</select>
 
 	<!-- 일반글 조회 -->
 	<select id="nomalSelectList" resultType="vo.BoardVO"
 		parameterType="HashMap">
-		SELECT B2.*
-		FROM (SELECT B1.*,RANK() OVER(ORDER BY
-		B1.B_IDX DESC) AS "RANK" FROM
-		(SELECT * FROM (SELECT B.*, U.U_NICKNAME
-		FROM BOARD B LEFT JOIN
-		USERINFO U ON B.U_IDX = U.U_IDX) WHERE POINT =
-		1)B1) B2
+		SELECT B2.* FROM (SELECT B1.*,RANK() OVER(ORDER BY B1.B_IDX DESC) AS "RANK"
+		FROM
+		(SELECT * FROM (SELECT B.*, U.U_NICKNAME,U.U_TYPE FROM BOARD B
+		LEFT JOIN USERINFO U ON B.U_IDX = U.U_IDX) WHERE POINT = 1)B1) B2
 		WHERE "RANK" BETWEEN #{minData} AND #{maxData}
 	</select>
-	
-	<select id="boardCommentCount" parameterType="int" resultType="int">
+
+	<select id="boardCommentCount" parameterType="int"
+		resultType="int">
 		SELECT COUNT(*) FROM "COMMENT" c WHERE "REF" = #{b_idx}
 	</select>
 
@@ -71,27 +65,33 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 게시물 상세보기 페이지 데이터 조회 -->
 	<select id="selectOne" parameterType="int"
 		resultType="vo.BoardVO">
-		SELECT b.*,u.U_NICKNAME FROM BOARD b LEFT JOIN USERINFO u
+		SELECT b.*,u.U_NICKNAME,u.U_TYPE FROM BOARD b LEFT JOIN USERINFO u
 		ON b.U_IDX = u.U_IDX WHERE B_IDX = #{b_idx}
 	</select>
 
 	<!-- 게시물 삭제 -->
 	<update id="boardDelete" parameterType="int">
-		UPDATE BOARD SET DELINFO = 1 WHERE B_IDX = #{b_idx}
+		UPDATE BOARD SET DELINFO
+		= 1 WHERE B_IDX = #{b_idx}
 	</update>
-	
-	<!-- 게시물 조회수 증가-->
+
+	<!-- 게시물 조회수 증가 -->
 	<update id="boardUpReadHit">
-		UPDATE BOARD SET "SELECT" = "SELECT" +1 WHERE B_IDX = #{b_idx}
+		UPDATE BOARD SET "SELECT" = "SELECT" +1 WHERE B_IDX =
+		#{b_idx}
 	</update>
-	
+
 	<!--업로드 파일 등록 후 게시글 수정 -->
 	<update id="boardUpdate" parameterType="vo.BoardVO">
-		UPDATE BOARD SET TITLE = #{title}, CONTENT = #{content}, FILENAME = #{filename} WHERE B_IDX = #{b_idx}
+		UPDATE BOARD SET TITLE =
+		#{title}, CONTENT = #{content}, FILENAME = #{filename} WHERE B_IDX =
+		#{b_idx}
 	</update>
-	
+
 	<!--업로드 없이 게시글 수정 -->
 	<update id="noFileBoardUpdate" parameterType="vo.BoardVO">
-		UPDATE BOARD SET TITLE = #{title}, CONTENT = #{content}, FILENAME = null WHERE B_IDX = #{b_idx}
+		UPDATE BOARD SET
+		TITLE = #{title}, CONTENT = #{content}, FILENAME = null WHERE B_IDX =
+		#{b_idx}
 	</update>
 </mapper>

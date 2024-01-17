@@ -9,26 +9,27 @@
 <link
 	href="${pageContext.request.contextPath}/resources/css/board/board_main.css"
 	rel="stylesheet">
-	<script type="text/javascript">
+<script type="text/javascript">
 	function search() {
 		let check = /^[0-9]*$/;
 		let searchType = document.getElementById('searchField').value;
 		let searchContent = document.getElementById('searchWord').value.trim();
-		
-		if(searchType == 'idx'){
-			if(!check.test(searchContent)){
+
+		if (searchType == 'idx') {
+			if (!check.test(searchContent)) {
 				alert('숫자만 입력해 주세요');
 				return;
 			}
 		}
-		alert('검색');	
+		alert('검색');
 	}
-	</script>
+</script>
 </head>
 <body>
 	<input type="hidden" value="${searchField}" id="hiddenSearchField">
 	<div class="main_category board_wrapperBox">
-		<span class="board_category" onclick="location.href='board_main.do'">커뮤니티 게시판</span>
+		<span class="board_category" onclick="location.href='board_main.do'">커뮤니티
+			게시판</span>
 		<div class="board_category">
 			<input type="button" value="메인으로 돌아가기" class="inputBtn"
 				onclick="location.href='main_home.do'">
@@ -52,24 +53,28 @@
 			</tr>
 			<c:if test="${noticeList[0] != null }">
 				<c:forEach items="${noticeList}" var="noticeData">
-				<c:if test="${noticeData.delinfo == 0}">
-					<tr class="listData">
-						<td>${noticeData.b_idx}</td>
-						<td style="color: red; font-weight: bold;">공지</td>
-						<td style="text-align: left; padding-left: 15px;"><a
-							href="board_view.do?idx=${noticeData.b_idx}&page=${nowPage}">${noticeData.title}</a>
+					<c:if test="${noticeData.delinfo == 0}">
+						<tr class="listData">
+							<td>${noticeData.b_idx}</td>
+							<td style="color: red; font-weight: bold;">공지</td>
+							<td style="text-align: left; padding-left: 15px;"><a
+								href="board_view.do?idx=${noticeData.b_idx}&page=${nowPage}&searchType=${searchType}">${noticeData.title}</a>
 
-							<c:if test="${noticeData.filename != null}">
-								<img
-									src="${pageContext.request.contextPath}/resources/img/saveImg.png"
-									style="width: 10px;">
-							</c:if> <span style="color: red; font-weight: bold">[${noticeData.commentCount}]</span>
-						</td>
-						<td>${noticeData.u_nickname}</td>
-						<td>${noticeData.regdate}</td>
-						<td>${noticeData.select}</td>
-						<td>${noticeData.follow}</td>
-					</tr>
+								<c:if test="${noticeData.filename != null}">
+									<img
+										src="${pageContext.request.contextPath}/resources/img/saveImg.png"
+										style="width: 10px;">
+								</c:if> <span style="color: red; font-weight: bold">[${noticeData.commentCount}]</span>
+							</td>
+							<td><c:if test="${noticeData.u_type == '0'}">
+									<img
+										src="${pageContext.request.contextPath}/resources/img/admin.png"
+										style="width: 10px; height: 10px;">
+								</c:if> ${noticeData.u_nickname}</td>
+							<td>${noticeData.regdate}</td>
+							<td>${noticeData.select}</td>
+							<td>${noticeData.follow}</td>
+						</tr>
 					</c:if>
 				</c:forEach>
 			</c:if>
@@ -81,11 +86,12 @@
 						<td>일반</td>
 						<c:choose>
 							<c:when test="${nomalData.delinfo > 0}">
-								<td style="text-align: left; padding-left: 15px;">삭제된 게시물 입니다.</td>
+								<td style="text-align: left; padding-left: 15px;">삭제된 게시물
+									입니다.</td>
 							</c:when>
 							<c:otherwise>
 								<td style="text-align: left; padding-left: 15px;"><a
-									href="board_view.do?idx=${nomalData.b_idx}&page=${nowPage}">${nomalData.title}</a>
+									href="board_view.do?idx=${nomalData.b_idx}&page=${nowPage}&searchType=${searchType}">${nomalData.title}</a>
 									<c:if test="${nomalData.filename != null}">
 										<img
 											src="${pageContext.request.contextPath}/resources/img/saveImg.png"
@@ -93,7 +99,11 @@
 									</c:if> <span style="color: red; font-weight: bold">[${nomalData.commentCount}]</span></td>
 							</c:otherwise>
 						</c:choose>
-						<td>${nomalData.u_nickname}</td>
+						<td><c:if test="${nomalData.u_type == '0'}">
+								<img
+									src="${pageContext.request.contextPath}/resources/img/admin.png"
+									style="width: 10px; height: 10px;">
+							</c:if> ${nomalData.u_nickname}</td>
 						<td>${nomalData.regdate}</td>
 						<td>${nomalData.select}</td>
 						<td>${nomalData.follow}</td>
@@ -112,8 +122,10 @@
 	<div class="board_wrapperBox">
 		<div id="inputButtons">
 			<div class="arraysButton" style="margin-left: 10px;">
-				<input type="button" value="공지" onclick="location.href='${mapping}?page=1&searchType=notice'"> <input type="button"
-					value="일반" onclick="location.href='${mapping}?page=1&searchType=nomal'">
+				<input type="button" value="공지"
+					onclick="location.href='${mapping}?page=1&searchType=notice'">
+				<input type="button" value="일반"
+					onclick="location.href='${mapping}?page=1&searchType=nomal'">
 			</div>
 			<c:if test="${id!=null}">
 				<input type="button" value="글쓰기" style="margin-right: 10px;"
@@ -122,7 +134,7 @@
 		</div>
 
 		<c:if test="${searchType != 'notice'}">
-		<jsp:include page="../paging/paging.jsp"></jsp:include>
+			<jsp:include page="../paging/paging.jsp"></jsp:include>
 		</c:if>
 
 		<div class="list_search" style="background-color: white">

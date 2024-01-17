@@ -186,7 +186,7 @@ public class BoardController {
 
 	// 게시판 상세보기 페이지 이동
 	@RequestMapping("board_view.do")
-	public String boardView(Model model, String idx,String page) {
+	public String boardView(Model model, String idx,String page,String searchType) {
 		
 		int nowPage= 1;
 		
@@ -233,6 +233,7 @@ public class BoardController {
 		// 댓글 데이터 바운딩 및 포워딩
 		model.addAttribute("commentData", commentData);
 		model.addAttribute("nowPage", nowPage);
+		model.addAttribute("searchType", searchType);
 
 		return VIEW_PATH + "board_view.jsp";
 	}
