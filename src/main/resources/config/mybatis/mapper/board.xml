@@ -120,8 +120,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		u.U_NICKNAME LIKE #{writter} AND b.POINT = 1
 	</select>
 
-	<!-- idx로 검색했을때 전체게시물 조회-->
-	<select id="idxNomalSelectList" parameterMap="java.util.HashMap"
+	<!-- idx로 검색했을때 전체게시물 조회 -->
+	<select id="idxNomalSelectList" parameterType="HashMap"
 		resultType="vo.BoardVO">
 		SELECT B2.* FROM (SELECT B1.*,RANK() OVER(ORDER BY B1.B_IDX
 		DESC) AS "RANK"
@@ -132,30 +132,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		#{b_idx})B1) B2 WHERE "RANK" BETWEEN #{minData} AND
 		#{maxData}
 	</select>
-	
-	<!-- idx로 검색했을때 전체게시물 조회-->
-	<select id="titleNomalSelectList" parameterMap="java.util.HashMap"
+
+	<!-- idx로 검색했을때 전체게시물 조회 -->
+	<select id="titleNomalSelectList" parameterType="HashMap"
 		resultType="vo.BoardVO">
-		SELECT B2.* FROM (SELECT B1.*,RANK() OVER(ORDER BY B1.B_IDX
-		DESC) AS "RANK"
-		FROM (SELECT * FROM (SELECT B.*, U.U_NICKNAME,U.U_TYPE
-		FROM BOARD B
-		LEFT JOIN USERINFO U ON B.U_IDX = U.U_IDX) WHERE POINT = 1
-		AND B_IDX =
-		#{b_idx})B1) B2 WHERE "RANK" BETWEEN #{minData} AND
-		#{maxData}
+		SELECT * FROM (SELECT B2.*,RANK() OVER(ORDER BY B2.B_IDX
+		DESC) AS "RANK" FROM
+		(SELECT B.*, U.U_NICKNAME,U.U_TYPE FROM BOARD B LEFT JOIN USERINFO U ON
+		B.U_IDX = U.U_IDX) B2 WHERE POINT = 1 AND TITLE LIKE #{title})
+		WHERE "RANK" BETWEEN #{minData} AND #{maxData}
 	</select>
-	
-	<!-- idx로 검색했을때 전체게시물 조회-->
-	<select id="writterNomalSelectList" parameterMap="java.util.HashMap"
+
+	<!-- idx로 검색했을때 전체게시물 조회 -->
+	<select id="writterNomalSelectList" parameterType="HashMap"
 		resultType="vo.BoardVO">
-		SELECT B2.* FROM (SELECT B1.*,RANK() OVER(ORDER BY B1.B_IDX
-		DESC) AS "RANK"
-		FROM (SELECT * FROM (SELECT B.*, U.U_NICKNAME,U.U_TYPE
-		FROM BOARD B
-		LEFT JOIN USERINFO U ON B.U_IDX = U.U_IDX) WHERE POINT = 1
-		AND B_IDX =
-		#{b_idx})B1) B2 WHERE "RANK" BETWEEN #{minData} AND
-		#{maxData}
+		SELECT * FROM (SELECT B2.*,RANK() OVER(ORDER BY B2.B_IDX DESC) AS "RANK"
+		FROM
+		(SELECT B.*, U.U_NICKNAME,U.U_TYPE FROM BOARD B LEFT JOIN USERINFO U ON
+		B.U_IDX = U.U_IDX) B2 WHERE POINT = 1 AND U_NICKNAME LIKE #{writter})
+		WHERE "RANK" BETWEEN #{minData} AND #{maxData}
 	</select>
 </mapper>

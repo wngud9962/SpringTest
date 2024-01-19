@@ -52,11 +52,23 @@ public class BoardController {
 
 	// board게시판 default 조회페이지 이동
 	@RequestMapping("board_main.do")
-	public String boardMain(Model model, String page,String searchType,String searchTypeHead, String searchContent) {
+	public String boardMain(Model model, String page, String searchType, String searchTypeHead, String searchContent) {
+		System.out.println("searchContent : " + searchContent);
 
 		String mapping = "board_main.do";
-		
-		if(searchType == null) {
+
+		if (searchTypeHead == null) {
+			searchTypeHead = "null";
+		}
+
+		if (searchTypeHead != null) {
+			if ((!searchTypeHead.equals("idx") && !searchTypeHead.equals("title")
+					&& !searchTypeHead.equals("writter"))) {
+				searchTypeHead = "null";
+			}
+		}
+
+		if (searchType == null) {
 			searchType = "all";
 		}
 
@@ -65,27 +77,27 @@ public class BoardController {
 
 		// 일반 게시물 총 개수
 		int totalPagingCount = 0;
-		
+
 		List<BoardVO> nomalList = null;
-		
-		//검색 안했을 때 개수 검색
-		if(searchTypeHead == null && searchContent == null) {			
+
+		// 검색 안했을 때 개수 검색
+		if (searchTypeHead == "null") {
 			totalPagingCount = boardDAO.totalPagingCount();
 		}
-		
-		//검색 글번호로 검색 개수
-		if(searchTypeHead.equals("idx")) {
+
+		// 검색 글번호로 검색 개수
+		if (searchTypeHead.equals("idx")) {
 			totalPagingCount = boardDAO.idxPagingCount(Integer.parseInt(searchContent));
 		}
-		
-		//검색 제목으로 검색 개수
-		if(searchTypeHead.equals("title")) {
-			searchContent = "%"+searchContent+"%";
+
+		// 검색 제목으로 검색 개수
+		if (searchTypeHead.equals("title")) {
+			searchContent = "%" + searchContent + "%";
 			totalPagingCount = boardDAO.titlePagingCount(searchContent);
 		}
-		
-		if(searchTypeHead.equals("writter")) {
-			searchContent = "%"+searchContent+"%";
+
+		if (searchTypeHead.equals("writter")) {
+			searchContent = "%" + searchContent + "%";
 			totalPagingCount = boardDAO.writterPagingCount(searchContent);
 		}
 
@@ -100,31 +112,30 @@ public class BoardController {
 		}
 
 		// 보여줄 첫번째 ~ 마지막 게시물의 번호
-		Map<String, Integer> pageData = Common.page(nowPage, perPage);
+		Map<String, Object> pageData = Common.page(nowPage, perPage);
 
 		// 공지 게시물 데이터
 		List<BoardVO> noticeList = boardDAO.noticeSelectList();
 
 		// 일반 게시물 데이터
 		nomalList = boardDAO.nomalSelectList(pageData);
-		
-		if(searchTypeHead.equals("idx")) {
+
+		if (searchTypeHead.equals("idx")) {
 			pageData.put("b_idx", Integer.parseInt(searchContent));
 			nomalList = boardDAO.idxNomalSelectList(pageData);
 		}
-		
-		if(searchTypeHead.equals("title")) {
-			pageData.put("b_idx", Integer.parseInt(searchContent));
+
+		if (searchTypeHead.equals("title")) {
+			pageData.put("title", searchContent);
+			searchContent = searchContent.substring(1,searchContent.length()-1);
 			nomalList = boardDAO.titleNomalSelectList(pageData);
 		}
-		
-		if(searchTypeHead.equals("writter")) {
-			pageData.put("b_idx", Integer.parseInt(searchContent));
+
+		if (searchTypeHead.equals("writter")) {
+			pageData.put("writter", searchContent);
+			searchContent = searchContent.substring(1,searchContent.length()-1);
 			nomalList = boardDAO.writterNomalSelectList(pageData);
 		}
-		
-		
-		
 
 		// 공지 게시물 등록일 날짜 필터링
 		for (BoardVO vo : noticeList) {
@@ -135,28 +146,29 @@ public class BoardController {
 		for (BoardVO vo : nomalList) {
 			vo.setRegdate(vo.getRegdate().split(" ")[0]);
 		}
-			
-		for(BoardVO noticeData : noticeList) {
+
+		for (BoardVO noticeData : noticeList) {
 			noticeData.setCommentCount(boardDAO.boardCommentCount(noticeData.getB_idx()));
 		}
-		
-		for(BoardVO nomalData : nomalList) {
-		nomalData.setCommentCount(boardDAO.boardCommentCount(nomalData.getB_idx()));
-		}
 
+		for (BoardVO nomalData : nomalList) {
+			nomalData.setCommentCount(boardDAO.boardCommentCount(nomalData.getB_idx()));
+		}
 
 		// 데이터 바운딩
-		if(!searchType.equals("nomal")) {
+		if (!searchType.equals("nomal")) {
 			model.addAttribute("noticeList", noticeList);
 		}
-		
-		if(!searchType.equals("notice")) {
-			
+
+		if (!searchType.equals("notice")) {
+
 			model.addAttribute("nomalList", nomalList);
 			model.addAttribute("nowPage", nowPage);
 			model.addAttribute("maxPagingIdx", maxPagingIdx);
 			model.addAttribute("mapping", mapping);
 		}
+		model.addAttribute("searchTypeHead", searchTypeHead);
+		model.addAttribute("searchContent", searchContent);
 		model.addAttribute("searchType", searchType);
 
 		return VIEW_PATH + "board_main.jsp";
@@ -165,6 +177,9 @@ public class BoardController {
 	// board 게시물 추가 view 이동
 	@RequestMapping("board_form.do")
 	public String boardForm() {
+		if(request.getSession().getAttribute("id")==null) {
+			return "redirect:board_main.do";
+		}
 		return VIEW_PATH + "board_insert.jsp";
 	}
 
@@ -225,11 +240,11 @@ public class BoardController {
 
 	// 게시판 상세보기 페이지 이동
 	@RequestMapping("board_view.do")
-	public String boardView(Model model, String idx,String page,String searchType) {
-		
-		int nowPage= 1;
-		
-		if(page!=null && Pattern.matches(check, page) && !page.isBlank()) {
+	public String boardView(Model model, String idx, String page, String searchType) {
+
+		int nowPage = 1;
+
+		if (page != null && Pattern.matches(check, page) && !page.isBlank()) {
 			nowPage = Integer.parseInt(page);
 		}
 
@@ -250,7 +265,7 @@ public class BoardController {
 		if (boardData == null) {
 			return "redirect:board_main.do";
 		}
-		
+
 		boardData.setContent(boardData.getContent().replaceAll("\n", "<br>"));
 		boardData.setRegdate(boardData.getRegdate().split(" ")[0]);
 		model.addAttribute("boardData", boardData);
@@ -277,7 +292,7 @@ public class BoardController {
 		return VIEW_PATH + "board_view.jsp";
 	}
 
-	//게시글 첨부파일 다운로드
+	// 게시글 첨부파일 다운로드
 	@RequestMapping("board_download.do")
 	public String boardDownload(String filename, String b_idx) {
 
@@ -426,8 +441,7 @@ public class BoardController {
 		return new RedirectView("board_main.do");
 	}
 
-	
-	//댓글 등록
+	// 댓글 등록
 	@RequestMapping("commentInsert.do")
 	public RedirectView commentInsert(CommentVO commentData, int b_idx) {
 
@@ -458,59 +472,58 @@ public class BoardController {
 		return new RedirectView(request.getHeader("referer"));
 	}
 
-	//대댓글 등록
+	// 대댓글 등록
 	@RequestMapping("commentInCommentInsert.do")
 	public RedirectView commentInCommentInsert(@RequestParam int commentRef, @RequestParam int commentStep,
 			@RequestParam String commentContent) {
 
 		UserVO loginUser = (UserVO) request.getSession().getAttribute("id");
-		
-		//로그인 유무 체크
-		if(loginUser == null) {
+
+		// 로그인 유무 체크
+		if (loginUser == null) {
 			return new RedirectView(request.getHeader("referer"));
 		}
-		
+
 		CommentVO insertData = new CommentVO();
 
 		insertData.setU_idx(loginUser.getU_idx());
 		insertData.setRef(commentRef);
 		insertData.setStep(commentStep);
 		insertData.setContent(commentContent);
-		
-		//현재 depth 높은 값 가져와야함
-		insertData.setDepth((commentDAO.selectMaxDepth(insertData))+1);
-		
+
+		// 현재 depth 높은 값 가져와야함
+		insertData.setDepth((commentDAO.selectMaxDepth(insertData)) + 1);
+
 		System.out.println(insertData);
 
-		
 		commentDAO.commentInCommentInsert(insertData);
-		
+
 		return new RedirectView(request.getHeader("referer"));
 	}
-	
+
 	@RequestMapping("commentUpdateProcess.do")
 	@ResponseBody
 	public String commentUpdateProcess(CommentVO updateData) {
-		
+
 		String result = "[{'res':'no'}]";
-		UserVO loginUser = (UserVO)request.getSession().getAttribute("id");
-		
-		if(loginUser == null) {
+		UserVO loginUser = (UserVO) request.getSession().getAttribute("id");
+
+		if (loginUser == null) {
 			return result;
 		}
-		
-		if(loginUser.getU_idx() != updateData.getU_idx()) {
+
+		if (loginUser.getU_idx() != updateData.getU_idx()) {
 			return result;
 		}
-		
+
 		commentDAO.commentUpdate(updateData);
-		
+
 		result = "[{'res':'yes'}]";
-		
+
 		return result;
 	}
-	
-	//댓글 삭제
+
+	// 댓글 삭제
 	@RequestMapping("commentDelete.do")
 	@ResponseBody
 	public String commentDelete(int c_idx) {
@@ -518,19 +531,18 @@ public class BoardController {
 		int res = 0;
 		UserVO loginUserData = (UserVO) request.getSession().getAttribute("id");
 		CommentVO deleteCommentData = commentDAO.commentSelectOne(c_idx);
-		
-		if(loginUserData.getU_idx()!=deleteCommentData.getU_idx()) {
+
+		if (loginUserData.getU_idx() != deleteCommentData.getU_idx()) {
 			return result;
 		}
-		
+
 		res = commentDAO.commentDelete(c_idx);
-		
-		if(res > 0) {
+
+		if (res > 0) {
 			result = "[{'res':'yes'}]";
 		}
-		
+
 		return result;
 	}
-	
 
 }

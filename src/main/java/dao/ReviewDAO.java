@@ -66,9 +66,6 @@ public class ReviewDAO {
 		return sqlSession.selectOne("review.totalListCount");
 	}
 
-	public List<ReviewVO> selectList(int intnowpage, int page_product_quantity) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 }

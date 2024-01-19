@@ -19,7 +19,7 @@ public class BoardDAO {
 		return sqlSession.selectList("b.noticeSelectList");
 	}
 	//일반 게시글 전체 조회
-	public List<BoardVO> nomalSelectList(Map<String, Integer> pageData){
+	public List<BoardVO> nomalSelectList(Map<String, Object> pageData){
 		return sqlSession.selectList("b.nomalSelectList",pageData);
 	}
 	
@@ -84,16 +84,16 @@ public class BoardDAO {
 	}
 	
 	//idx 기준으로 검색했을때 전체게시물 조회
-	public List<BoardVO> idxNomalSelectList(Map<String, Integer> pageData){
+	public List<BoardVO> idxNomalSelectList(Map<String, Object> pageData){
 		return sqlSession.selectList("b.idxNomalSelectList", pageData);
 	}
 	
 	//제목 기준으로 검색했을때 전체게시물 조회
-	public List<BoardVO> titleNomalSelectList(Map<String, Integer> pageData){
+	public List<BoardVO> titleNomalSelectList(Map<String, Object> pageData){
 		return sqlSession.selectList("b.titleNomalSelectList", pageData);
 	}
 	//작성자 기준으로 검색했을때 전체게시물 조회
-	public List<BoardVO> writterNomalSelectList(Map<String, Integer> pageData){
+	public List<BoardVO> writterNomalSelectList(Map<String, Object> pageData){
 		return sqlSession.selectList("b.writterNomalSelectList", pageData);
 	}
 	

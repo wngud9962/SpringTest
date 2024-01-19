@@ -39,9 +39,9 @@ public class Common {
 	}
 
 	// 페이지 데이터 최소 최대 개수 조회
-	public static Map<String, Integer> page(int nowPage, int perPage) {
+	public static Map<String, Object> page(int nowPage, int perPage) {
 
-		Map<String, Integer> pageData = new HashMap<String, Integer>();
+		Map<String, Object> pageData = new HashMap<String, Object>();
 
 		// min data idx
 		int minData = perPage * (nowPage - 1) + 1;

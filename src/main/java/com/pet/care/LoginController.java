@@ -229,7 +229,7 @@ public class LoginController {
 		
 		uservo.setU_idx(base_user.getU_idx());
 		
-		int res = user_dao.update_userinfo(uservo);
+		user_dao.update_userinfo(uservo);
 		
 		return "redirect:main_home.do";
 	}
