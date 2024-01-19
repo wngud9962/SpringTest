@@ -126,13 +126,13 @@ public class BoardController {
 
 		if (searchTypeHead.equals("title")) {
 			pageData.put("title", searchContent);
-			searchContent = searchContent.substring(1,searchContent.length()-1);
+			searchContent = searchContent.substring(1, searchContent.length() - 1);
 			nomalList = boardDAO.titleNomalSelectList(pageData);
 		}
 
 		if (searchTypeHead.equals("writter")) {
 			pageData.put("writter", searchContent);
-			searchContent = searchContent.substring(1,searchContent.length()-1);
+			searchContent = searchContent.substring(1, searchContent.length() - 1);
 			nomalList = boardDAO.writterNomalSelectList(pageData);
 		}
 
@@ -176,7 +176,7 @@ public class BoardController {
 	// board 게시물 추가 view 이동
 	@RequestMapping("board_form.do")
 	public String boardForm() {
-		if(request.getSession().getAttribute("id")==null) {
+		if (request.getSession().getAttribute("id") == null) {
 			return "redirect:board_main.do";
 		}
 		return VIEW_PATH + "board_insert.jsp";
@@ -531,8 +531,10 @@ public class BoardController {
 		UserVO loginUserData = (UserVO) request.getSession().getAttribute("id");
 		CommentVO deleteCommentData = commentDAO.commentSelectOne(c_idx);
 
-		if (loginUserData.getU_idx() != deleteCommentData.getU_idx()) {
-			return result;
+		if (!loginUserData.getU_type().equals("0")) {
+			if (loginUserData.getU_idx() != deleteCommentData.getU_idx()) {
+				return result;
+			}
 		}
 
 		res = commentDAO.commentDelete(c_idx);
