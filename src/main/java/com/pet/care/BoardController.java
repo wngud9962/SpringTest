@@ -53,7 +53,6 @@ public class BoardController {
 	// board게시판 default 조회페이지 이동
 	@RequestMapping("board_main.do")
 	public String boardMain(Model model, String page, String searchType, String searchTypeHead, String searchContent) {
-		System.out.println("searchContent : " + searchContent);
 
 		String mapping = "board_main.do";
 
