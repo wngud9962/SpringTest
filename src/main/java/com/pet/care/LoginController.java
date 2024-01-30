@@ -404,7 +404,7 @@ public class LoginController {
 	
 	@RequestMapping("delete_info.do")
 	public String delete_info(String u_idx) {
-		int res = user_dao.deleteUser(u_idx);
+		int res = user_dao.deleteUser(Integer.parseInt(u_idx));
 		
 		if(res == 1) {
 			session.removeAttribute("id");

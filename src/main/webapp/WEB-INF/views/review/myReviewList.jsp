@@ -78,7 +78,7 @@
 									</c:choose>
 									<td id="c">
 										<textarea class="col-auto form-control"
-											id="reviewContents" placeholder="${vo.r_content }" readonly></textarea>
+											id="reviewContents" placeholder="${vo.r_content }" readonly style="resize: none;"></textarea>
 									</td>
 								</tr>
 								<tr>

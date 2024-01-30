@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -44,6 +45,9 @@ public class BoardController {
 
 	@Autowired
 	HttpServletRequest request;
+	
+	@Autowired
+	HttpSession session;
 
 	// 숫자만 허용하는 정규식
 	String check = "^[\\d]*$";
@@ -477,6 +481,9 @@ public class BoardController {
 			@RequestParam String commentContent) {
 
 		UserVO loginUser = (UserVO) request.getSession().getAttribute("id");
+		
+		
+		
 
 		// 로그인 유무 체크
 		if (loginUser == null) {

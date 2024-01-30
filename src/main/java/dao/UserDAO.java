@@ -85,7 +85,7 @@ public class UserDAO {
 	}
 	
 	// 유저 삭제하기
-	public int deleteUser(String u_idx) {
+	public int deleteUser(int u_idx) {
 		return sqlSession.delete("u.delete", u_idx);
 	}
 	
