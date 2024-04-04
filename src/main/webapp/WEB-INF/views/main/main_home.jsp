@@ -76,18 +76,17 @@
               <h2 align="center">자주 묻는 질문</h2>
               <hr>
 				<ul>
-				<c:choose>
-				<c:when test="${faqList[0] != null}">
-				<c:forEach items="${faqList}" var="faqData">
-				<li>${faqData.f_title}</li>
-				</c:forEach>
-				</c:when>
-				
-				<c:otherwise>
-					<li>게시글이 존재 하지 않습니다.</li>
-				</c:otherwise>
-				</c:choose>
-				
+					<c:choose>
+						<c:when test="${faqList[0] != null}">
+							<c:forEach items="${faqList}" var="faqData">
+								<li>${faqData.f_title}</li>
+							</c:forEach>
+						</c:when>
+					
+						<c:otherwise>
+							<li>게시글이 존재 하지 않습니다.</li>
+						</c:otherwise>
+					</c:choose>
 				</ul>
 			</div>
           </div>

@@ -10,7 +10,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT * FROM USERINFO WHERE U_IDX = #{u_idx} AND DELINFO = 0
 	</select>
 	
-	
 	<!-- 로그인시 아이디 존재여부 -->
 	<select id="loginCheck" resultType="vo.UserVO" parameterType="String">
 		SELECT * FROM USERINFO WHERE U_EMAIL = #{u_email} AND DELINFO = 0
